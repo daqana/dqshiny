@@ -1,0 +1,64 @@
+#' handsontable renderer
+#'
+#' @description dq_hot_date_renderer: Renderer to show handsontable dates in proper formatting.
+#'
+#' @return character containing js renderer
+#' @author richard.kunze
+#' @examples df <- data.frame(empty = rep(c("value", ""), 5),
+#'   html = paste0("<div style='background:#ff",sprintf("%x",25*1:10),"ff'>&nbsp;</div>"),
+#'   date = seq(from = Sys.Date(), by = "days", length.out = 10),
+#'   stringsAsFactors = FALSE)
+#'
+#' hot <- rhandsontable::rhandsontable(df, rowHeaders = NULL)
+#' hot <- rhandsontable::hot_col(hot, 1, renderer = dq_hot_empty_renderer())
+#' hot <- rhandsontable::hot_col(hot, 2, renderer = dq_hot_html_renderer())
+#' hot <- rhandsontable::hot_col(hot, 3, renderer = dq_hot_date_renderer())
+#' hot
+dq_hot_date_renderer <- function() {
+  "function (instance, td, row, col, prop, value, cellProperties) {
+     if (value !== null && typeof value !== 'undefined') {
+       var val = value;
+       value = val.substr(6) + '-' + val.substr(0, 2) + '-' + val.substr(3, 2);
+     }
+     Handsontable.renderers.NumericRenderer.apply(this, arguments);
+  }"
+}
+
+#' @description dq_hot_empty_renderer: Renderer to highlight empty cells in handsontable.
+#' @param renderer handsontable base renderer to be adjusted, can be one of
+#' ("Autocomplete", "Base", "Checkbox", "Date", "Dropdown", "Html", "Numeric", "Password", "Text", "Time")
+#'
+#' @rdname dq_hot_date_renderer
+dq_hot_empty_renderer <- function(renderer = "Autocomplete") {
+  if (length(renderer) == 0 ||
+      !(renderer %in% c("Autocomplete", "Base", "Checkbox", "Date", "Dropdown",
+                        "Html", "Numeric", "Password", "Text", "Time")))
+    renderer <- "Autocomplete"
+  paste0("function (instance, td, row, col, prop, value, cellProperties) {
+    Handsontable.renderers.", renderer, "Renderer.apply(this, arguments);
+    if (value.toString() == ' ' || value.toString() == '') {
+      td.style.backgroundColor = 'pink';
+    }
+  }")
+}
+
+#' @description dq_hot_html_renderer: Renderer to replace missing "html" rhandsontable renderer.
+#'
+#' @rdname dq_hot_date_renderer
+dq_hot_html_renderer <- function() {
+  "function (instance, td, row, col, prop, value, cellProperties) {
+    Handsontable.renderers.HtmlRenderer.apply(this, arguments);
+   }"
+}
+
+#' TODO use for dq_add_selectize_options
+selectizeRenderer <- function() {
+  "function (instance, td, row, col, prop, value, cellProperties) {
+    var settings = cellProperties.selectizeOptions;
+    if (value && settings && (settings.maxItems === null || settings.maxItems > 1)) {
+      var arr = value.toString().split(',');
+      value = arr.map(x => '<span class=\"selectize_item\">' + x + '</span>').join('');
+    }
+    Handsontable.renderers.HtmlRenderer.apply(this, arguments);
+  }"
+}
