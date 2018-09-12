@@ -54,7 +54,7 @@ shinyApp(
     init(),
     fluidRow(
       dq_box(
-        dq_infobox("hallo", 2, "Welt", shiny::icon("hashtag"),
+        dq_infobox("hallo", 2, "Welt", icon("hashtag"),
                              bg_color = "black", color = "#D00"),
         dq_box(
           dq_infobox("in the box...", 2, "in the box!", width=12,

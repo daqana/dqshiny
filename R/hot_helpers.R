@@ -10,6 +10,7 @@
 #' dq_add_selectize_options can also handle lists of vectors, where each vector will be used to specify the options of one cell
 #' @param ... additional parameters to be passed to selectize
 #'
+#' @export
 #' @return dq_add_selectize_options: updated rhandsontable object
 #' @author richard.kunze
 #' @examples \donttest{library(rhandsontable)
@@ -29,7 +30,7 @@
 #'
 #' shinyApp(
 #'   ui = fluidPage(
-#'     init_selectize(),
+#'     dq_space(),
 #'     rHandsontableOutput("randomTable")
 #'   ),
 #'   server = function(input, output) {
@@ -67,6 +68,7 @@ dq_add_selectize_options <- function(hot, rows, col, options, ...) {
 #' @description dq_as_selectize_options converts the given vector of options into a proper selectize options list. Names of the given vector
 #' will be used to specify labels for the options. Further selectize attributes can be set via additional named parameters.
 #'
+#' @export
 #' @return dq_as_selectize_options: list containing all options and additional setings
 #' @rdname dq_add_selectize_options
 dq_as_selectize_options <- function(options, ...) {

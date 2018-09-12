@@ -28,7 +28,7 @@ valid HTML color code}
 
 \item{style}{optional character for additional header style attributes}
 
-\item{icons}{optional named character vector of length two indicating the
+\item{icons}{optional named character vector of length one or two indicating the
 \href{http://fontawesome.io/icons/}{FontAwesome} icons to be used in front of the header title
 showing the state of the content (open or closed)}
 }

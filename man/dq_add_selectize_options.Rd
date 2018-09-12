@@ -51,7 +51,7 @@ df <- data.frame(Unlabled=empty, Labled=empty,
 
 shinyApp(
   ui = fluidPage(
-    init_selectize(),
+    dq_space(),
     rHandsontableOutput("randomTable")
   ),
   server = function(input, output) {
