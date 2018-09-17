@@ -27,20 +27,26 @@ get_filters <- function(input, context) {
 #' @rdname filter_row
 text_filter <- function(df, values) {
   if (all(values == "")) return(df)
-  newValues <- values
+  values <- unlist(values)
   if (!is.null(names(values))) {
-    newValues <- sapply(names(df), function(x) {
-      if (x %in% names(values)) values[x]
-      else ""
-    }, USE.NAMES = F)
+    values <- values[match(names(df), names(values))]
+  } else {
+    values[values == ""] <- NA
   }
-  return(text_filter_rec(df, newValues, seq(nrow(df))))
+  if (all(is.na(values))) return(df)
+  return(text_filter_rec(df, values, seq(nrow(df))))
 }
 
 #' @author richard.kunze
 text_filter_rec <- function(df, values, valid, depth = 1) {
-  if (depth > length(values)) return(df[valid,])
-  if (values[depth] != "") valid <- valid[grepl(values[depth], df[valid, depth], ignore.case = T)]
+  if (depth > length(values)) return(df[valid, , drop = FALSE])
+  if (!is.na(values[depth])) {
+    index <- tryCatch(
+      grep(values[depth], df[valid, depth], ignore.case = TRUE),
+      error = function(e) !grepl("", df[valid, depth], fixed = TRUE)
+    ) # catch invalid regex
+    valid <- valid[index]
+  }
   return(text_filter_rec(df, values, valid, depth + 1))
 }
 

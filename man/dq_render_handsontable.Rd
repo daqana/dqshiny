@@ -4,10 +4,12 @@
 \alias{dq_render_handsontable}
 \title{Renders a dq handsontable}
 \usage{
-dq_render_handsontable(id, data, context, filters = "T", paged = TRUE,
-  page_size = 25, reset = TRUE, table_params = list(readOnly = FALSE,
-  stretchH = "all", contextMenu = FALSE), col_params = list(colWidths = 1,
-  highlightCol = TRUE, highlightRow = TRUE, manualColumnResize = TRUE), ...)
+dq_render_handsontable(id, data, context = NULL, filters = "T",
+  page_size = 25, reset = TRUE, sorting = FALSE,
+  width_align = FALSE, horizontal_scroll = FALSE,
+  table_params = list(readOnly = FALSE, stretchH = "all", contextMenu =
+  FALSE), col_params = list(colWidths = 1, highlightCol = TRUE,
+  highlightRow = TRUE, manualColumnResize = TRUE), ...)
 }
 \arguments{
 \item{id}{id of the handsontable element, should be the same as the one used in the output element}
@@ -20,10 +22,8 @@ dq_render_handsontable(id, data, context, filters = "T", paged = TRUE,
 TextFilter, SelectFilter, RangeFilter or none, vectors of length one will add a filter of this type for each column, set to
 NULL to ommit filter row}
 
-\item{paged}{optional logical, splits table into pages if TRUE}
-
-\item{page_size}{optional numeric, number of items per page, can be one of 10, 25, 50, 100 or any other value
-which will be added to this list}
+\item{page_size}{optional numeric, number of items per page, can be one of 10, 25, 50, 100 or any
+other value which will be added to this list, NULL will disable paging}
 
 \item{reset}{optional logical, specify whether to add a button to reset filters to initial values or not}
 

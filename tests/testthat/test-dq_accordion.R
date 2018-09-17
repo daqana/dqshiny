@@ -26,6 +26,9 @@ test_that("dq_accordion works with bad inputs", {
   expect_warning(dq_accordion(
     "id", "title1", "content1", icons = list(bad = "bad", good = "good")
   ), "Unnamed icon vector found")
+  expect_warning(dq_accordion(
+    "id", "title1", "content1", icons = list("bad", "worse", "worst")
+  ), "Incorrect")
   expect_silent(dq_accordion(
     "id", "title1", "content1", icons = c(bad = "bad")
   ))

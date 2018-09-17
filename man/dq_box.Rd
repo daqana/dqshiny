@@ -5,8 +5,9 @@
 \title{Creates a html box with specified parameters}
 \usage{
 dq_box(..., id = NULL, title = NULL, color = "#000",
-  bg_color = "#ff8f00", fill = TRUE, offset = 0, width = 6,
-  height = NULL, collapsible = FALSE, collapsed = FALSE)
+  bg_color = "#ff8f00", fill = TRUE, width = 6L, height = NULL,
+  offset = 0L, collapsible = FALSE, collapsed = FALSE,
+  open_callback = FALSE)
 }
 \arguments{
 \item{...}{Tags to add to the box as children.}
@@ -26,9 +27,6 @@ valid html color, defaults to dq primary orange.}
 background color or not, if not, a border of this color will be set
 instead.}
 
-\item{offset}{Optional, offset of the resulting column measured in bootstrap
-columns.}
-
 \item{width}{Optional, width of the box measured in bootstrap columns.}
 
 \item{height}{Optional, height of the box, can be numeric, which will result
@@ -36,10 +34,17 @@ in pixels, or measured in any valid CSS3 length format, if the given body
 is larger than this value overflow will be set to auto, resulting in a
 scrollable body.}
 
+\item{offset}{Optional, offset of the resulting column measured in bootstrap
+columns.}
+
 \item{collapsible}{Optional logical, whether the box is collapsible or not.}
 
 \item{collapsed}{Optional logical, whether the box is initially collapsed or
 not.}
+
+\item{open_callback}{optional logical, whether to send messages whenever the
+state of the box changes or not, events will be available via
+input[[paste0(id, "_open")]]}
 }
 \value{
 bootstrap column holding the box
@@ -61,9 +66,10 @@ shinyApp(
                                bg_color = "white", color = "#0D0"),
           title = "Box in the box", bg_color="pink", width = 8),
         title = "Say Hello to my children",
-        collapsible = TRUE, collapsed = TRUE))
+        open_callback = TRUE, collapsed = TRUE))
   ),
   server = function(input, output) {
+    observeEvent(input$bigBox_open, print(input$bigBox_open))
   }
 )}
 }

@@ -21,6 +21,9 @@
 #' @param collapsible Optional logical, whether the box is collapsible or not.
 #' @param collapsed Optional logical, whether the box is initially collapsed or
 #'   not.
+#' @param open_callback optional logical, whether to send messages whenever the
+#' state of the box changes or not, events will be available via
+#' input[[paste0(id, "_open")]]
 #'
 #' @return bootstrap column holding the box
 #' @export
@@ -39,29 +42,27 @@
 #'                                bg_color = "white", color = "#0D0"),
 #'           title = "Box in the box", bg_color="pink", width = 8),
 #'         title = "Say Hello to my children",
-#'         collapsible = TRUE, collapsed = TRUE))
+#'         open_callback = TRUE, collapsed = TRUE))
 #'   ),
 #'   server = function(input, output) {
+#'     observeEvent(input$bigBox_open, print(input$bigBox_open))
 #'   }
 #' )}
 dq_box <- function(
   ...,
-  id = NULL,
-  title = NULL,
-  color = "#000", bg_color = "#ff8f00",
-  fill = TRUE,
-  offset = 0,
-  width = 6, height = NULL,
-  collapsible = FALSE, collapsed = FALSE
+  id = NULL, title = NULL,
+  color = "#000", bg_color = "#ff8f00", fill = TRUE,
+  width = 6L, height = NULL, offset = 0L,
+  collapsible = FALSE, collapsed = FALSE, open_callback = FALSE
 ) {
 
   if (is.null(id)) {
-    id <- paste0(sample(letters, 5), collapse = "")
+    id <- paste0(sample(letters, 5L), collapse = "")
   }
 
   box_class <- "dq-box"
   box_on_click <- NULL
-  body_id <- paste0(sample(letters, 8), collapse = "")
+  body_id <- paste0(sample(letters, 8L), collapse = "")
   head_class <- "dq-box-header"
   box_styles <- ""
 
@@ -77,15 +78,7 @@ dq_box <- function(
     )
   }
 
-  title_tag <- NULL
-
-  if (!is.null(title)) {
-    title_tag <- shiny::h3(
-      class = "dq-box-title",
-      title,
-      style = paste0("color:", color, ";")
-    )
-  }
+  title_tag <- create_box_title(title, color)
 
   body_class <- "dq-box-body"
   body_styles <- NULL
@@ -99,34 +92,17 @@ dq_box <- function(
   }
 
   collapse_tag <- NULL
-
-  if (isTRUE(collapsible)) {
+  box_on_click <- NULL
+  if (isTRUE(collapsible) || isTRUE(collapsed) || isTRUE(open_callback)) {
     box_on_click <- paste0(
       "document.getElementById('", id, "_collapser').click();"
     )
-    body_class <- paste(body_class, "collapse")
+    body_class <- paste(body_class, "collapse", if (!collapsed) "in")
     head_class <- paste(head_class, "collapsible")
-    if (isTRUE(collapsed)) {
-      collapse_icon <- "plus"
-    } else {
-      collapse_icon <- "minus"
-      body_class <- paste(body_class, "in")
-    }
-    collapse_tag <- shiny::div(
-      class = "dq-box-tools",
-      shiny::actionButton(
-        paste0(id, "_collapser"),
-        label = NULL,
-        icon = shiny::icon(collapse_icon),
-        class = "btn collapser",
-        "data-toggle" = "collapse",
-        "data-target" = paste0("#", body_id)
-      )
-    )
+    collapse_tag <- create_collapse_tag(collapsed, id, body_id, open_callback)
   }
 
   header_tag <- NULL
-
   if (!is.null(title_tag) || !is.null(collapse_tag)) {
     header_tag <- shiny::div(
       class = head_class, title_tag, collapse_tag, onClick = box_on_click
@@ -148,4 +124,30 @@ dq_box <- function(
     dq_dep
   )
 
+}
+
+create_collapse_tag <- function(collapsed, id, body_id, open_callback) {
+  coll_icon <- if (collapsed) "plus" else "minus"
+  btn <- shiny::actionButton(
+    paste0(id, "_collapser"), label = NULL, icon = shiny::icon(coll_icon),
+    class = paste0("btn collapser"), "data-toggle" = "collapse",
+    "data-target" = paste0("#", body_id)
+  )
+  if (open_callback) {
+    on_click <- paste0(
+      "Shiny.onInputChange('", id, "_open', !$(document.getElementById('",
+      body_id, "')).hasClass('in'));"
+    )
+    btn <- shiny::tagAppendAttributes(btn, onclick = on_click)
+  }
+  shiny::div(class = "dq-box-tools", btn)
+}
+
+create_box_title <- function(title, color) {
+  if (!is.null(title)) {
+    return(shiny::h3(
+      title, class = "dq-box-title", style = paste0("color:", color, ";")
+    ))
+  }
+  NULL
 }

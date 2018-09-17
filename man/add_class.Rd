@@ -60,3 +60,4 @@ Other js handler: \code{\link{enable}}, \code{\link{hide}}
 \author{
 richard.kunze
 }
+\concept{js handler}

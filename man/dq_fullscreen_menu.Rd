@@ -34,3 +34,4 @@ Other html creating functions: \code{\link{dq_header}},
 \author{
 richard.kunze
 }
+\concept{html creating functions}

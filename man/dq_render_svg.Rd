@@ -4,8 +4,8 @@
 \alias{dq_render_svg}
 \title{Render ggplot2 figure as svg}
 \usage{
-dq_render_svg(gg, path = NULL, width = 1200, height = 500, alt = "",
-  pdf = FALSE, png = FALSE, deleteFile = TRUE)
+dq_render_svg(gg, path = NULL, width = 1200, height = 500,
+  alt = "", pdf = FALSE, png = FALSE, deleteFile = TRUE)
 }
 \arguments{
 \item{gg}{reactive or non-reactive ggplot2 object}
@@ -50,3 +50,4 @@ shinyApp(
 \author{
 david.breuer
 }
+\concept{plotting}

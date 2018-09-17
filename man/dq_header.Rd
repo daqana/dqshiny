@@ -39,3 +39,4 @@ Other html creating functions: \code{\link{dq_fullscreen_menu}},
 \author{
 richard.kunze
 }
+\concept{html creating functions}

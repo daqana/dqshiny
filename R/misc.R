@@ -8,7 +8,8 @@
 
 dq_dep <- htmltools::htmlDependency(
   "dqshiny", "0.0.1", c(href = "dqshinyRes"),
-  script = "js/messageHandler.js"
+  script = "js/messageHandler.js",
+  stylesheet = "css/dqShiny.css"
 )
 
 selectize_dep <- htmltools::tagList(

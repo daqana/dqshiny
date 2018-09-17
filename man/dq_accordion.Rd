@@ -5,8 +5,8 @@
 \title{accordion module to show several collapsible boxes}
 \usage{
 dq_accordion(id, titles, contents, options = NULL, sortable = FALSE,
-  bg_color = "#ff8f00", hover = TRUE, style = "", icons = c(rotate =
-  "angle-right"))
+  bg_color = "#ff8f00", hover = TRUE, style = "", icons = c(rotate
+  = "angle-right"))
 }
 \arguments{
 \item{id}{id of the element}

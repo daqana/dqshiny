@@ -36,3 +36,4 @@ Other html creating functions: \code{\link{dq_fullscreen_menu}},
 \author{
 david.breuer
 }
+\concept{html creating functions}

@@ -9,9 +9,9 @@ test_that("null works", {
 test_that("valid inputs work", {
   expect_equal(dqshiny:::dq_as_selectize_options(NA), list(options = list(list(value = NA, text = NA_character_))))
   expect_equal(dqshiny:::dq_as_selectize_options(NA, random = "more random"),
-                         list(options = list(list(value = NA, text = NA_character_)), random = "more random"))
+               list(options = list(list(value = NA, text = NA_character_)), random = "more random"))
   res <- list(options = list(list(value = 1, text = "1"), list(value = 2, text = "2"),
-                          list(value = 3, text = "3"), list(value = 4, text = "4")))
+                             list(value = 3, text = "3"), list(value = 4, text = "4")))
   expect_equal(dqshiny:::dq_as_selectize_options(1:4), res)
 })
 
@@ -19,7 +19,7 @@ test_that("named inputs work", {
   inp <- 1:4
   names(inp) <- c("Hello", "my", "funny", "World!")
   res <- list(options = list(list(value = 1, text = "Hello"), list(value = 2, text = "my"),
-                          list(value = 3, text = "funny"), list(value = 4, text = "World!")))
+                             list(value = 3, text = "funny"), list(value = 4, text = "World!")))
   expect_equal(dqshiny:::dq_as_selectize_options(inp), res)
 })
 
@@ -30,25 +30,40 @@ hot <- rhandsontable::rhandsontable(mtcars)
 test_that("null works and always returns hot element", {
   expect_equal(dqshiny:::dq_add_selectize_options(NULL, NULL, NULL, NULL), NULL)
   expect_equal(dqshiny:::dq_add_selectize_options(NULL, 1, 2, NULL), NULL)
+  expect_equal(dqshiny:::dq_add_selectize_options(NULL, 1, 2, 1:5), NULL)
 })
 
 test_that("bad inputs work and always returns hot element", {
-  expect_equal(dqshiny:::dq_add_selectize_options(list(x = list(cells = list())), 1, 2, list()),
-                         list(x = list(cells = list())))
-  expect_equal(dqshiny:::dq_add_selectize_options("random", NULL, NULL, NULL), "random")
-  expect_equal(dqshiny:::dq_add_selectize_options(T, NULL, 2, list(of = "options")), T)
+  expect_equal(
+    dqshiny:::dq_add_selectize_options(
+      list(x = list(cells = list())), 1, 2, list()
+    ), list(x = list(cells = list()))
+  )
+  expect_equal(
+    dqshiny:::dq_add_selectize_options("random", NULL, NULL, NULL), "random"
+  )
+  expect_equal(
+    dqshiny:::dq_add_selectize_options(TRUE, NULL, 2, list(of = "options")),
+    TRUE
+  )
+  expect_equal(
+    dqshiny:::dq_add_selectize_options(hot, NULL, 2, NULL)$dependencies[[1]]$name,
+    "dqSelectize"
+  )
 })
 
 test_that("proper inputs work", {
   expect_silent(res <- dqshiny:::dq_add_selectize_options(hot, 1, 2, 1:5))
   expect_equal(names(res$x$cell[[1]]), c("row", "col", "type", "editor", "selectizeOptions"))
-  expect_silent(res <- dqshiny:::dq_add_selectize_options(hot, 1:7, 2, 1:5))
-  expect_length(res$x$cell, 7)
+  expect_silent(
+    res <- dqshiny:::dq_add_selectize_options(hot, 1:7, "disp", list(1:5, numeric(), 1:3, 1, numeric(), 1:5, 2:8))
+  )
+  expect_length(res$x$cell, 5)
+  expect_silent(res <- dqshiny:::dq_add_selectize_options(hot, NULL, 3, list(1:2, 1:3)))
+  expect_length(res$x$cell, nrow(mtcars))
 })
 
 context("Test dq_hot_cell in hot_helpers.R")
-
-hot <- rhandsontable::rhandsontable(mtcars)
 
 test_that("null works and always returns hot element", {
   expect_equal(dqshiny:::dq_hot_cell(NULL, NULL, NULL), NULL)
@@ -58,7 +73,7 @@ test_that("null works and always returns hot element", {
 
 test_that("bad inputs work and always returns hot element", {
   expect_equal(dqshiny:::dq_hot_cell(list(x = list(cells = list())), 1, 2),
-                         list(x = list(cells = list())))
+               list(x = list(cells = list())))
   expect_equal(dqshiny:::dq_hot_cell("random", NULL, NULL), "random")
   expect_equal(dqshiny:::dq_hot_cell(T, NULL, 2), TRUE)
 })

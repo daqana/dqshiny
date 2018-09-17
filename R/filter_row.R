@@ -36,51 +36,79 @@
 #'     }, ignoreInit = TRUE)
 #'   }
 #' )}
-filter_row <- function(context, data, filters = "T", reset = TRUE) {
-  filters <- correct_filters(filters, data)
-  w <- 12 / sum(filters != "")
-  fClass <- "filter-row"
-  if (w != floor(w)) {
-    fClass <- paste(fClass, "vertical-align")
-  }
-  res <- shiny::fluidRow(class = fClass)
+filter_row <- function(context, data, filters = "T", reset = TRUE, sorting = FALSE) {
+  filters <- correct_filters(filters, length(data))
+  class <- paste0("filter-row", if (sorting) " sorting")
+  res <- shiny::fluidRow(class = class)
   if (all(filters == "")) return(res)
   l <- lapply(seq(filters), function(i) {
     f <- filters[i]
     id <- paste("filter", context, names(data)[i], sep = "_")
-    suppressWarnings({
-      minV <- min(unlist(data[[i]]))
-      maxV <- max(unlist(data[[i]]))
-      mi <- as.numeric(minV)
-      ma <- as.numeric(maxV)
-    })
-    inputEl <- NULL
-    if (f == "R" && (!any(is.na(c(mi, ma)) | is.infinite(c(mi, ma))) || all(grepl("\\d{4}-\\d{2}-\\d{2}", c(minV, maxV))))) {
-      inputEl <- shiny::sliderInput(id, NULL, minV, maxV, c(minV, maxV))
+    el <- shiny::div(class = "form-group")
+    if (f == "T") {
+      el <- shiny::textInput(id, NULL, placeholder = names(data)[i])
     } else if (f == "S") {
       choices <- c("")
       names(choices) <- names(data)[i]
-      inputEl <- shiny::selectInput(id, NULL, c(choices, sort(unique(data[[i]]))))
-    } else if (f != "") {
-      inputEl <- shiny::textInput(id, NULL, placeholder = names(data)[i])
+      choices <- c(choices, sort(unique(as.character(data[[i]]))))
+      el <- shiny::selectizeInput(id, NULL, choices, options = list(dropdownParent = "body"))
+    } else if (f == "R") {
+      try({
+        suppressWarnings({
+          min_val <- min(unlist(data[[i]]))
+          max_val <- max(unlist(data[[i]]))
+          mi <- as.numeric(min_val)
+          ma <- as.numeric(max_val)
+        })
+        if (!any(is.na(c(mi, ma)) | is.infinite(c(mi, ma))) || all(grepl("\\d{4}-\\d{2}-\\d{2}", c(min_val, max_val)))) {
+          el <- shiny::sliderInput(id, NULL, min_val, max_val, c(min_val, max_val))
+        }
+      })
     }
-    if (w == floor(w)) {
-      shiny::column(w, inputEl)
-    } else {
-      inputEl
+    if (sorting && f != "") {
+      el <- shiny::tagAppendChild(el, sort_button(context, names(data)[i]))
     }
+    el
   })
   if (reset) {
-    res <- shiny::tagAppendChild(res, shiny::actionButton(
-      paste("reset", context, "filter", sep = "_"), "X", class = "dq-btn-sm", title = "Reset filters"))
+    res <- shiny::tagAppendChild(res, shiny::div(class = "reset-wrapper", shiny::actionButton(
+      paste("reset", context, "filter", sep = "_"), "X", class = "dq-btn-sm", title = "Reset filters")))
   }
   if (length(l) > 0) res <- shiny::tagAppendChildren(res, l)
   res
 }
 
-correct_filters <- function(filters, data) {
-  if (length(filters) != length(data)) filters <- rep_len(filters, length(data))
-  filters <- toupper(filters)
+#' @author richard.kunze
+update_filters <- function(data, filters, context, session) {
+  if (length(data) == 0L || length(filters) == 0L) return()
+  filters <- correct_filters(filters, length(data))
+  els <- grep(paste0("^filter_", context),
+              shiny::isolate(names(session$input)), value = TRUE)
+  names(els) <- gsub(paste0("^filter_", context, "_"), "", els)
+  for (n in names(els)) {
+    filter <- filters[names(data) == n]
+    if (length(filter) == 1) {
+      if (filter == "S") {
+        shiny::updateSelectInput(
+          session, unname(els[n]), choices = sort(unique(data[[n]])),
+          selected = shiny::isolate(session$input[[els[n]]])
+        )
+      } else if (filter == "R") {
+        suppressWarnings({
+          min_val <- min(data[[n]], na.rm = TRUE)
+          max_val <- max(data[[n]], na.rm = TRUE)
+        })
+        shiny::updateSliderInput(session, unname(els[n]),
+                                 min = min_val, max = max_val)
+      }
+    }
+  }
+}
+
+#' @author richard.kunze
+correct_filters <- function(filters, len) {
+  if (length(filters) != len) filters <- rep_len(filters, len)
+  filters <- toupper(substr(unlist(filters), 1, 1))
   filters[!filters %in% c("T", "S", "R", "")] <- "T"
   filters
 }

@@ -41,6 +41,7 @@ test_that("text_filter works with named filter values", {
   expect_equal(dqshiny:::text_filter(df, c(A = "a")), df[1, ])
   expect_equal(dqshiny:::text_filter(df, c(B = "a")), df[26, ])
   expect_equal(dqshiny:::text_filter(df, c(A = "a", B = "h")), df[NULL, ])
+  expect_equal(dqshiny:::text_filter(df, c(C = "c")), df)
 })
 
 test_that("text_filter works with NAs in data.frame", {
@@ -106,4 +107,22 @@ test_that("NA in data.frame works", {
   inp <- data.frame(A = c(7, NA), B = c(NA, 9))
   res <- data.frame(A = 7, B = NA_real_)
   expect_equal(dqshiny:::range_filter(inp, c(1, 200)), res)
+})
+
+
+context("Test update_filters in filtering.R")
+
+session <- readRDS(file.path("data", "shinySession.RData"))
+test_that("update_page works with NULL inputs", {
+  expect_null(dqshiny:::update_filters(mtcars, NULL, NULL, NULL))
+  expect_null(dqshiny:::update_filters(NULL, "test", "context", session))
+  expect_null(dqshiny:::update_filters(mtcars, "test", 1, NULL))
+})
+
+test_that("update_filters works with proper inputs", {
+  df <- data.frame(A = character(0), B = logical(0),C = as.Date(character(0)),
+                   D = numeric(0), stringsAsFactors = F)
+  expect_null(dqshiny:::update_filters(df, "T", "rand", session))
+  expect_null(dqshiny:::update_filters(df, c("T", "S"), "rand", session))
+  expect_null(dqshiny:::update_filters(df, c("T", "R", "S", "Test", "wrong"), "rand", session))
 })

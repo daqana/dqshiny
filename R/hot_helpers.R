@@ -43,7 +43,9 @@
 #'   }
 #' )}
 dq_add_selectize_options <- function(hot, rows, col, options, ...) {
-  if (!inherits(hot, "rhandsontable") || is.null(options)) return(hot)
+  if (!inherits(hot, "rhandsontable")) return(hot)
+  hot$dependencies <- append(hot$dependencies, selectize_dep)
+  if (length(options) == 0) return(hot)
   if (is.null(rows)) {
     rows <- seq(hot$x$rowHeaders)
   }
@@ -56,12 +58,11 @@ dq_add_selectize_options <- function(hot, rows, col, options, ...) {
   if (is.character(col)) col <- which(hot$x$rColnames == col)
   if (length(col) == 1 && !is.na(col)) {
     lapply(rows, function(x) {
-      if (length(options[[x]]) == 0) return(NULL)
+      if (length(options[[x]]) < 2 && all(options[[x]] == "")) return(NULL)
       hot <<- dq_hot_cell(hot, x, col, type = "dropdown", editor = "selectize",
                           selectizeOptions = dq_as_selectize_options(options[[x]], ...))
     })
   }
-  hot$dependencies <- append(hot$dependencies, selectize_dep)
   hot
 }
 

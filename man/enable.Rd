@@ -61,3 +61,4 @@ Other js handler: \code{\link{add_class}},
 \author{
 richard.kunze
 }
+\concept{js handler}

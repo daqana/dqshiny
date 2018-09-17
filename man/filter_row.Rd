@@ -7,7 +7,8 @@
 \alias{range_filter}
 \title{Functions to create and use filter}
 \usage{
-filter_row(context, data, filters = "T", reset = TRUE)
+filter_row(context, data, filters = "T", reset = TRUE,
+  sorting = FALSE)
 
 get_filters(input, context)
 

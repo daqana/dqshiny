@@ -15,9 +15,9 @@ test_that("Test that testthat is contained in DESCRIPTION file", {
 })
 
 test_that("Test if all used packages are listed in DESCRIPTION", {
-  full <- dqutils::get_package_functions("../../")
+  full <- dqutils::get_package_functions("../../R")$package
   pkgs <- dqutils::get_package_description("dqshiny")
   pkgs <- unname(unlist(pkgs))
-  sdiff <- setdiff(full$package, pkgs)
-  expect_equal(sdiff, "dqutils", info = sdiff)
+  sdiff <- setdiff(full, pkgs)
+  expect_true(length(sdiff) == 0, info = sdiff)
 })
