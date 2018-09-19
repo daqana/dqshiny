@@ -19,5 +19,5 @@
 #'   }
 #' )}
 reset_slider_input <- function(id) {
-  send_message(type = "resetSlider", id = id)
+  send_message(type = "resetSlider", ids = id)
 }

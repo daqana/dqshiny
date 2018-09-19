@@ -6,30 +6,41 @@
 \usage{
 dq_render_handsontable(id, data, context = NULL, filters = "T",
   page_size = 25, reset = TRUE, sorting = FALSE,
-  width_align = FALSE, horizontal_scroll = FALSE,
-  table_params = list(readOnly = FALSE, stretchH = "all", contextMenu =
-  FALSE), col_params = list(colWidths = 1, highlightCol = TRUE,
-  highlightRow = TRUE, manualColumnResize = TRUE), ...)
+  width_align = FALSE, horizontal_scroll = FALSE, table_param = NULL,
+  cols_param = NULL, ...)
 }
 \arguments{
-\item{id}{id of the handsontable element, should be the same as the one used in the output element}
+\item{id}{id of the handsontable element, has to be the same as the one used in dqHandsontable}
 
-\item{data}{data to show in the table, should be a data.frame}
+\item{data}{data to show in the table, should be a data.frame, can also be an reactiveValues
+object holding the data under id (e.g. data <- reactiveValues[[id]])}
 
-\item{context}{the context used to specify all ui elements used for this table}
+\item{context}{the context used to specify all ui elements used for this table, can be omitted
+which ends up in a randomly generated context}
 
-\item{filters}{optional character vector, adds filters for each column, values must be one of c("T", "S", "R", "") to add a
-TextFilter, SelectFilter, RangeFilter or none, vectors of length one will add a filter of this type for each column, set to
-NULL to ommit filter row}
+\item{filters}{optional character vector, adds filters for each column, values must be one of
+"Text", "Select", "Range" or "" (can be abbreviated) to add a TextFilter, SelectFilter,
+RangeFilter or none, vectors of length one will add a filter of this type for each column}
 
 \item{page_size}{optional numeric, number of items per page, can be one of 10, 25, 50, 100 or any
 other value which will be added to this list, NULL will disable paging}
 
-\item{reset}{optional logical, specify whether to add a button to reset filters to initial values or not}
+\item{reset}{optional logical, specify whether to add a button to reset filters to initial
+values or not}
 
-\item{table_params}{optional list, specify parameters to hand to rHandsontable table element}
+\item{sorting}{optional logical, specify whether to add sort buttons for every column or not,
+as normal rhandsontable sorting won't work properly when table is paged, please ensure that
+rownames of the data are numeric}
 
-\item{col_params}{optional list, specify parameters to hand to rHandsontable cols elements}
+\item{width_align}{optional boolean to align filter widths with hot columns, should only be used
+with either horizontalScroll, stretchH = "all" or a table fitting in its output element}
+
+\item{horizontal_scroll}{optiona boolean to scroll the filterrow according to the hot table,
+especially useful for tables with many columns}
+
+\item{table_param}{optional list, specify parameters to hand to rHandsontable table element}
+
+\item{cols_param}{optional list, specify parameters to hand to rHandsontable cols elements}
 
 \item{...}{further optional lists to specify parameters to hand to rHandsontable col elements,
 those lists have to be assigned to a name}
@@ -48,14 +59,14 @@ user inputs will automatically stored  and updated independent from any filters 
 library(rhandsontable)
 shinyApp(
   ui = fluidPage(
-    init(),
-    dq_handsontable_output("randomTable", 9)
+    dqshiny:::dq_handsontable_output("randomTable", 9)
   ),
   server = function(input, output, session) {
     hw <- c("Hello", "my", "funny", "world!")
-    data <- data.frame(A=rep(hw, 500), B=rep(hw[c(2,3,4,1)], 500),
-                       C=1:500, D=Sys.Date()-0:499, stringsAsFactors = F)
-    dq_render_handsontable("randomTable", data, "rand", filters = c("S", "T", "R", "R"),
+    data <- data.frame(A = rep(hw, 500), B = rep(hw[c(2,3,4,1)], 500),
+      C = 1:500, D = Sys.Date() - 0:499, stringsAsFactors = FALSE)
+    dqshiny:::dq_render_handsontable("randomTable", data, "rand",
+      filters = c("S", "T", "R", "R"), sorting = TRUE,
       pCol1=list(col=1, type = "dropdown", source = letters),
       pCol2=list(col=2:4, type = "dropdown", source = LETTERS))
   }

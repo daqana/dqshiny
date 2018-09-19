@@ -6,9 +6,6 @@
 \usage{
 init()
 }
-\arguments{
-\item{selectize}{optional logical to indicate whether selectize select and handsontable-selectize-editor should be loaded or not}
-}
 \value{
 list of shiny includes executed by shinyUI
 }

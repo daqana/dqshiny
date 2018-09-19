@@ -1,5 +1,8 @@
 #' Creates a html box with specified parameters
 #'
+#' @description Creates a fully customizable HTML box holding the given content.
+#' Can be made collapsible and nested.
+#'
 #' @param ... Tags to add to the box as children.
 #' @param id ID of the box, can be used to observe collapse events via
 #'   input[[paste0(id, "_collapser")]].
@@ -32,25 +35,26 @@
 #' @examples \donttest{library(shiny)
 #' shinyApp(
 #'   ui = fluidPage(
-#'     init(),
 #'     fluidRow(
 #'       dq_box(
+#'         title = "Say Hello to my children", id = "bigBox", collapsed = TRUE,
 #'         dq_infobox("hallo", 2, "Welt", icon("hashtag"),
-#'                              bg_color = "black", color = "#D00"),
+#'                    bg_color = "black", color = "#D00"),
 #'         dq_box(
+#'           title = "Box in the box", bg_color="pink", width = 8,
 #'           dq_infobox("in the box...", 2, "in the box!", width=12,
-#'                                bg_color = "white", color = "#0D0"),
-#'           title = "Box in the box", bg_color="pink", width = 8),
-#'         title = "Say Hello to my children",
-#'         open_callback = TRUE, collapsed = TRUE))
+#'                      bg_color = "white", color = "#0D0"),
+#'           )
+#'         ),
+#'       column(3, actionButton("toggle", "Toggle Box"))
+#'      )
 #'   ),
 #'   server = function(input, output) {
-#'     observeEvent(input$bigBox_open, print(input$bigBox_open))
+#'     observeEvent(input$toggle, update_dq_box("bigBox"))
 #'   }
 #' )}
 dq_box <- function(
-  ...,
-  id = NULL, title = NULL,
+  ..., id = NULL, title = NULL,
   color = "#000", bg_color = "#ff8f00", fill = TRUE,
   width = 6L, height = NULL, offset = 0L,
   collapsible = FALSE, collapsed = FALSE, open_callback = FALSE
@@ -150,4 +154,17 @@ create_box_title <- function(title, color) {
     ))
   }
   NULL
+}
+
+
+#' Function to update the collapsed status of a dqBox
+#'
+#' @description Function to update the collapsed state of a dq_box.
+#'
+#' @param silent optional logical indicating to suppress events or not
+#'
+#' @export
+#' @rdname dq_box
+update_dq_box <- function(id, collapsed = NULL, silent = FALSE) {
+  send_message(type = "updateBox", ids = id, collapsed = collapsed, silent = silent)
 }

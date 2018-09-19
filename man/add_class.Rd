@@ -31,25 +31,25 @@ those elements, please add \code{\link{init}} to your UI.
 \donttest{library(shiny)
 shinyApp(
   ui = fluidPage(
-    tags$head(tags$style(".orange{background:#ff8f00;}")),
-    actionButton("btn_add", "add_class"),
-    actionButton("btn_remove", "remove_class"),
-    actionButton("btn_toggle", "toggle_class"),
-    actionButton("btn_toggle_cond", "Toggle Class with Condition"),
+    tags$head(tags$style(".orange{background:#ff8f00}")),
+    actionButton("add", "Add Class"),
+    actionButton("remove", "Remove Class"),
+    actionButton("toggle", "Toggle Class"),
+    actionButton("toggle_cond", "Toggle Class with Condition"),
     checkboxInput("condition", "orange"),
-    fluidRow(id = "example_bg",
+    fluidRow(id = "row",
       dq_space(), # this is needed to make everything work
       actionButton("example", "EXAMPLE"),
       dq_space() # this is just for the alignment ;)
    )
   ),
   server = function(input, output) {
-    observeEvent(input$btn_add, add_class("example_bg", "orange"))
-    observeEvent(input$btn_remove, remove_class("example_bg", "orange"))
-    observeEvent(input$btn_toggle, toggle_class("example_bg", "orange"))
+    observeEvent(input$add, add_class("row", "orange"))
+    observeEvent(input$remove, remove_class("row", "orange"))
+    observeEvent(input$toggle, toggle_class("row", "orange"))
     observeEvent(
-      input$btn_toggle_cond,
-      toggle_class("example_bg", "orange", input$condition)
+      input$toggle_cond,
+      toggle_class("row", "orange", input$condition)
     )
   }
 )}

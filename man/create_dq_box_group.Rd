@@ -7,6 +7,8 @@
 create_dq_box_group(session, ...)
 }
 \arguments{
+\item{session}{shiny session object}
+
 \item{...}{box ids to be combined to one group}
 }
 \description{
@@ -17,19 +19,18 @@ boxes whenever one box is opened.
 \donttest{library(shiny)
 shinyApp(
   ui = fluidPage(
-    init(),
     fluidRow(
       column(6,
-        dq_box("Random Input1", dqSpace(250), "End of Content", id = "box1",
-              title="Box1", width=12, collapsible=TRUE, openCallback=TRUE),
-        dq_box("Random Input2", dqSpace(250), "End of Content", id = "box2",
-              title="Box2", width=12, collapsible=TRUE, collapsed=TRUE, openCallback=TRUE),
-        dq_box("Random Input3", dqSpace(250), "End of Content", id = "box3",
-              title="Box3", width=12, collapsible=TRUE, collapsed=TRUE, openCallback=TRUE)
+        dq_box("Random Input1", dq_space(), "End of Content", id = "box1",
+          title = "Box1", width = 12, open_callback = TRUE),
+        dq_box("Random Input2", dq_space(), "End of Content", id = "box2",
+          title = "Box2", width = 9, collapsed = TRUE, open_callback = TRUE),
+        dq_box("Random Input3", dq_space(), "End of Content", id = "box3",
+          title = "Box3", width = 12, collapsed = TRUE, open_callback = TRUE)
       )
     )
   ),
-  server = function(input, output) {
+  server = function(input, output, session) {
     create_dq_box_group(session, "box1", "box2", "box3")
   }
 )}

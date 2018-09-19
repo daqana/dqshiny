@@ -95,8 +95,8 @@ dq_as_selectize_options <- function(options, ...) {
 #'   secret = rep("tops3cr3t", 10), stringsAsFactors = FALSE)
 #'
 #' hot <- rhandsontable::rhandsontable(df, rowHeaders = NULL)
-#' hot <- dq_hot_cell(hot, seq(1, 10, 2), 1:2, readOnly = TRUE)
-#' hot <- dq_hot_cell(hot, seq(1, 10, 2), 2, type = "password")
+#' hot <- dqshiny:::dq_hot_cell(hot, seq(1, 10, 2), 1:2, readOnly = TRUE)
+#' hot <- dqshiny:::dq_hot_cell(hot, seq(1, 10, 2), 2, type = "password")
 #' hot
 dq_hot_cell <- function(hot, row, col, ...) {
   if (!inherits(hot, "rhandsontable")) return(hot)

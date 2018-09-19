@@ -1,13 +1,17 @@
 #' Functions to create and use filter
 #'
-#' @description FilterRow creates a fluidRow with several textInputs or selectInputs for filtering a table.
-#' Will also add a button to clear all filter values.
+#' @description FilterRow creates a fluidRow with several textInputs or
+#' selectInputs for filtering a table.#' Will also add a button to clear
+#' all filter values.
 #'
 #' @param context a string context to specify ui element id's
 #' @param data data to show in the table, should be a data.frame
-#' @param filters optional character vector, adds filters for each column, values must be one of c("T", "S", "R", "") to add a
-#' TextFilter, SelectFilter, RangeFilter or none, vectors of length one will add a filter of this type for each column
+#' @param filters optional character vector, adds filters for each column,
+#' values must be one of c("T", "S", "R", "") to add a TextFilter, SelectFilter,
+#' RangeFilter or none, vectors of length one will add a filter of this type
+#' for each column
 #' @param reset optional, should a reset button be added or not
+#' @param sorting optional, wheather to add buttons to sort data or not
 #'
 #' @return filter_row: fluidRow containing the filters
 #' @author richard.kunze
@@ -15,8 +19,8 @@
 #' library(rhandsontable)
 #'
 #' hw <- c("Hello", "my", "funny", "world!")
-#' data <- data.frame(A=rep(hw, 5), B=rep(hw[c(2,3,4,1)], 5), C=1:20, D=Sys.Date()-0:19,
-#'   stringsAsFactors = F)
+#' data <- data.frame(A=rep(hw, 5), B=rep(hw[c(2,3,4,1)], 5), C=1:20,
+#'   D=Sys.Date()-0:19, stringsAsFactors = FALSE)
 #' rVals <- reactiveValues()
 #' rVals[["rand"]] <- data
 #'

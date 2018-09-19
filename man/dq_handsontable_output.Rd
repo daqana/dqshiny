@@ -25,12 +25,10 @@ Adds a fluidrow containing a column with the given width, ready to support a dq_
 library(rhandsontable)
 shinyApp(
   ui = fluidPage(
-    init(),
-    dq_handsontable_output("myCars")
+    dqshiny:::dq_handsontable_output("myCars")
   ),
   server = function(input, output) {
-    dq_render_handsontable("myCars", mtcars, "cars", filters = "R",
-      paged = FALSE, reset = FALSE)
+    dqshiny:::dq_render_handsontable("myCars", mtcars, filters = "T", reset = FALSE)
   }
 )}
 }

@@ -4,14 +4,7 @@
 
   var SelectizeEditor = Handsontable.editors.TextEditor.prototype.extend();
 
-  SelectizeEditor.prototype.prepare = function(
-    row,
-    col,
-    prop,
-    td,
-    originalValue,
-    cellProperties
-  ) {
+  SelectizeEditor.prototype.prepare = function(row, col, prop, td, originalValue, cellProperties) {
     Handsontable.editors.TextEditor.prototype.prepare.apply(this, arguments);
 
     this.options = {};
@@ -22,8 +15,7 @@
     }
 
     cellProperties.selectizeOptions = $.extend(
-      {},
-      cellProperties.selectizeOptions
+      {}, cellProperties.selectizeOptions
     );
   };
 
@@ -59,46 +51,52 @@
     );
   };
 
-  var onSelectizeClosed = function() {
-    console.log("closing");
-    this.close();
-    this.finishEditing();
+  var onSelectizeChanged = function(value, $item) {
+    var max = this.selectize.settings.maxItems;
+    if (max && this.selectize.items.length >= max) {
+      this.close();
+      this.finishEditing();
+    }
+  };
+
+  var onOptionAdded = function(value, data) {
+    this.selectize.setValue(value);
   };
 
   var onBeforeKeyDown = function(event) {
-    var instance = this;
-    var editor = instance.getActiveEditor();
-
+    var editor = this.getActiveEditor();
     var keyCodes = Handsontable.helper.KEY_CODES;
-    var ctrlDown = (event.ctrlKey || event.metaKey) && !event.altKey; //catch CTRL but not right ALT (which in some systems triggers ALT+CTRL)
-    var multiple = editor && editor.selectize.settings.mode == "multi";
+    // catch CTRL but not right ALT (which in some systems triggers ALT+CTRL)
+    var ctrlDown = (event.ctrlKey || event.metaKey) && !event.altKey;
+    var sel = editor.selectize;
+    var multiple = editor && sel.settings.mode == "multi";
 
-    //Process only events that have been fired in the editor
+    // Process only events that have been fired in the editor
     if (event.target.tagName !== "INPUT") {
       // except BACKSPACEs for deleting the last item since there won't be an INPUT if selectize is full
-      var vals = editor.selectize.getValue();
+      var vals = sel.getValue();
       if (event.keyCode === keyCodes.BACKSPACE && vals.length) {
-        editor.selectize.removeItem(vals[vals.length - 1]);
-        editor.selectize.open();
+        sel.removeItem(vals[vals.length - 1]);
+        sel.open();
         event.stopImmediatePropagation();
       }
       return;
     }
-    if (
-      event.keyCode === 17 ||
-      event.keyCode === 224 ||
-      event.keyCode === 91 ||
-      event.keyCode === 93
-    ) {
-      //when CTRL or its equivalent is pressed and cell is edited, don't prepare selectable text in textarea
+    if (event.keyCode === 17 || event.keyCode === 224 || event.keyCode === 91 || event.keyCode === 93) {
+      // when CTRL or its equivalent is pressed and cell is edited, don't prepare selectable text in textarea
       event.stopImmediatePropagation();
       return;
     }
 
     switch (event.keyCode) {
+      case keyCodes.ENTER:
+        if (multiple && sel.settings.maxItems > sel.items.length) {
+          event.stopImmediatePropagation();
+        }
+        break;
+
       case keyCodes.ARROW_UP:
       case keyCodes.ARROW_DOWN:
-      case keyCodes.ENTER:
       case keyCodes.BACKSPACE:
       case keyCodes.HOME:
       case keyCodes.END:
@@ -106,20 +104,17 @@
         break;
 
       case keyCodes.ARROW_RIGHT:
-        if (
-          !multiple ||
-          editor.oldCaretPos < editor.selectize.getValue().length
-        ) {
+        if (!multiple || editor.oldCaretPos < sel.items.length) {
           event.stopImmediatePropagation();
         }
-        editor.oldCaretPos = editor.selectize.caretPos;
+        editor.oldCaretPos = sel.caretPos;
         break;
 
       case keyCodes.ARROW_LEFT:
         if (!multiple || editor.oldCaretPos > 0) {
           event.stopImmediatePropagation();
         }
-        editor.oldCaretPos = editor.selectize.caretPos;
+        editor.oldCaretPos = sel.caretPos;
         break;
 
       case keyCodes.A:
@@ -127,7 +122,8 @@
       case keyCodes.C:
       case keyCodes.V:
         if (ctrlDown) {
-          event.stopImmediatePropagation(); //CTRL+A, CTRL+C, CTRL+V, CTRL+X should only work locally when cell is edited (not in table context)
+          event.stopImmediatePropagation();
+          //CTRL+A, CTRL+C, CTRL+V, CTRL+X should only work locally when cell is edited (not in table context)
         }
         break;
     }
@@ -174,8 +170,8 @@
     this.selectize = $select[0].selectize;
 
     this.selectize.focus();
-    console.log("add listener");
-    this.selectize.on("item_add", onSelectizeClosed);
+    this.selectize.on("item_add", onSelectizeChanged.bind(this));
+    this.selectize.on("option_add", onOptionAdded.bind(this));
   };
 
   SelectizeEditor.prototype.init = function() {
@@ -185,7 +181,6 @@
   SelectizeEditor.prototype.close = function() {
     this.instance.listen();
     this.instance.removeHook("beforeKeyDown", onBeforeKeyDown);
-    this.selectize.close();
     Handsontable.editors.TextEditor.prototype.close.apply(this, arguments);
   };
 
@@ -212,18 +207,12 @@
     if (onBeginEditing && onBeginEditing() === false) {
       return;
     }
-    Handsontable.editors.TextEditor.prototype.beginEditing.apply(
-      this,
-      arguments
-    );
+    Handsontable.editors.TextEditor.prototype.beginEditing.apply(this, arguments);
   };
 
   SelectizeEditor.prototype.finishEditing = function(isCancelled, ctrlDown) {
     this.instance.listen();
-    return Handsontable.editors.TextEditor.prototype.finishEditing.apply(
-      this,
-      arguments
-    );
+    return Handsontable.editors.TextEditor.prototype.finishEditing.apply(this, arguments);
   };
 
   Handsontable.editors.SelectizeEditor = SelectizeEditor;

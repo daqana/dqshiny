@@ -2,12 +2,15 @@
 % Please edit documentation in R/dq_box.R
 \name{dq_box}
 \alias{dq_box}
+\alias{update_dq_box}
 \title{Creates a html box with specified parameters}
 \usage{
 dq_box(..., id = NULL, title = NULL, color = "#000",
   bg_color = "#ff8f00", fill = TRUE, width = 6L, height = NULL,
   offset = 0L, collapsible = FALSE, collapsed = FALSE,
   open_callback = FALSE)
+
+update_dq_box(id, collapsed = NULL, silent = FALSE)
 }
 \arguments{
 \item{...}{Tags to add to the box as children.}
@@ -45,31 +48,38 @@ not.}
 \item{open_callback}{optional logical, whether to send messages whenever the
 state of the box changes or not, events will be available via
 input[[paste0(id, "_open")]]}
+
+\item{silent}{optional logical indicating to suppress events or not}
 }
 \value{
 bootstrap column holding the box
 }
 \description{
-Creates a html box with specified parameters
+Creates a fully customizable HTML box holding the given content.
+Can be made collapsible and nested.
+
+Function to update the collapsed state of a dq_box.
 }
 \examples{
 \donttest{library(shiny)
 shinyApp(
   ui = fluidPage(
-    init(),
     fluidRow(
       dq_box(
+        title = "Say Hello to my children", id = "bigBox", collapsed = TRUE,
         dq_infobox("hallo", 2, "Welt", icon("hashtag"),
-                             bg_color = "black", color = "#D00"),
+                   bg_color = "black", color = "#D00"),
         dq_box(
+          title = "Box in the box", bg_color="pink", width = 8,
           dq_infobox("in the box...", 2, "in the box!", width=12,
-                               bg_color = "white", color = "#0D0"),
-          title = "Box in the box", bg_color="pink", width = 8),
-        title = "Say Hello to my children",
-        open_callback = TRUE, collapsed = TRUE))
+                     bg_color = "white", color = "#0D0"),
+          )
+        ),
+      column(3, actionButton("toggle", "Toggle Box"))
+     )
   ),
   server = function(input, output) {
-    observeEvent(input$bigBox_open, print(input$bigBox_open))
+    observeEvent(input$toggle, update_dq_box("bigBox"))
   }
 )}
 }

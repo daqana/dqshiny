@@ -5,9 +5,9 @@ add_sorting_observer <- function(input, session, dq_values, context, paged, page
   lapply(seq(sorts), function(i) {
     s <- sorts[i]
     shiny::observeEvent(input[[s]], {
-      dq_values$sortCol <- i
-      dq_values$sortDir <- dirs[input[[s]]]
-      lapply(sorts[sorts != s], function(n) update_icon_state_button(session, n, value = 1))
+      dq_values$sort_col <- i
+      dq_values$sort_dir <- dirs[input[[s]]]
+      lapply(sorts[sorts != s], function(n) update_icon_state_button(session, n, value = 1L))
     }, ignoreInit = TRUE)
   })
 

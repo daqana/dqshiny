@@ -21,10 +21,14 @@ range_filter(df, ranges)
 
 \item{data}{data to show in the table, should be a data.frame}
 
-\item{filters}{optional character vector, adds filters for each column, values must be one of c("T", "S", "R", "") to add a
-TextFilter, SelectFilter, RangeFilter or none, vectors of length one will add a filter of this type for each column}
+\item{filters}{optional character vector, adds filters for each column,
+values must be one of c("T", "S", "R", "") to add a TextFilter, SelectFilter,
+RangeFilter or none, vectors of length one will add a filter of this type
+for each column}
 
 \item{reset}{optional, should a reset button be added or not}
+
+\item{sorting}{optional, wheather to add buttons to sort data or not}
 
 \item{input}{shiny input environment}
 
@@ -44,8 +48,9 @@ text_filter: filtered data frame
 range_filter: filtered data frame
 }
 \description{
-FilterRow creates a fluidRow with several textInputs or selectInputs for filtering a table.
-Will also add a button to clear all filter values.
+FilterRow creates a fluidRow with several textInputs or
+selectInputs for filtering a table.#' Will also add a button to clear
+all filter values.
 
 get_filters receives the values from all filters within the given context and returns them in a list.
 
@@ -60,8 +65,8 @@ the indices of the corresponding data frame columns.
 library(rhandsontable)
 
 hw <- c("Hello", "my", "funny", "world!")
-data <- data.frame(A=rep(hw, 5), B=rep(hw[c(2,3,4,1)], 5), C=1:20, D=Sys.Date()-0:19,
-  stringsAsFactors = F)
+data <- data.frame(A=rep(hw, 5), B=rep(hw[c(2,3,4,1)], 5), C=1:20,
+  D=Sys.Date()-0:19, stringsAsFactors = FALSE)
 rVals <- reactiveValues()
 rVals[["rand"]] <- data
 

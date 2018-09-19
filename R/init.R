@@ -2,8 +2,6 @@
 #' @description Must be used inside the shinyUI before any other daqana styling function is used.
 #' Specify parameters to automatically add content to your side. Please notice, that no additional parameters can be given in this case.
 #'
-#' @param selectize optional logical to indicate whether selectize select and handsontable-selectize-editor should be loaded or not
-#'
 #' @return list of shiny includes executed by shinyUI
 #' @export
 #' @author richard.kunze

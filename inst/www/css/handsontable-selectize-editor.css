@@ -1,6 +1,6 @@
 .rhandsontable .selectize-input {
   min-height: 0;
-  max-width: 100%;
+  min-width: 250px;
   padding: 4px 8px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

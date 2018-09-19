@@ -10,9 +10,9 @@
 #'   stringsAsFactors = FALSE)
 #'
 #' hot <- rhandsontable::rhandsontable(df, rowHeaders = NULL)
-#' hot <- rhandsontable::hot_col(hot, 1, renderer = dq_hot_empty_renderer())
-#' hot <- rhandsontable::hot_col(hot, 2, renderer = dq_hot_html_renderer())
-#' hot <- rhandsontable::hot_col(hot, 3, renderer = dq_hot_date_renderer())
+#' hot <- rhandsontable::hot_col(hot, 1, renderer = dqshiny:::dq_hot_empty_renderer())
+#' hot <- rhandsontable::hot_col(hot, 2, renderer = dqshiny:::dq_hot_html_renderer())
+#' hot <- rhandsontable::hot_col(hot, 3, renderer = dqshiny:::dq_hot_date_renderer())
 #' hot
 dq_hot_date_renderer <- function() {
   "function (instance, td, row, col, prop, value, cellProperties) {

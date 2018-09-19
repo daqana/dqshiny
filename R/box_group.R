@@ -3,6 +3,7 @@
 #' @description Create a dq box group which automatically collapses all other
 #' boxes whenever one box is opened.
 #'
+#' @param session shiny session object
 #' @param ... box ids to be combined to one group
 #'
 #' @export
@@ -10,19 +11,18 @@
 #' @examples \donttest{library(shiny)
 #' shinyApp(
 #'   ui = fluidPage(
-#'     init(),
 #'     fluidRow(
 #'       column(6,
-#'         dq_box("Random Input1", dqSpace(250), "End of Content", id = "box1",
-#'               title="Box1", width=12, collapsible=TRUE, openCallback=TRUE),
-#'         dq_box("Random Input2", dqSpace(250), "End of Content", id = "box2",
-#'               title="Box2", width=12, collapsible=TRUE, collapsed=TRUE, openCallback=TRUE),
-#'         dq_box("Random Input3", dqSpace(250), "End of Content", id = "box3",
-#'               title="Box3", width=12, collapsible=TRUE, collapsed=TRUE, openCallback=TRUE)
+#'         dq_box("Random Input1", dq_space(), "End of Content", id = "box1",
+#'           title = "Box1", width = 12, open_callback = TRUE),
+#'         dq_box("Random Input2", dq_space(), "End of Content", id = "box2",
+#'           title = "Box2", width = 9, collapsed = TRUE, open_callback = TRUE),
+#'         dq_box("Random Input3", dq_space(), "End of Content", id = "box3",
+#'           title = "Box3", width = 12, collapsed = TRUE, open_callback = TRUE)
 #'       )
 #'     )
 #'   ),
-#'   server = function(input, output) {
+#'   server = function(input, output, session) {
 #'     create_dq_box_group(session, "box1", "box2", "box3")
 #'   }
 #' )}
@@ -46,7 +46,7 @@ create_dq_box_group <- function(session, ...) {
 #'
 #' @description Directly render a set of dq_boxes into an uiOutput element. All
 #' given dq_boxes will be groupified automatically, meaning that they will
-#' become 'collapsible' and 'openCallback'ed.
+#' become 'collapsible' and 'open_callback'ed.
 #'
 #' @param ... a set of dq_boxes
 #' @param open optional integer or character of length one, specifying the
@@ -59,14 +59,16 @@ create_dq_box_group <- function(session, ...) {
 #' @examples \donttest{library(shiny)
 #' shinyApp(
 #'   ui = fluidPage(
-#'     init(),
 #'     fluidRow(column(6, uiOutput("myGroup")))
 #'   ),
 #'   server = function(input, output) {
 #'     output$myGroup <- render_dq_box_group(
-#'       dq_box("Random Input1", dqSpace(250), "End of Content", title = "TestBox1", width = 12),
-#'       dq_box("Random Input2", dqSpace(250), "End of Content", title = "TestBox2", width = 12),
-#'       dq_box("Random Input3", dqSpace(250), "End of Content", title = "TestBox3", width = 12),
+#'       dq_box("Random Input1", dq_space(), "End of Content",
+#'         title = "TestBox1", width = 12),
+#'       dq_box("Random Input2", dq_space(), "End of Content",
+#'         title = "TestBox2", width = 9),
+#'       dq_box("Random Input3", dq_space(), "End of Content",
+#'         title = "TestBox3", width = 12),
 #'       open = 3L)
 #'   }
 #' )}
@@ -107,19 +109,4 @@ groupify_dq_box <- function(wrapper, open) {
   )
   wrapper$children[[1]] <- box
   wrapper
-}
-
-#' Function to update the collapsed status of a dqBox
-#'
-#' @description Function to send a message to js to update the collapsed status of a dqBox.
-#'
-#' @param id id of the dqBox
-#' @param collapsed new collapsed status to be set
-#' @param silent optional logical indicating to suppress events or not
-#'
-#' @return sent message
-#' @export
-#' @author richard.kunze
-update_dq_box <- function(id, collapsed, silent = FALSE) {
-  send_message(type = "updateBox", id = id, collapsed = collapsed, silent = silent)
 }

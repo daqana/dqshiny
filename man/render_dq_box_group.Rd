@@ -18,20 +18,22 @@ fluidRow containing the set of groupified dq_boxes
 \description{
 Directly render a set of dq_boxes into an uiOutput element. All
 given dq_boxes will be groupified automatically, meaning that they will
-become 'collapsible' and 'openCallback'ed.
+become 'collapsible' and 'open_callback'ed.
 }
 \examples{
 \donttest{library(shiny)
 shinyApp(
   ui = fluidPage(
-    init(),
     fluidRow(column(6, uiOutput("myGroup")))
   ),
   server = function(input, output) {
     output$myGroup <- render_dq_box_group(
-      dq_box("Random Input1", dqSpace(250), "End of Content", title = "TestBox1", width = 12),
-      dq_box("Random Input2", dqSpace(250), "End of Content", title = "TestBox2", width = 12),
-      dq_box("Random Input3", dqSpace(250), "End of Content", title = "TestBox3", width = 12),
+      dq_box("Random Input1", dq_space(), "End of Content",
+        title = "TestBox1", width = 12),
+      dq_box("Random Input2", dq_space(), "End of Content",
+        title = "TestBox2", width = 9),
+      dq_box("Random Input3", dq_space(), "End of Content",
+        title = "TestBox3", width = 12),
       open = 3L)
   }
 )}
