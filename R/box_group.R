@@ -94,18 +94,23 @@ groupify_dq_box <- function(wrapper, open) {
   if (is.null(box$children[[1]])) return(wrapper)
   if (is.null(box$children[[1]]$onclick)) {
     box$children[[1]] <- shiny::tagAppendAttributes(
-      box$children[[1]], onclick = paste0("document.getElementById('", id, "_collapser').click();")
+      box$children[[1]], onclick = paste0(
+        "document.getElementById('", id, "_collapser').click();"
+      )
     )
   }
-  if (!grepl("collapsible", box$children[[1]]$attribs$class, fixed = TRUE)) {
-    box$children[[1]]$attribs$class <- paste(box$children[[1]]$attribs$class, "collapsible")
+  box_class <- box$children[[1]]$attribs$class
+  if (!grepl("collapsible", box_class, fixed = TRUE)) {
+    box$children[[1]]$attribs$class <- paste(box_class, "collapsible")
   }
   body_id <- box$children[[2]]$attribs$id
-  if (is.null(box$children[[1]]$children[[2]])) {
-    box$children[[1]]$children[[2]] <- create_collapse_tag(!open, id, body_id, TRUE)
+  collapse_tag <- box$children[[1]]$children[[2]]
+  if (is.null(collapse_tag)) {
+    box$children[[1]]$children[[2]] <- create_collapse_tag(!open, id, body_id)
   }
+  body_class <- box$children[[2]]$attribs$class
   box$children[[2]]$attribs$class <- paste(
-    gsub("collapse( in)?", "", box$children[[2]]$attribs$class), "collapse", if (open) "in"
+    gsub("collapse( in)?", "", body_class), "collapse", if (open) "in"
   )
   wrapper$children[[1]] <- box
   wrapper

@@ -130,7 +130,7 @@ dq_box <- function(
 
 }
 
-create_collapse_tag <- function(collapsed, id, body_id, open_callback) {
+create_collapse_tag <- function(collapsed, id, body_id, open_callback = TRUE) {
   coll_icon <- if (collapsed) "plus" else "minus"
   btn <- shiny::actionButton(
     paste0(id, "_collapser"), label = NULL, icon = shiny::icon(coll_icon),
