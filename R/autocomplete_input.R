@@ -53,6 +53,9 @@ autocomplete_input <- function(
   id, label, options, value = "", width = NULL,
   placeholder = NULL, max_options = 0, hide_values = FALSE
 ) {
+  if (!requireNamespace("jsonlite", quietly = TRUE)) {
+    stop("jsonlite is needed to convert list of options into json!")
+  }
   value <- shiny::restoreInput(id = id, default = value)
   js_opts <- jsonlite::toJSON(as.list(options), auto_unbox = TRUE)
   width <- shiny::validateCssUnit(width)

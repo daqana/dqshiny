@@ -1,14 +1,17 @@
 #' Adds a custom js function
 #'
-#' @description Adds the given js function definition to the current shiny web app.
+#' @description Adds the given js function definition to the current shiny web
+#' app.
 #'
-#' Before adding anything the code will be parsed with V8 if the package is available on your machine. If package is available
-#' and parsing fails, an error will be thrown.
+#' Before adding anything the code will be parsed with V8 if the package is
+#' available on your machine. If package is available and parsing fails, an
+#' error will be thrown.
 #'
 #' After successfull adding any function can be used with run_js.
 #'
 #' @param type name of the function
-#' @param functionText js function definition, this should be an anonymous function accepting exactly one argument
+#' @param functionText js function definition, this should be an anonymous
+#' function accepting exactly one argument
 #'
 #' @export
 #' @author richard.kunze
@@ -25,18 +28,22 @@
 #'     actionButton("btn2", "What's my name?")
 #'   ),
 #'   server = function(input, output) {
-#'     observeEvent(input$btn1, run_js(type="addValues", 17, 25))
-#'     observeEvent(input$btn2, run_js(type="myName", name = "Paul"))
+#'     observeEvent(input$btn1, run_js(type = "addValues", 17, 25))
+#'     observeEvent(input$btn2, run_js(type = "myName", name = "Paul"))
 #'   }
 #' )}
 add_js <- function(type, functionText) {
-  code <- paste0("Shiny.addCustomMessageHandler('", type, "', ", functionText, ");")
-  parse_code(code = code)
+  code <- paste0(
+    "Shiny.addCustomMessageHandler('", type, "', ", functionText, ");"
+  )
+  parse_code(code)
   shiny::tags$head(shiny::tags$script(code))
 }
 
-#' @param ... arguments to pass to the function, those will be combined to a list and end up as an array in js,
-#' unnamed parameters will be available via params[0..], named parameters can also be used with params.name
+#' @param ... arguments to pass to the function, those will be combined to a
+#' list and end up as an array in js, unnamed parameters will be available via
+#' params[0..], named parameters can also be used with params.name
+#'
 #' @export
 #' @rdname add_js
 run_js <- function(type, ...) {
@@ -46,10 +53,10 @@ run_js <- function(type, ...) {
   }
 }
 
+#' @author richard.kunze
 parse_code <- function(code) {
   if (!requireNamespace("V8", quietly = TRUE)) {
-    warning(paste("V8 package wasn't found, so custom js code can't be checked! Please consider",
-                  "installing V8 with `install.packages(\"V8\")`."))
+    warning("Package 'V8' not installed, so custom js code can't be checked!")
   } else {
     ct <- V8::new_context("Shiny", FALSE, FALSE)
     ct$eval("Shiny.addCustomMessageHandler=function(a,b){};")

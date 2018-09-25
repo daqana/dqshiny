@@ -16,22 +16,29 @@ dq_as_selectize_options(options, ...)
 
 \item{col}{column index or name, must be scalar}
 
-\item{options}{character vector or list to be used as selectize options, names will be used as labels for the options,
-dq_add_selectize_options can also handle lists of vectors, where each vector will be used to specify the options of one cell}
+\item{options}{character vector or list to be used as selectize options,
+names will be used as labels for the options, dq_add_selectize_options can
+also handle lists of vectors, where each vector will be used to specify the
+options of one cell}
 
 \item{...}{additional parameters to be passed to selectize}
 }
 \value{
 dq_add_selectize_options: updated rhandsontable object
 
-dq_as_selectize_options: list containing all options and additional setings
+dq_as_selectize_options: list containing all options and additional
+setings
 }
 \description{
-dq_add_selectize_options adds selectizeOptions to a column of a handsontable to be used with the selectize editor.
-Especially useful if each cell should have individual dropdowns. It will also set the type and editor for the specified column.
+dq_add_selectize_options adds selectizeOptions to a column of
+a handsontable to be used with the selectize editor. Especially useful if
+each cell should have individual dropdowns. It will also set the type and
+editor for the specified column.
 
-dq_as_selectize_options converts the given vector of options into a proper selectize options list. Names of the given vector
-will be used to specify labels for the options. Further selectize attributes can be set via additional named parameters.
+dq_as_selectize_options converts the given vector of options
+into a proper selectize options list. Names of the given vector will be used
+to specify labels for the options. Further selectize attributes can be set
+via additional named parameters.
 }
 \examples{
 \donttest{library(rhandsontable)

@@ -48,7 +48,8 @@ show <- function(ids) {
   remove_class(ids, "hidden")
 }
 
-#' @param condition Condition to use for toggling the visibility.
+#' @param condition Condition to be used for toggling the visibility (TRUE =
+#' visible).
 #' @export
 #' @rdname hide
 toggle <- function(ids, condition = NULL) {

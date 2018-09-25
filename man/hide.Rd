@@ -15,7 +15,8 @@ toggle(ids, condition = NULL)
 \arguments{
 \item{ids}{Character vector, id(s) of the element to hide/show.}
 
-\item{condition}{Condition to use for toggling the visibility.}
+\item{condition}{Condition to be used for toggling the visibility (TRUE =
+visible).}
 }
 \description{
 Those functions can be used to change an elements visibility

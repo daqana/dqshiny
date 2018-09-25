@@ -1,15 +1,16 @@
-#' @title Initializes dqshiny styling
-#' @description Must be used inside the shinyUI before any other daqana styling function is used.
-#' Specify parameters to automatically add content to your side. Please notice, that no additional parameters can be given in this case.
+#' @title Initializes dqshiny
 #'
-#' @return list of shiny includes executed by shinyUI
+#' @description Can be used inside the shinyUI to add dq shiny resource path.
+#' Will be automatically called by loading the package and using any of the
+#' dqshiny elements.
+#'
+#' @return dqshiny css and js dependency
 #' @export
 #' @author richard.kunze
 #' @examples \donttest{library(shiny)
 #' shinyApp(
 #'   ui = fluidPage(
-#'     init(),
-#'     dq_header()
+#'     init()
 #'   ),
 #'   server = function(input, output) {}
 #' )}
@@ -17,7 +18,7 @@ init <- function() {
   shiny::singleton(shiny::addResourcePath(
     "dqshinyRes", system.file("www", package = "dqshiny")
   ))
-  NULL
+  list(dq_dep)
 }
 
 #' @title Initializes dqshiny fonts for figures

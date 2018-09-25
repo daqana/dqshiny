@@ -16,21 +16,29 @@ disabled(...)
 tags with the state change
 }
 \description{
-Hidden only hides elements on the top level, so showing these elements will also show all children of them.
+Hidden only hides elements on the top level, so showing these
+elements will also show all children of them.
 
-Disabled will recursively traverse the given elements and its children and set all inputs, buttons, selects and textfields
-to be disabled.
+Disabled will recursively traverse the given elements and its
+children and set all inputs, buttons, selects and textfields to be disabled.
+}
+\note{
+Both functions won't work, if there is not at least one dqshiny element
+in the UI. If there is absolutely no need to use any of those elements,
+please add \code{\link{init}} to your UI.
 }
 \examples{
 \donttest{library(shiny)
 shinyApp(
   ui = fluidPage(
     init(),
-    actionButton("btn1", "Press Me"),
-    hidden(disabled(actionButton("btn2", "Show")))
+    actionButton("btn1", "Toggle Display"),
+    actionButton("btn2", "Toggle State"),
+    hidden(disabled(actionButton("btn3", "Hello")))
   ),
   server = function(input, output) {
-    observeEvent(input$btn1, toggle("btn2"))
+    observeEvent(input$btn1, toggle("btn3"))
+    observeEvent(input$btn2, toggle_state("btn3"))
   }
 )}
 }

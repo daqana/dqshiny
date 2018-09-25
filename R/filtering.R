@@ -1,6 +1,7 @@
 #' Get filter values from a given context
 #'
-#' @description get_filters receives the values from all filters within the given context and returns them in a list.
+#' @description get_filters receives the values from all filters within the
+#' given context and returns them in a list.
 #'
 #' @param input shiny input environment
 #'
@@ -14,13 +15,13 @@ get_filters <- function(input, context) {
   vals
 }
 
-#' Filters a data frame of text values
-#'
-#' @description text_filter filters a given data frame with the given filter values. Names of the given values vector should be
-#' the indices of the corresponding data frame columns. All filters are case-ignoring.
+#' @description text_filter filters a given data frame with the given filter
+#' values. Names of the given values vector should be the indices of the
+#' corresponding data frame columns. All filters are case-ignoring.
 #'
 #' @param df data frame to filter
-#' @param values character array with the filter values, should have length of data or being named
+#' @param values character array with the filter values, should have length of
+#' data or being named
 #'
 #' @return text_filter: filtered data frame
 #' @export
@@ -50,12 +51,12 @@ text_filter_rec <- function(df, values, valid, depth = 1) {
   return(text_filter_rec(df, values, valid, depth + 1))
 }
 
-#' Filters a data frame of text values
+#' @description range_filter filters a given data frame with the given filter
+#' values. Names of the given ranges vector should be the indices of the
+#' corresponding data frame columns.
 #'
-#' @description range_filter filters a given data frame with the given filter values. Names of the given ranges vector should be
-#' the indices of the corresponding data frame columns.
-#'
-#' @param ranges numeric (or numeric makeable) vector with the filter values, should have length of data or being named
+#' @param ranges numeric (or numeric makeable) vector with the filter values,
+#' should have length of data or being named
 #'
 #' @return range_filter: filtered data frame
 #' @export
@@ -63,7 +64,8 @@ text_filter_rec <- function(df, values, valid, depth = 1) {
 range_filter <- function(df, ranges) {
   if (is.atomic(ranges) && length(ranges) == 2) ranges <- list(ranges)
   newRanges <- lapply(ranges, function(x) {
-    if (length(x) == 2 && suppressWarnings(all(!is.na(vals <- as.numeric(x))))) vals
+    vals <- suppressWarnings(as.numeric(x))
+    if (length(x) == 2 && all(!is.na(vals))) vals
     else NA
   })
   if (!is.null(names(ranges))) {

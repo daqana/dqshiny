@@ -48,7 +48,8 @@ disable <- function(ids) {
   send_message(type = "toggleState", ids = ids, state = TRUE)
 }
 
-#' @param condition Condition to use for toggling the state.
+#' @param condition Condition to be used for toggling the state (TRUE =
+#' disabled).
 #' @export
 #' @rdname enable
 toggle_state <- function(ids, condition = NULL) {

@@ -13,7 +13,8 @@ reset_slider_input(id)
 sent message
 }
 \description{
-Function to send a message to js to reset an existing slider input. Use it ro restore a slider input's initial values.
+Function to send a message to js to reset an existing slider
+input. Use it ro restore a slider input's initial values.
 }
 \examples{
 \donttest{library(shiny)

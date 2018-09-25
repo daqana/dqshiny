@@ -15,23 +15,22 @@
 #' base_url <- "http://download.blender.org/peach/bigbuckbunny_movies/"
 #' shinyApp(
 #'   ui = fluidPage(
-#'     init(),
 #'     video_box("lowRes",
 #'       paste0(base_url, "BigBuckBunny_320x180.mp4"),
 #'       "Low Resolution"
 #'     ),
 #'     video_box("highRes", type = "audio/ogg",
-#'       paste0(base_url, "big_buck_bunny_720p_stereo.ogg)"
+#'       paste0(base_url, "big_buck_bunny_720p_stereo.ogg")
 #'     ),
 #'     fluidRow(column(12,
 #'       "Low resolution: ", video_tag("lowRes"), br(),
 #'       "Higher resolution: ", video_tag("highRes", 300, "Bookmark at 5min")
 #'     ))
 #'   ),
-#'   server = function(input, output, session) {
-#'   }
+#'   server = function(input, output) {}
 #' )}
 video_box <- function(id, src, title = NULL, type = "video/mp4") {
+  init()
   if (length(type) != length(src)) {
     type <- rep_len(type, length(src))
   }
@@ -51,7 +50,7 @@ video_box <- function(id, src, title = NULL, type = "video/mp4") {
       lapply(seq(src), function(i) {
         shiny::tags$source(src = src[[i]], type = type[[i]])
       })
-    )
+    ), dq_dep
   )
 }
 
@@ -62,6 +61,7 @@ video_box <- function(id, src, title = NULL, type = "video/mp4") {
 #' @export
 #' @rdname video_box
 video_tag <- function(id, time = NULL, title = NULL) {
+  init()
   shiny::tags$div(
     class = "video-button", shiny::icon("play-circle"),
     onclick = paste0(
@@ -73,6 +73,6 @@ video_tag <- function(id, time = NULL, title = NULL) {
       if (!is.null(title)) paste0(
         "$('#", id, "_title').text('", title, "');"
       )
-    )
+    ), dq_dep
   )
 }

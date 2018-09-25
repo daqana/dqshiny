@@ -33,21 +33,19 @@ video box and jump directly to the given position in the video.
 base_url <- "http://download.blender.org/peach/bigbuckbunny_movies/"
 shinyApp(
   ui = fluidPage(
-    init(),
     video_box("lowRes",
       paste0(base_url, "BigBuckBunny_320x180.mp4"),
       "Low Resolution"
     ),
     video_box("highRes", type = "audio/ogg",
-      paste0(base_url, "big_buck_bunny_720p_stereo.ogg)"
+      paste0(base_url, "big_buck_bunny_720p_stereo.ogg")
     ),
     fluidRow(column(12,
       "Low resolution: ", video_tag("lowRes"), br(),
       "Higher resolution: ", video_tag("highRes", 300, "Bookmark at 5min")
     ))
   ),
-  server = function(input, output, session) {
-  }
+  server = function(input, output) {}
 )}
 }
 \author{

@@ -1,7 +1,7 @@
 context("Test init in init.R")
 
 test_that("init works without error", {
-  expect_length(init(), 0)
+  expect_length(init(), 1L)
 })
 
 context("Test init_fonts in init.R")

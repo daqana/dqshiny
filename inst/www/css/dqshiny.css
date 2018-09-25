@@ -191,7 +191,7 @@
   padding: 0 15px;
 }
 .dq-box-body.not-filled {
-  background-color: var(--color-background);
+  background-color: #fff;
 }
 .no-header .dq-box-body {
   border-top-right-radius: 3px;
@@ -213,7 +213,7 @@
 .video-button {
   display: inline-block;
   cursor: help;
-  color: var(--color-primary);
+  color: #ff8f00;
   font-size: 20px;
   position: relative;
   line-height: 1;
@@ -228,7 +228,7 @@
   display: none;
   opacity: 0;
   background-color: #fff;
-  border: 2px solid var(--color-primary);
+  border: 2px solid #ff8f00;
   border-radius: 5px;
   width: 200px;
   max-height: 250px;
@@ -372,7 +372,7 @@ img.dq-icon-10x {
 
 .filter-row .sort-button {
   border: 0;
-  color: var(--color-primary);
+  color: #ff8f00;
   padding: 0 3px;
   position: absolute;
   right: 3px;
@@ -436,7 +436,7 @@ img.dq-icon-10x {
 @-webkit-keyframes shadowPulse {
   0% {
     box-shadow: 0 0 10px rgba(255, 79, 0, 1);
-    background-color: var(--color-secondary);
+    background-color: #ff4f00;
     color: #fff;
   }
   100% {
@@ -447,7 +447,7 @@ img.dq-icon-10x {
 @keyframes shadowPulse {
   0% {
     box-shadow: 0 0 10px rgba(255, 79, 0, 1);
-    background-color: var(--color-secondary);
+    background-color: #ff4f00;
     color: #fff;
   }
   100% {

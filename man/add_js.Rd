@@ -12,16 +12,20 @@ run_js(type, ...)
 \arguments{
 \item{type}{name of the function}
 
-\item{functionText}{js function definition, this should be an anonymous function accepting exactly one argument}
+\item{functionText}{js function definition, this should be an anonymous
+function accepting exactly one argument}
 
-\item{...}{arguments to pass to the function, those will be combined to a list and end up as an array in js,
-unnamed parameters will be available via params[0..], named parameters can also be used with params.name}
+\item{...}{arguments to pass to the function, those will be combined to a
+list and end up as an array in js, unnamed parameters will be available via
+params[0..], named parameters can also be used with params.name}
 }
 \description{
-Adds the given js function definition to the current shiny web app.
+Adds the given js function definition to the current shiny web
+app.
 
-Before adding anything the code will be parsed with V8 if the package is available on your machine. If package is available
-and parsing fails, an error will be thrown.
+Before adding anything the code will be parsed with V8 if the package is
+available on your machine. If package is available and parsing fails, an
+error will be thrown.
 
 After successfull adding any function can be used with run_js.
 }
@@ -39,8 +43,8 @@ shinyApp(
     actionButton("btn2", "What's my name?")
   ),
   server = function(input, output) {
-    observeEvent(input$btn1, run_js(type="addValues", 17, 25))
-    observeEvent(input$btn2, run_js(type="myName", name = "Paul"))
+    observeEvent(input$btn1, run_js(type = "addValues", 17, 25))
+    observeEvent(input$btn2, run_js(type = "myName", name = "Paul"))
   }
 )}
 }

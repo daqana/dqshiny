@@ -24,8 +24,9 @@ add_sorting_observer <- function(input, session, dq_values, context, paged, page
   shiny::observeEvent(list(dq_values$sort_col, dq_values$sort_dir), {
     dq_values[[context]] <- sort_data(dq_values[[context]], dq_values$sort_dir, dq_values$sort_col)
     if (paged) {
-      pS <- as.integer(input[[paste0("sel_", context, "_pageSize")]])
-      dq_values[[page_id]] <- update_page(dq_values[[context]], context, input[[paste0("num_", context, "_page")]], pS, session)
+      size <- as.integer(input[[paste0("sel_", context, "_pageSize")]])
+      num <- input[[paste0("num_", context, "_page")]]
+      dq_values[[page_id]] <- update_page(dq_values[[context]], context, num, size, session)
     }
   }, ignoreInit = TRUE)
   sorts

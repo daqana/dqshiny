@@ -34,9 +34,11 @@ for each column}
 
 \item{df}{data frame to filter}
 
-\item{values}{character array with the filter values, should have length of data or being named}
+\item{values}{character array with the filter values, should have length of
+data or being named}
 
-\item{ranges}{numeric (or numeric makeable) vector with the filter values, should have length of data or being named}
+\item{ranges}{numeric (or numeric makeable) vector with the filter values,
+should have length of data or being named}
 }
 \value{
 filter_row: fluidRow containing the filters
@@ -52,13 +54,16 @@ FilterRow creates a fluidRow with several textInputs or
 selectInputs for filtering a table.#' Will also add a button to clear
 all filter values.
 
-get_filters receives the values from all filters within the given context and returns them in a list.
+get_filters receives the values from all filters within the
+given context and returns them in a list.
 
-text_filter filters a given data frame with the given filter values. Names of the given values vector should be
-the indices of the corresponding data frame columns. All filters are case-ignoring.
+text_filter filters a given data frame with the given filter
+values. Names of the given values vector should be the indices of the
+corresponding data frame columns. All filters are case-ignoring.
 
-range_filter filters a given data frame with the given filter values. Names of the given ranges vector should be
-the indices of the corresponding data frame columns.
+range_filter filters a given data frame with the given filter
+values. Names of the given ranges vector should be the indices of the
+corresponding data frame columns.
 }
 \examples{
 \donttest{library(shiny)

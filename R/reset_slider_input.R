@@ -1,6 +1,7 @@
 #' Function to reset a slider input
 #'
-#' @description Function to send a message to js to reset an existing slider input. Use it ro restore a slider input's initial values.
+#' @description Function to send a message to js to reset an existing slider
+#' input. Use it ro restore a slider input's initial values.
 #'
 #' @param id id of the slider input to reset
 #'

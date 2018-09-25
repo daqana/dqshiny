@@ -1,28 +1,19 @@
 #' Adds an uiOutput
 #'
-#' @description Adds a fluidrow containing a column with the given width, ready to support a dq_handsontable_output
-#' (or any other rendered ui).
+#' @description dq_handsontable_output adds a fluidrow containing a column with
+#' the given width, ready to support a dq_handsontable.
 #'
 #' @param id id of the element
 #' @param width width of the table in bootstrap columns
 #' @param offset optional offset of the column
 #'
-#' @return fluidrow containing a column with the output fields
-#' @author richard.kunze
-#' @examples \donttest{library(shiny)
-#' library(rhandsontable)
-#' shinyApp(
-#'   ui = fluidPage(
-#'     dqshiny:::dq_handsontable_output("myCars")
-#'   ),
-#'   server = function(input, output) {
-#'     dqshiny:::dq_render_handsontable("myCars", mtcars, filters = "T", reset = FALSE)
-#'   }
-#' )}
+#' @return dq_handsontable_output: fluidrow containing the output fields
+#' @rdname dq_render_handsontable
 dq_handsontable_output <- function(id, width = 12, offset = 0) {
   requireNamespace("rhandsontable")
   requireNamespace("shiny")
   if (is.null(id)) return(NULL)
+  init()
   shiny::fluidRow(shiny::column(
     width, offset = offset,
     shiny::uiOutput(paste0(id, "_filters")),
@@ -33,38 +24,49 @@ dq_handsontable_output <- function(id, width = 12, offset = 0) {
 
 #' Renders a dq handsontable
 #'
-#' @description Renders a handsontable into the given uiOutput id with the given data and parameters.
-#' Can also contain several filters to filter the data and a feature to split the table into several pages with a given page size.
-#' The function will also add all needed observeEvents to establish the required functionalities. If table is not readOnly, all
-#' user inputs will automatically stored  and updated independent from any filters or pages.
+#' @description dq_render_handsontable renders a handsontable into the given
+#' uiOutput id with the given data and parameters. Can also contain several
+#' filters to filter the data and a feature to split the table into several
+#' pages with a given page size. The function will also add all needed
+#' observeEvents to establish the required functionalities. If table is not
+#' readOnly, all user inputs will automatically stored and updated independent
+#' from any filters or pages.
 #'
-#' @param id id of the handsontable element, has to be the same as the one used in dqHandsontable
-#' @param data data to show in the table, should be a data.frame, can also be an reactiveValues
-#' object holding the data under id (e.g. data <- reactiveValues[[id]])
-#' @param context the context used to specify all ui elements used for this table, can be omitted
-#' which ends up in a randomly generated context
-#' @param filters optional character vector, adds filters for each column, values must be one of
-#' "Text", "Select", "Range" or "" (can be abbreviated) to add a TextFilter, SelectFilter,
-#' RangeFilter or none, vectors of length one will add a filter of this type for each column
-#' @param reset optional logical, specify whether to add a button to reset filters to initial
-#' values or not
-#' @param page_size optional numeric, number of items per page, can be one of 10, 25, 50, 100 or any
-#' other value which will be added to this list, NULL will disable paging
-#' @param sorting optional logical, specify whether to add sort buttons for every column or not,
-#' as normal rhandsontable sorting won't work properly when table is paged, please ensure that
-#' rownames of the data are numeric
-#' @param width_align optional boolean to align filter widths with hot columns, should only be used
-#' with either horizontalScroll, stretchH = "all" or a table fitting in its output element
-#' @param horizontal_scroll optiona boolean to scroll the filterrow according to the hot table,
-#' especially useful for tables with many columns
-#' @param table_param optional list, specify parameters to hand to rHandsontable table element
-#' @param cols_param optional list, specify parameters to hand to rHandsontable cols elements
-#' @param ... further optional lists to specify parameters to hand to rHandsontable col elements,
-#' those lists have to be assigned to a name
+#' @param data data to show in the table, should be a data.frame'ish object, can
+#' also be a reactiveValues object holding the data under the given id
+#' (e.g. myReactiveValues[[id]] <- data). In case of reactiveValues, those will
+#' always be in line with user inputs.
+#' @param context the context used to specify all ui elements used for this
+#' table, can be omitted which ends up in a randomly generated context
+#' @param filters optional character vector, adds filters for each column,
+#' values must be one of "Text", "Select", "Range" or "" (can be abbreviated) to
+#' add a TextFilter, SelectFilter, RangeFilter or none, vectors of length one
+#' will add a filter of this type for each column
+#' @param reset optional logical, specify whether to add a button to reset
+#' filters and sort buttons to initial values or not
+#' @param page_size optional numeric, number of items per page, can be one of
+#' 10, 25, 50, 100 or any other value which will be added to this list, NULL
+#' will disable paging at all
+#' @param sorting optional logical, specify whether to add sort buttons for
+#' every column or not, as normal rhandsontable sorting won't work properly
+#' when table is paged, please ensure that rownames of the data are numeric
+#' @param width_align optional boolean to align filter widths with hot columns,
+#' should only be used with either horizontalScroll, stretchH = "all" or a table
+#' fitting in its output element
+#' @param horizontal_scroll optiona boolean to scroll the filterrow according to
+#' the hot table, especially useful for tables with many columns
+#' @param table_param optional list, specify parameters to hand to rHandsontable
+#' table element
+#' @param cols_param optional list, specify parameters to hand to rHandsontable
+#' cols elements
+#' @param ... further optional lists to specify parameters to hand to
+#' rHandsontable col elements, those lists have to be assigned to any name
 #'
-#' @return reactive values of the data in the table
+#' @return dq_render_handsontable: the given data
 #' @author richard.kunze
-#' @seealso \code{\link[rhandsontable:rhandsontable]{rhandsontable}}, \code{\link[rhandsontable:hot_cols]{hot_cols}} and \code{\link[rhandsontable:hot_col]{hot_col}}
+#' @seealso \code{\link[rhandsontable:rhandsontable]{rhandsontable}},
+#' \code{\link[rhandsontable:hot_cols]{hot_cols}} and
+#' \code{\link[rhandsontable:hot_col]{hot_col}}
 #'
 #' @examples \donttest{library(shiny)
 #' library(rhandsontable)
@@ -154,12 +156,14 @@ dq_render_handsontable <- function(
   table_default <- append(table_param, table_default)
   table_default <- table_default[!duplicated(names(table_default))]
 
-  cols_default <- list(colWidths = 1L, highlightCol = TRUE, highlightRow = TRUE, manualColumnResize = TRUE)
+  cols_default <- list(colWidths = 1L, highlightCol = TRUE,
+                       highlightRow = TRUE, manualColumnResize = TRUE)
   cols_default <- append(cols_param, cols_default)
   cols_default <- cols_default[!duplicated(names(cols_default))]
 
   params <- list(table_default, cols_default, ...)
-  params[[1]] <- add_scripts(params[[1]], isTRUE(width_align), isTRUE(horizontal_scroll))
+  params[[1]] <- add_scripts(params[[1]], isTRUE(width_align),
+                             isTRUE(horizontal_scroll))
 
   # render dq_handsontable
   if (!is.null(output)) {

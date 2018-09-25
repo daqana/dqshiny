@@ -13,15 +13,17 @@ dq_hot_cell(hot, row, col, ...)
 
 \item{col}{integer vector specifying the columns to configure}
 
-\item{...}{parameters to be set in the cells, can be all rhandsontable parameters and additional custom ones used with custom
-renderers or editors}
+\item{...}{parameters to be set in the cells, can be all rhandsontable
+parameters and additional custom ones used with custom renderers or editors}
 }
 \description{
-Configure individual cells of a rhandsontable widget. Can be used just like \code{\link[rhandsontable:hot_cols]{hot_cols}}
-or \code{\link[rhandsontable:hot_col]{hot_col}} to specify custom options or cells. All possible combinations of row and column indices will be set.
+Configure individual cells of a rhandsontable widget. Can be
+used just like \code{\link[rhandsontable:hot_cols]{hot_cols}} or
+\code{\link[rhandsontable:hot_col]{hot_col}} to specify custom options or
+cells. All possible combinations of row and column indices will be set.
 }
 \examples{
-df <- data.frame("readOrWrite"= rep(c("readOnly", "change me!"), 5),
+df <- data.frame(readOrWrite = rep(c("readOnly", "change me!"), 5),
   secret = rep("tops3cr3t", 10), stringsAsFactors = FALSE)
 
 hot <- rhandsontable::rhandsontable(df, rowHeaders = NULL)

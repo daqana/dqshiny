@@ -14,17 +14,21 @@ dq_hot_html_renderer()
 }
 \arguments{
 \item{renderer}{handsontable base renderer to be adjusted, can be one of
-("Autocomplete", "Base", "Checkbox", "Date", "Dropdown", "Html", "Numeric", "Password", "Text", "Time")}
+("Autocomplete", "Base", "Checkbox", "Date", "Dropdown", "Html", "Numeric",
+"Password", "Text", "Time")}
 }
 \value{
 character containing js renderer
 }
 \description{
-dq_hot_date_renderer: Renderer to show handsontable dates in proper formatting.
+dq_hot_date_renderer: Renderer to show handsontable dates in
+proper formatting.
 
-dq_hot_empty_renderer: Renderer to highlight empty cells in handsontable.
+dq_hot_empty_renderer: Renderer to highlight empty cells in
+handsontable.
 
-dq_hot_html_renderer: Renderer to replace missing "html" rhandsontable renderer.
+dq_hot_html_renderer: Renderer to replace missing "html"
+rhandsontable renderer.
 }
 \examples{
 df <- data.frame(empty = rep(c("value", ""), 5),

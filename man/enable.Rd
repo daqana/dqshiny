@@ -15,7 +15,8 @@ toggle_state(ids, condition = NULL)
 \arguments{
 \item{ids}{Character vector, id(s) of the element to enable/disable.}
 
-\item{condition}{Condition to use for toggling the state.}
+\item{condition}{Condition to be used for toggling the state (TRUE =
+disabled).}
 }
 \description{
 Those functions can be used to change an elements disabled

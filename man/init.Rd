@@ -2,23 +2,23 @@
 % Please edit documentation in R/init.R
 \name{init}
 \alias{init}
-\title{Initializes dqshiny styling}
+\title{Initializes dqshiny}
 \usage{
 init()
 }
 \value{
-list of shiny includes executed by shinyUI
+dqshiny css and js dependency
 }
 \description{
-Must be used inside the shinyUI before any other daqana styling function is used.
-Specify parameters to automatically add content to your side. Please notice, that no additional parameters can be given in this case.
+Can be used inside the shinyUI to add dq shiny resource path.
+Will be automatically called by loading the package and using any of the
+dqshiny elements.
 }
 \examples{
 \donttest{library(shiny)
 shinyApp(
   ui = fluidPage(
-    init(),
-    dq_header()
+    init()
   ),
   server = function(input, output) {}
 )}

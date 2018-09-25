@@ -2,7 +2,7 @@
 % Please edit documentation in R/dq_accordion.R
 \name{dq_accordion}
 \alias{dq_accordion}
-\title{accordion module to show several collapsible boxes}
+\title{Accordion module to show several collapsible boxes}
 \usage{
 dq_accordion(id, titles, contents, options = NULL, sortable = FALSE,
   bg_color = "#ff8f00", hover = TRUE, style = "", icons = c(rotate
@@ -13,51 +13,52 @@ dq_accordion(id, titles, contents, options = NULL, sortable = FALSE,
 
 \item{titles}{character, titles to show in the accordion headers}
 
-\item{contents}{list of contents, can be character, shiny tags, nested lists of shiny tags ...}
+\item{contents}{list of contents, can be character, shiny tags, nested lists
+of shiny tags ...}
 
-\item{options}{optional list of jquery-ui options to customize accordions behavior, for a full
-list of possible options have a look at: \url{http://api.jqueryui.com/accordion}}
+\item{options}{optional list of jquery-ui options to customize accordions
+behavior, for a full list of possible options have a look at:
+\url{http://api.jqueryui.com/accordion}}
 
-\item{sortable}{optional logical indicating whether the accordion parts should be rearrangeable
-or not}
+\item{sortable}{optional logical indicating whether the accordion parts
+should be rearrangeable or not}
 
-\item{bg_color}{optional character specifying the background color of the headers, can be any
-valid HTML color code}
+\item{bg_color}{optional character specifying the background color of the
+headers, can be any valid HTML color code}
 
-\item{hover}{optional logical indicating whether headers should have an hover effekt or not}
+\item{hover}{optional logical indicating whether headers should have an hover
+effekt or not}
 
 \item{style}{optional character for additional header style attributes}
 
-\item{icons}{optional named character vector of length one or two indicating the
-\href{http://fontawesome.io/icons/}{FontAwesome} icons to be used in front of the header title
-showing the state of the content (open or closed)}
+\item{icons}{optional named character vector of length one or two indicating
+the \href{http://fontawesome.io/icons/}{FontAwesome} icons to be used in
+front of the header title showing the state of the content (open or closed)}
 }
 \value{
 shiny div holding the accordion
 }
 \description{
-Ceates an accordion object where one of the contents can be shown and the others
-will be hidden. The currently activated panel will be available to R over the input$id element.
+Ceates an accordion object where one of the contents can be
+shown and the others will be hidden. The currently activated panel will be
+available to R over the input$id element.
 }
 \examples{
 \donttest{library(shiny)
 
 titles <- c("Section 1", "Section 2", "Section 3")
-contents <- list("Lorem ipsum...", "Lorem ipsum...", tags$p("Lorem ipsum..."))
+contents <- list("Lorem ipsum..", "Lorem ipsum..", tags$p("Lorem ipsum.."))
 shinyApp(
   ui = fluidPage(
     fluidRow(
-      column(12, dq_accordion(
-        "myAccordion", titles, contents, hover = FALSE,
-        style = "border:1px solid red;border-radius: 5px;margin-top:5px;color:red;"
+      column(12, dq_accordion("myAccordion", titles, contents, hover = FALSE,
+        style = "border:1px solid red;margin-top: 5px;color: red;"
       ), dq_space(),
-      dq_accordion(
-        "myAccordion2", titles, contents,
+      dq_accordion("myAccordion2", titles, contents,
         bg_color = NULL, options = list(animate = 500, collapsible = TRUE),
         icons = c(open = "hand-o-down", closed = "hand-o-right")
       ), dq_space(),
-      dq_accordion(
-        "myAccordion3", titles, contents,
+      dq_accordion("myAccordion3", titles, contents,
         bg_color = "pink", icons = NULL, sortable = TRUE
       ))
     )

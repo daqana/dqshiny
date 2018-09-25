@@ -5,7 +5,7 @@
 #'
 #' @param icon_path optional character, icon source path
 #' @param time optional integer indicating the animation time of the loader.
-#' Can be useful to omit loader for many short loading moments, but show it if
+#' Can be useful to omitt loader for many short loading moments, but show it if
 #' calculation really needs some time. Set to 0 to disable animations.
 #' @param animation optional character specifying the animation of the loader
 #'
@@ -24,9 +24,8 @@
 #' )}
 dq_busy <- function(icon_path = NULL, time = 500, animation = "fadeIn") {
 
-  if (is.null(icon_path)) {
-    icon_path <- "dqshinyRes/img/busy.gif"
-  }
+  init()
+  if (is.null(icon_path)) icon_path <- "dqshinyRes/img/busy.gif"
   if (!is.numeric(time)) time <- 500
   busy_styles <- paste0(
     "position:fixed;top:50%;left:50%;margin:-16px;width:32px;z-index:999999;",

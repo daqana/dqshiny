@@ -70,9 +70,9 @@ shinyApp(
         dq_infobox("hallo", 2, "Welt", icon("hashtag"),
                    bg_color = "black", color = "#D00"),
         dq_box(
-          title = "Box in the box", bg_color="pink", width = 8,
-          dq_infobox("in the box...", 2, "in the box!", width=12,
-                     bg_color = "white", color = "#0D0"),
+          title = "Box in the box", bg_color = "pink", width = 8,
+          dq_infobox("in the box...", 2, "in the box!", width = 12,
+                     bg_color = "white", color = "#0D0")
           )
         ),
       column(3, actionButton("toggle", "Toggle Box"))
