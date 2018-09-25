@@ -72,6 +72,6 @@ update_icon_state_button <- function(session, id, states = NULL, value = NULL) {
   } else {
     state <- NULL
   }
-  message <- shiny:::dropNulls(list(states = states, state = state))
+  message <- not_null(list(states = states, state = state))
   session$sendInputMessage(id, message)
 }

@@ -38,3 +38,7 @@ jqueryui_dep <- htmltools::htmlDependency(
   "jqueryui", "1.12.1", c(href = "shared/jqueryui"),
   script = "jquery-ui.min.js"
 )
+
+not_null <- function(vec) {
+  vec[!vapply(vec, is.null, TRUE)]
+}

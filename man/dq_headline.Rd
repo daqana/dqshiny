@@ -23,10 +23,9 @@ shinyApp(
   ui = fluidPage(
     init(),
     dq_header(),
-    dq_headline()
+    dq_headline("My headline", "My Subheadline")
   ),
-  server = function(input, output) {
-  }
+  server = function(input, output) {}
 )}
 }
 \seealso{

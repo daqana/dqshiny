@@ -11,13 +11,13 @@
 #'     init(),
 #'     dq_header()
 #'   ),
-#'   server = function(input, output) {
-#'   }
+#'   server = function(input, output) {}
 #' )}
 init <- function() {
   shiny::singleton(shiny::addResourcePath(
     "dqshinyRes", system.file("www", package = "dqshiny")
   ))
+  NULL
 }
 
 #' @title Initializes dqshiny fonts for figures

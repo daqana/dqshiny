@@ -20,8 +20,7 @@ shinyApp(
     init(),
     dq_header()
   ),
-  server = function(input, output) {
-  }
+  server = function(input, output) {}
 )}
 }
 \author{

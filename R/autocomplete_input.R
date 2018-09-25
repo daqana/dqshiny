@@ -84,7 +84,7 @@ update_autocomplete_input <- function(
   session, id, label = NULL, options = NULL, max_options = NULL,
   value = NULL, placeholder = NULL, hide_values = NULL
 ) {
-  message <- shiny:::dropNulls(list(
+  message <- not_null(list(
     label = label, options = options, value = value, maxOptions = max_options,
     placeholder = placeholder, hideValues = hide_values
   ))

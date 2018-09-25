@@ -52,14 +52,14 @@ dq_header <- function(logo = "dqshinyRes/img/logo_daqana.svg", link = "https://w
 #'   ui = fluidPage(
 #'     init(),
 #'     dq_header(),
-#'     dq_headline()
+#'     dq_headline("My headline", "My Subheadline")
 #'   ),
-#'   server = function(input, output) {
-#'   }
+#'   server = function(input, output) {}
 #' )}
 dq_headline <- function(h1 = "", h4 = "") {
-  shiny::fluidRow(class = "orange headline",
-                  shiny::column(12, shiny::HTML(paste0("<h1>", h1, "&nbsp</h1><h4>", h4, "</h4>")))
+  shiny::fluidRow(
+    class = "orange headline",
+    shiny::column(12, shiny::h1(h1), shiny::h4(h4))
   )
 }
 
@@ -80,8 +80,7 @@ dq_headline <- function(h1 = "", h4 = "") {
 #'     dq_fullscreen_menu(),
 #'     dq_header()
 #'   ),
-#'   server = function(input, output) {
-#'   }
+#'   server = function(input, output) {}
 #' )}
 dq_fullscreen_menu <- function(items) {
   res <- paste0(
@@ -127,17 +126,17 @@ dq_footer <- function(html = NULL, always_botton = TRUE) {
     html <- paste0("Copyright ", substr(Sys.Date(), 1, 4), ", <a href='https://www.daqana.com/'>daqana GmbH</a>, All rights reserved.")
   }
   shiny::fluidRow(id = "div_footer",
-           class = paste0("orange", ifelse(always_botton, " alwaysOnBotton", "")),
-           shiny::column(12, class = "help-block", shiny::HTML(html)))
+                  class = paste0("orange", ifelse(always_botton, " alwaysOnBotton", "")),
+                  shiny::column(12, class = "help-block", shiny::HTML(html)))
 }
 
 menu_entry <- function(item, fullscreenMenu = FALSE, str = "") {
-  hasChilds <- !is.null(item$children)
+  has_childs <- is.list(item)
   str <- paste0(str, "<li class='menu-item",
-                if (hasChilds) " menu-item-has-children" else "",
+                if (has_childs) " menu-item-has-children" else "",
                 "'><a href='", item$link, "'>",
-                item$name, if (hasChilds) "" else "</a></li>")
-  if (hasChilds) {
+                item$name, if (has_childs) "" else "</a></li>")
+  if (has_childs) {
     str <- paste0(str, "<span class='mobile_menu_arrow'>", shiny::icon("angle-up"),
                   "</span></a><ul class='sub-menu' style='display: none;'>")
     for (c in item$children) {

@@ -23,8 +23,7 @@ shinyApp(
     dq_fullscreen_menu(),
     dq_header()
   ),
-  server = function(input, output) {
-  }
+  server = function(input, output) {}
 )}
 }
 \seealso{
