@@ -21,15 +21,18 @@ $.extend(stateButtonBinding, {
   },
 
   subscribe: function(el, callback) {
-    var $el = $(el),
-      that = this;
-    var currentState = ($el.data("state") || 1) - 1;
+    var $el = $(el), that = this;
 
     $el.on("click.stateButtonBinding", function(e) {
-      var states = $el.data("states");
-      currentState = (currentState + 1) % states.length;
-      that.setValue(el, currentState);
-      $el.data("state", currentState + 1);
+      let state = ($el.data("state") || 1) - 1;
+      const states = $el.data("states");
+      state = (state + 1) % states.length;
+      that.setValue(el, state);
+      $el.data("state", state + 1);
+      callback();
+    });
+
+    $el.on("change.stateButtonBinding", function(e) {
       callback();
     });
   },

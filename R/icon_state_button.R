@@ -63,7 +63,7 @@ icon_state_button <- function(id, states, value = NULL, ...) {
 #' @export
 #' @rdname icon_state_button
 update_icon_state_button <- function(session, id, states = NULL, value = NULL) {
-  if (length(value) != 1) {
+  if (length(value) != 1L) {
     state <- NULL
   } else if (is.numeric(value)) {
     state <- value

@@ -105,13 +105,19 @@ dq_render_handsontable <- function(
   page_select <- paste0("sel_", context, "_pageSize")
   page_num <- paste0("num_", context, "_page")
 
-  if (shiny::is.reactivevalues(data)) {
-    shiny::observeEvent(data[[id]], {
-      dq_values$full <- dq_values[[context]] <- as.data.frame(data[[id]])
+  update_page_if_necessary <- function() {
+    if (paged) {
       sel <- as.integer(input[[page_select]])
       dq_values[[page_id]] <- update_page(
         dq_values[[context]], context, input[[page_num]], sel, session
       )
+    }
+  }
+
+  if (shiny::is.reactivevalues(data)) {
+    shiny::observeEvent(data[[id]], {
+      dq_values$full <- dq_values[[context]] <- as.data.frame(data[[id]])
+      update_page_if_necessary()
     }, ignoreInit = TRUE)
     dq_values$full <- dq_values[[context]] <- shiny::isolate(as.data.frame(data[[id]]))
   } else {
@@ -124,11 +130,23 @@ dq_render_handsontable <- function(
     dq_values[[page_id]] <- shiny::isolate(dq_values$full)[1:page_size, , drop = FALSE]
   }
 
-  # render filter row
+  # render filter row and add observer for filters
   if (!all(filters == "") && !is.null(output)) {
     output[[paste0(id, "_filters")]] <- shiny::renderUI({
       filter_row(context, shiny::isolate(dq_values$full), filters, reset, sorting)
     })
+    shiny::observeEvent(get_filters(input, context), {
+      f_vals <- get_filters(input, context)
+      if (length(f_vals) == 0) return()
+      df <- text_filter(dq_values$full, f_vals[sapply(f_vals, function(x) length(x) == 1)])
+      dq_values[[context]] <- range_filter(df, f_vals[sapply(f_vals, function(x) length(x) > 1)])
+      if (sorting) {
+        dq_values[[context]] <- sort_data(
+          dq_values[[context]], dq_values$sort_dir, dq_values$sort_col
+        )
+      }
+      update_page_if_necessary()
+    }, ignoreInit = TRUE)
   }
 
   # merge default table/cols parameters with given ones
@@ -173,10 +191,7 @@ dq_render_handsontable <- function(
       paste("of ", ceiling(max(length(dq_values[[context]][[1]]) / sel, 1)))
     })
     shiny::observeEvent(c(input[[page_num]], input[[page_select]]), {
-      sel <- as.integer(input[[page_select]])
-      dq_values[[page_id]] <- update_page(
-        dq_values[[context]], context, input[[page_num]], sel, session
-      )
+      update_page_if_necessary()
     })
   }
 
@@ -198,25 +213,6 @@ dq_render_handsontable <- function(
       }
     })
   }
-
-  # add observer for filters
-  shiny::observeEvent(get_filters(input, context), {
-    f_vals <- get_filters(input, context)
-    if (length(f_vals) == 0) return()
-    df <- text_filter(dq_values$full, f_vals[sapply(f_vals, function(x) length(x) == 1)])
-    dq_values[[context]] <- range_filter(df, f_vals[sapply(f_vals, function(x) length(x) > 1)])
-    if (sorting) {
-      dq_values[[context]] <- sort_data(
-        dq_values[[context]], dq_values$sort_dir, dq_values$sort_col
-      )
-    }
-    if (paged) {
-      sel <- as.integer(input[[page_select]])
-      dq_values[[page_id]] <- update_page(
-        dq_values[[context]], context, input[[page_num]], sel, session
-      )
-    }
-  }, ignoreInit = TRUE)
 
   # add observer for table changes
   shiny::observeEvent(input[[id]], {
