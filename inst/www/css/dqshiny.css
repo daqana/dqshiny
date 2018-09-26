@@ -394,6 +394,14 @@ img.dq-icon-10x {
   margin: 15px 0;
 }
 
+.paging-row .selectize-control.single .selectize-input {
+	text-align: center;
+}
+
+.paging-row .selectize-control.single .selectize-input::after {
+	display: none;
+}
+
 .video-wrapper {
   max-width: 70%;
   position: fixed;
