@@ -195,7 +195,7 @@ dq_render_handsontable <- function(
       paste("of ", ceiling(max(length(dq_values[[context]][[1]]) / sel, 1)))
     })
     shiny::observeEvent(c(input[[page_num]], input[[page_select]]), {
-      update_page_if_necessary()
+      if (!is.na(input[[page_select]])) update_page_if_necessary()
     })
   }
 
