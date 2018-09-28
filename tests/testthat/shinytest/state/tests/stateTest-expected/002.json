@@ -1,0 +1,19 @@
+{
+  "input": {
+    "btn_disable": 1,
+    "btn_enable": 1,
+    "btn_toggle": 0,
+    "btn_toggle_all": 0,
+    "btn_toggle_cond": 0,
+    "condition": false,
+    "example1": 0,
+    "example2": 0,
+    "example3": 0
+  },
+  "output": {
+
+  },
+  "export": {
+
+  }
+}

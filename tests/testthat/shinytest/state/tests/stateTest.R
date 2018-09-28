@@ -1,0 +1,13 @@
+app <- ShinyDriver$new("../")
+app$snapshotInit("stateTest")
+
+app$setInputs(btn_disable = "click")
+app$snapshot()
+app$setInputs(btn_enable = "click")
+app$snapshot()
+app$setInputs(btn_toggle = "click")
+app$snapshot()
+app$setInputs(condition = TRUE)
+app$setInputs(btn_toggle_cond = "click")
+app$setInputs(btn_toggle_all = "click")
+app$snapshot()

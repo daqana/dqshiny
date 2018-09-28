@@ -1,0 +1,11 @@
+app <- ShinyDriver$new("../")
+app$snapshotInit("css_classTest")
+
+app$setInputs(add = "click")
+app$snapshot()
+app$setInputs(remove = "click")
+app$snapshot()
+app$setInputs(toggle = "click")
+app$snapshot()
+app$setInputs(toggle_cond = "click")
+app$snapshot()

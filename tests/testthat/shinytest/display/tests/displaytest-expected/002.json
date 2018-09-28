@@ -1,0 +1,19 @@
+{
+  "input": {
+    "condition": false,
+    "example1": 0,
+    "example2": 0,
+    "example3": 0,
+    "hide": 1,
+    "show": 0,
+    "toggle": 0,
+    "toggle_all": 0,
+    "toggle_cond": 0
+  },
+  "output": {
+
+  },
+  "export": {
+
+  }
+}

@@ -44,3 +44,9 @@ test_that("toggle_class works with different class inputs", {
   expect_null(toggle_class("id", 2, TRUE))
   expect_null(toggle_class("id", FALSE, TRUE))
 })
+
+testthat::skip_on_cran()
+
+test_that("shinytest will be passed", {
+  shinytest::expect_pass(shinytest::testApp("shinytest/css_class"))
+})

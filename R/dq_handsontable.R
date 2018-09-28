@@ -169,7 +169,7 @@ dq_render_handsontable <- function(
   cols_default <- cols_default[!duplicated(names(cols_default))]
 
   params <- list(table_default, cols_default, ...)
-  params[[1L]] <- add_scripts(params[[1]], isTRUE(width_align),
+  params[[1L]] <- add_scripts(params[[1L]], isTRUE(width_align),
                              isTRUE(horizontal_scroll))
 
   # render dq_handsontable

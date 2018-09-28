@@ -1,0 +1,16 @@
+{
+  "input": {
+    "add": 1,
+    "condition": false,
+    "example": 0,
+    "remove": 1,
+    "toggle": 0,
+    "toggle_cond": 0
+  },
+  "output": {
+
+  },
+  "export": {
+
+  }
+}

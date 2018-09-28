@@ -18,6 +18,7 @@
 #' library(shiny)
 #' shinyApp(
 #'   ui = fluidPage(
+#'     init(),
 #'     actionButton("hide", "Hide"),
 #'     actionButton("show", "Show"),
 #'     actionButton("toggle", "Toggle"),
