@@ -30,7 +30,10 @@ error will be thrown.
 After successfull adding any function can be used with run_js.
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+library(shiny)
 shinyApp(
   ui = fluidPage(
     add_js(type="addValues", "function(params) {
@@ -46,7 +49,9 @@ shinyApp(
     observeEvent(input$btn1, run_js(type = "addValues", 17, 25))
     observeEvent(input$btn2, run_js(type = "myName", name = "Paul"))
   }
-)}
+)
+
+}
 }
 \author{
 richard.kunze

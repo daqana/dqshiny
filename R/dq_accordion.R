@@ -25,8 +25,10 @@
 #' @return shiny div holding the accordion
 #' @export
 #' @author richard.kunze
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
 #'
+#' library(shiny)
 #' titles <- c("Section 1", "Section 2", "Section 3")
 #' contents <- list("Lorem ipsum..", "Lorem ipsum..", tags$p("Lorem ipsum.."))
 #' shinyApp(
@@ -46,7 +48,9 @@
 #'   ), server = function(input, output) {
 #'     observeEvent(input$myAccordion, print(input$myAccordion))
 #'   }
-#' )}
+#' )
+#'
+#' }
 dq_accordion <- function(
   id, titles, contents, options = NULL, sortable = FALSE,
   bg_color = "#ff8f00", hover = TRUE, style = "",
@@ -116,7 +120,7 @@ dq_accordion <- function(
       "accordion", "0.0.1", c(href = "dqshinyRes"),
       stylesheet = "css/accordion.css"),
     icon_dep,
-    dq_dep,
+    init(),
     t$script(accordion_script(id, options, sortable))
   )
 

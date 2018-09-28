@@ -32,7 +32,10 @@
 #' @export
 #' @import shiny
 #' @author richard.kunze
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
+#'
+#' library(shiny)
 #' shinyApp(
 #'   ui = fluidPage(
 #'     fluidRow(
@@ -52,7 +55,9 @@
 #'   server = function(input, output) {
 #'     observeEvent(input$toggle, update_dq_box("bigBox"))
 #'   }
-#' )}
+#' )
+#'
+#' }
 dq_box <- function(
   ..., id = NULL, title = NULL,
   color = "#000", bg_color = "#ff8f00", fill = TRUE,
@@ -125,7 +130,7 @@ dq_box <- function(
       header_tag,
       shiny::div(id = body_id, class = body_class, style = body_styles, ...)
     ),
-    dq_dep
+    init()
   )
 
 }

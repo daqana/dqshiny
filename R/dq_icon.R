@@ -1,6 +1,6 @@
 #' Creates an icon element
 #'
-#' @description Creates an html icon element with the specified icon name from
+#' @description Creates a html icon element with the specified icon name from
 #' the given library.
 #'
 #' @param icon name of the icon to show
@@ -14,7 +14,10 @@
 #' @return icon html element
 #' @export
 #' @author richard.kunze
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
+#'
+#' library(shiny)
 #' addResourcePath("images", system.file("www", "img", package = "dqutils"))
 #' shinyApp(
 #'   ui = fluidPage(
@@ -24,7 +27,9 @@
 #'     dq_icon("images/logo_daqana.svg", size = "3x")
 #'   ),
 #'   server = function(input, output, session) {}
-#' )}
+#' )
+#'
+#' }
 dq_icon <- function(
   icon, lib = "font-awesome",
   color = "#ff8f00", bg_color = "#fff", size = NULL, ...
@@ -33,10 +38,7 @@ dq_icon <- function(
     size <- NULL
   }
   style <- paste0("color:", color, ";background-color:", bg_color, ";")
-  shiny::singleton(shiny::addResourcePath(
-    "dqshinyRes", system.file("www", package = "dqutils")
-  ))
-  dep <- list(dq_dep)
+  dep <- init()
   if (length(icon) > 0 && endsWith(icon, ".svg")) {
     class <- paste0("dq-icon", if (length(size) > 0) paste0(" dq-icon-", size))
     el <- shiny::tags$img(src = icon, class = class, style = style, ...)

@@ -1,9 +1,9 @@
-#' dqshiny: Enhance shiny apps with customizable modules
+#' dqshiny: Enhance Shiny Apps with Customizable Modules
 #'
-#' @description This package provides highly customizable modules to enhance
-#'  your shiny apps. Add custom header, headline and footer to your app.
-#'  Include collapsable boxes and value boxes independent from the chosen UI
-#'  Layout.
+#' @description Provides highly customizable modules to enhance your shiny apps.
+#' Includes layout independent collapsable boxes and value boxes, a very fast
+#' autocomplete input, rhandsontable extensions for filtering and paging and
+#' much more.
 #'
 #' @section Section: some more info
 #'   TO DO document the package!!
@@ -11,3 +11,46 @@
 #' @docType package
 #' @name dqshiny
 NULL
+
+#' @author richard.kunze
+#' @keywords internal
+.onLoad <- function(libname, pkgname) {
+  init()
+}
+
+dq_dep <- htmltools::htmlDependency(
+  "dqshiny", "0.0.1", c(href = "dqshinyRes"),
+  script = "js/messageHandler.js",
+  stylesheet = "css/dqshiny.css"
+)
+
+selectize_dep <- htmltools::tagList(
+  htmltools::htmlDependency(
+    "dqSelectize", "0.0.1", c(href = "dqshinyRes"),
+    stylesheet = "css/handsontable-selectize-editor.css",
+    script = "js/handsontable-selectize-editor.js"
+  ), htmltools::htmlDependency(
+    "selectize", "0.11.2", c(href = "shared/selectize"),
+    stylesheet = "css/selectize.bootstrap3.css",
+    head = format(htmltools::tagList(
+      htmltools::HTML("<!--[if lt IE 9]>"),
+      htmltools::tags$script(src = "shared/selectize/js/es5-shim.min.js"),
+      htmltools::HTML("<![endif]-->"),
+      htmltools::tags$script(src = "shared/selectize/js/selectize.min.js")
+    ))
+  )
+)
+
+fontawesome_dep <- htmltools::htmlDependency(
+  "font-awesome", "4.7.0", c(href = "shared/font-awesome"),
+  stylesheet = "css/font-awesome.min.css"
+)
+
+jqueryui_dep <- htmltools::htmlDependency(
+  "jqueryui", "1.12.1", c(href = "shared/jqueryui"),
+  script = "jquery-ui.min.js"
+)
+
+not_null <- function(vec) {
+  vec[!vapply(vec, is.null, TRUE)]
+}

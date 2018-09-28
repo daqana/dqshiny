@@ -48,8 +48,11 @@ update_autocomplete_input changes the value or the options of an
 autocomplete input element on the client side.
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+## Only run examples in interactive R sessions
+if (interactive()) {
 
+library(shiny)
 opts <- sapply(1:100000, function(i) paste0(sample(letters, 9), collapse=""))
 shinyApp(
   ui = fluidPage(
@@ -76,7 +79,9 @@ shinyApp(
         options = rownames(mtcars))
     })
   }
-)}
+)
+
+}
 }
 \author{
 richard.kunze

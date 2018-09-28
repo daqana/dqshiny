@@ -20,8 +20,11 @@
 #'
 #' @export
 #' @author richard.kunze
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' ## Only run examples in interactive R sessions
+#' if (interactive()) {
 #'
+#' library(shiny)
 #' opts <- sapply(1:100000, function(i) paste0(sample(letters, 9), collapse=""))
 #' shinyApp(
 #'   ui = fluidPage(
@@ -48,7 +51,9 @@
 #'         options = rownames(mtcars))
 #'     })
 #'   }
-#' )}
+#' )
+#'
+#' }
 autocomplete_input <- function(
   id, label, options, value = "", width = NULL,
   placeholder = NULL, max_options = 0, hide_values = FALSE

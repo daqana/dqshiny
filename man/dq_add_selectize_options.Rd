@@ -41,7 +41,10 @@ to specify labels for the options. Further selectize attributes can be set
 via additional named parameters.
 }
 \examples{
-\donttest{library(rhandsontable)
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+library(rhandsontable)
 library(shiny)
 hw <- c("Hello", "my", "funny", "world!",
   "Those", "are", "some", "really", "random", "words!")
@@ -69,7 +72,9 @@ shinyApp(
         dq_add_selectize_options(NULL, "Multiple", options, maxItems = 2)
     })
   }
-)}
+)
+
+}
 }
 \author{
 richard.kunze

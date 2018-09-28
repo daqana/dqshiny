@@ -9,16 +9,17 @@
 #'
 #' @return dq_handsontable_output: fluidrow containing the output fields
 #' @rdname dq_render_handsontable
-dq_handsontable_output <- function(id, width = 12, offset = 0) {
+#' @export
+dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
   requireNamespace("rhandsontable")
   requireNamespace("shiny")
   if (is.null(id)) return(NULL)
-  init()
   shiny::fluidRow(shiny::column(
     width, offset = offset,
     shiny::uiOutput(paste0(id, "_filters")),
     rhandsontable::rHandsontableOutput(id),
-    shiny::uiOutput(paste0(id, "_pages"))
+    shiny::uiOutput(paste0(id, "_pages")),
+    init()
   ))
 }
 
@@ -64,28 +65,34 @@ dq_handsontable_output <- function(id, width = 12, offset = 0) {
 #'
 #' @return dq_render_handsontable: the given data
 #' @author richard.kunze
+#' @export
 #' @seealso \code{\link[rhandsontable:rhandsontable]{rhandsontable}},
 #' \code{\link[rhandsontable:hot_cols]{hot_cols}} and
 #' \code{\link[rhandsontable:hot_col]{hot_col}}
 #'
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
+#'
+#' library(shiny)
 #' library(rhandsontable)
 #' shinyApp(
 #'   ui = fluidPage(
-#'     dqshiny:::dq_handsontable_output("randomTable", 9)
+#'     dq_handsontable_output("randomTable", 9)
 #'   ),
 #'   server = function(input, output, session) {
 #'     hw <- c("Hello", "my", "funny", "world!")
 #'     data <- data.frame(A = rep(hw, 500), B = rep(hw[c(2,3,4,1)], 500),
 #'       C = 1:500, D = Sys.Date() - 0:499, stringsAsFactors = FALSE)
-#'     dqshiny:::dq_render_handsontable("randomTable", data, "rand",
+#'     dq_render_handsontable("randomTable", data, "rand",
 #'       filters = c("S", "T", "R", "R"), sorting = TRUE,
 #'       pCol1=list(col=1, type = "dropdown", source = letters),
 #'       pCol2=list(col=2:4, type = "dropdown", source = LETTERS))
 #'   }
-#' )}
+#' )
+#'
+#' }
 dq_render_handsontable <- function(
-  id, data, context = NULL, filters = "T", page_size = 25, reset = TRUE,
+  id, data, context = NULL, filters = "T", page_size = 25L, reset = TRUE,
   sorting = FALSE, width_align = FALSE, horizontal_scroll = FALSE,
   table_param = NULL, cols_param = NULL, ...
 ) {
@@ -93,7 +100,7 @@ dq_render_handsontable <- function(
   requireNamespace("shiny")
 
   if (is.null(id) || is.null(data)) return()
-  if (is.null(context)) context <- paste0(sample(letters, 6), collapse = "")
+  if (is.null(context)) context <- paste0(sample(letters, 6L), collapse = "")
 
   session <- shiny::getDefaultReactiveDomain()
   input <- session$input
@@ -162,16 +169,16 @@ dq_render_handsontable <- function(
   cols_default <- cols_default[!duplicated(names(cols_default))]
 
   params <- list(table_default, cols_default, ...)
-  params[[1]] <- add_scripts(params[[1]], isTRUE(width_align),
+  params[[1L]] <- add_scripts(params[[1]], isTRUE(width_align),
                              isTRUE(horizontal_scroll))
 
   # render dq_handsontable
   if (!is.null(output)) {
     output[[id]] <- rhandsontable::renderRHandsontable({
-      params[[1]]$data <- dq_values[[page_id]]
-      params[[2]]$hot <- do.call(rhandsontable::rhandsontable, params[[1]])
-      hot <- do.call(rhandsontable::hot_cols, params[[2]])
-      if (length(params) > 2) {
+      params[[1L]]$data <- dq_values[[page_id]]
+      params[[2L]]$hot <- do.call(rhandsontable::rhandsontable, params[[1L]])
+      hot <- do.call(rhandsontable::hot_cols, params[[2L]])
+      if (length(params) > 2L) {
         for (i in 3:length(params)) {
           if (!is.null(params[[i]])) {
             params[[i]]$hot <- hot
@@ -179,20 +186,20 @@ dq_render_handsontable <- function(
           }
         }
       }
-      hot$dependencies <- append(hot$dependencies, list(dq_dep))
+      hot$dependencies <- append(hot$dependencies, init())
       hot
     })
   }
 
   # render paging row and add observer for inputs
   if (paged && !is.null(output)) {
-    page_sizes <- sort(unique(c(page_size, 10, 25, 50, 100)))
+    page_sizes <- sort(unique(c(page_size, 10L, 25L, 50L, 100L)))
     output[[paste0(id, "_pages")]] <- shiny::renderUI({
       paging_row(context, page_size, page_sizes)
     })
     output[[paste0(context, "_maxPages")]] <- shiny::renderText({
       sel <- as.integer(input[[page_select]])
-      paste("of ", ceiling(max(length(dq_values[[context]][[1]]) / sel, 1)))
+      paste("of ", ceiling(max(length(dq_values[[context]][[1L]]) / sel, 1L)))
     })
     shiny::observeEvent(c(input[[page_num]], input[[page_select]]), {
       if (!is.na(input[[page_select]])) update_page_if_necessary()
@@ -213,7 +220,7 @@ dq_render_handsontable <- function(
       }
       if (sorting) {
         dq_values$sorter <- "-"
-        lapply(sorts, function(n) update_icon_state_button(session, n, value = 1))
+        lapply(sorts, function(n) update_icon_state_button(session, n, value = 1L))
       }
     })
   }
@@ -223,10 +230,10 @@ dq_render_handsontable <- function(
     if (!is.null(input[[id]]$changes$source)) {
       rowNames <- as.character(rownames(rhandsontable::hot_to_r(input[[id]])))
       lapply(input[[id]]$changes$changes, function(ch) {
-        row <- ch[[1]] + 1
-        col <- ch[[2]] + 1
-        dq_values$full[rowNames[row], col] <- ch[[4]]
-        dq_values[[context]][rowNames[row], col] <- ch[[4]]
+        row <- ch[[1L]] + 1L
+        col <- ch[[2L]] + 1L
+        dq_values$full[rowNames[row], col] <- ch[[4L]]
+        dq_values[[context]][rowNames[row], col] <- ch[[4L]]
       })
       if (shiny::is.reactivevalues(data)) {
         data[[id]] <- dq_values$full

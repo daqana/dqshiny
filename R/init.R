@@ -7,13 +7,18 @@
 #' @return dqshiny css and js dependency
 #' @export
 #' @author richard.kunze
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
+#'
+#' library(shiny)
 #' shinyApp(
 #'   ui = fluidPage(
 #'     init()
 #'   ),
 #'   server = function(input, output) {}
-#' )}
+#' )
+#'
+#' }
 init <- function() {
   shiny::singleton(shiny::addResourcePath(
     "dqshinyRes", system.file("www", package = "dqshiny")

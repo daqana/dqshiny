@@ -2,9 +2,9 @@
 #'
 #' @description Those functions can be used to change an elements classes.
 #'
-#' @note All functions from this family won't work, if there is not at least
-#' one dqshiny element in the UI. If there is absolutely no need to use any of
-#' those elements, please add \code{\link{init}} to your UI.
+#' @note If you have trouble with these functions, please make sure that you
+#' either - use any dqshiny element in your UI - load the package with
+#' \code{\link{library}} - use \code{\link{init}} at the beginning of your UI!
 #'
 #' @param ids Character vector, id(s) of the element(s) to change.
 #' @param class_name Name of the class to add/remove/toggle.
@@ -12,7 +12,10 @@
 #' @export
 #' @family js handler
 #' @author richard.kunze
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
+#'
+#' library(shiny)
 #' shinyApp(
 #'   ui = fluidPage(
 #'     tags$head(tags$style(".orange{background:#ff8f00}")),
@@ -36,7 +39,9 @@
 #'       toggle_class("row", "orange", input$condition)
 #'     )
 #'   }
-#' )}
+#' )
+#'
+#' }
 add_class <- function(ids, class_name) {
   send_message(
     type = "toggleClass",

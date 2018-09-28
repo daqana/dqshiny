@@ -44,8 +44,10 @@ shown and the others will be hidden. The currently activated panel will be
 available to R over the input$id element.
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
 
+library(shiny)
 titles <- c("Section 1", "Section 2", "Section 3")
 contents <- list("Lorem ipsum..", "Lorem ipsum..", tags$p("Lorem ipsum.."))
 shinyApp(
@@ -65,7 +67,9 @@ shinyApp(
   ), server = function(input, output) {
     observeEvent(input$myAccordion, print(input$myAccordion))
   }
-)}
+)
+
+}
 }
 \author{
 richard.kunze

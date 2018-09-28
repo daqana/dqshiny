@@ -37,7 +37,7 @@ for each column}
 \item{values}{character array with the filter values, should have length of
 data or being named}
 
-\item{ranges}{numeric (or numeric makeable) vector with the filter values,
+\item{ranges}{numeric (or numeric makeable) vector with the filter ranges,
 should have length of data or being named}
 }
 \value{
@@ -66,9 +66,11 @@ values. Names of the given ranges vector should be the indices of the
 corresponding data frame columns.
 }
 \examples{
-\donttest{library(shiny)
-library(rhandsontable)
+## Only run examples in interactive R sessions
+if (interactive()) {
 
+library(shiny)
+library(rhandsontable)
 hw <- c("Hello", "my", "funny", "world!")
 data <- data.frame(A=rep(hw, 5), B=rep(hw[c(2,3,4,1)], 5), C=1:20,
   D=Sys.Date()-0:19, stringsAsFactors = FALSE)
@@ -90,7 +92,9 @@ shinyApp(
       rVals[["rand"]] <- range_filter(df, fVals[sapply(fVals, function(x) length(x) > 1)])
     }, ignoreInit = TRUE)
   }
-)}
+)
+
+}
 }
 \author{
 richard.kunze

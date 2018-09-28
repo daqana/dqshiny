@@ -55,7 +55,7 @@ text_filter_rec <- function(df, values, valid, depth = 1) {
 #' values. Names of the given ranges vector should be the indices of the
 #' corresponding data frame columns.
 #'
-#' @param ranges numeric (or numeric makeable) vector with the filter values,
+#' @param ranges numeric (or numeric makeable) vector with the filter ranges,
 #' should have length of data or being named
 #'
 #' @return range_filter: filtered data frame

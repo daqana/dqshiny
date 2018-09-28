@@ -16,7 +16,10 @@ Create a dq box group which automatically collapses all other
 boxes whenever one box is opened.
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+library(shiny)
 shinyApp(
   ui = fluidPage(
     fluidRow(
@@ -33,7 +36,9 @@ shinyApp(
   server = function(input, output, session) {
     create_dq_box_group(session, "box1", "box2", "box3")
   }
-)}
+)
+
+}
 }
 \author{
 richard.kunze

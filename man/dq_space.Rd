@@ -22,7 +22,10 @@ Creates an empty div with the desired height
 clearing the space on the desired sites.
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+library(shiny)
 shinyApp(
   ui = fluidPage(
     fluidRow(
@@ -34,7 +37,9 @@ shinyApp(
     )),
   server = function(input, output) {
   }
-)}
+)
+
+}
 }
 \author{
 richard.kunze

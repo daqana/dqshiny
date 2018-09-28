@@ -23,7 +23,10 @@ Adds a loading image to the page which is visible when shiny is
 busy.
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+library(shiny)
 shinyApp(
   ui = fluidPage(
     dq_busy(time = 1500),
@@ -32,7 +35,9 @@ shinyApp(
   server = function(input, output) {
     observeEvent(input$button, Sys.sleep(3))
   }
-)}
+)
+
+}
 }
 \author{
 richard.kunze

@@ -27,7 +27,10 @@ to show it until the user clicks again. Info tags can be added to shiny
 input labels via tagLists.
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+library(shiny)
 shinyApp(
   ui = fluidPage(
     init(),
@@ -47,7 +50,9 @@ shinyApp(
     )),
   server = function(input, output) {
   }
-)}
+)
+
+}
 }
 \author{
 richard.kunze

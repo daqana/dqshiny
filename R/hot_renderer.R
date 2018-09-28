@@ -5,15 +5,16 @@
 #'
 #' @return character containing js renderer
 #' @author richard.kunze
+#' @export
 #' @examples df <- data.frame(empty = rep(c("value", ""), 5),
 #'   html = paste0("<div style='background:#ff",sprintf("%x",25*1:10),"ff'>&nbsp;</div>"),
 #'   date = seq(from = Sys.Date(), by = "days", length.out = 10),
 #'   stringsAsFactors = FALSE)
 #'
 #' hot <- rhandsontable::rhandsontable(df, rowHeaders = NULL)
-#' hot <- rhandsontable::hot_col(hot, 1, renderer = dqshiny:::dq_hot_empty_renderer())
-#' hot <- rhandsontable::hot_col(hot, 2, renderer = dqshiny:::dq_hot_html_renderer())
-#' hot <- rhandsontable::hot_col(hot, 3, renderer = dqshiny:::dq_hot_date_renderer())
+#' hot <- rhandsontable::hot_col(hot, 1, renderer = dq_hot_empty_renderer())
+#' hot <- rhandsontable::hot_col(hot, 2, renderer = dq_hot_html_renderer())
+#' hot <- rhandsontable::hot_col(hot, 3, renderer = dq_hot_date_renderer())
 #' hot
 dq_hot_date_renderer <- function() {
   "function (instance, td, row, col, prop, value, cellProperties) {
@@ -30,7 +31,7 @@ dq_hot_date_renderer <- function() {
 #' @param renderer handsontable base renderer to be adjusted, can be one of
 #' ("Autocomplete", "Base", "Checkbox", "Date", "Dropdown", "Html", "Numeric",
 #' "Password", "Text", "Time")
-#'
+#' @export
 #' @rdname dq_hot_date_renderer
 dq_hot_empty_renderer <- function(renderer = "Autocomplete") {
   if (length(renderer) == 0 ||
@@ -47,7 +48,7 @@ dq_hot_empty_renderer <- function(renderer = "Autocomplete") {
 
 #' @description dq_hot_html_renderer: Renderer to replace missing "html"
 #' rhandsontable renderer.
-#'
+#' @export
 #' @rdname dq_hot_date_renderer
 dq_hot_html_renderer <- function() {
   "function (instance, td, row, col, prop, value, cellProperties) {

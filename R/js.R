@@ -15,7 +15,10 @@
 #'
 #' @export
 #' @author richard.kunze
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
+#'
+#' library(shiny)
 #' shinyApp(
 #'   ui = fluidPage(
 #'     add_js(type="addValues", "function(params) {
@@ -31,7 +34,9 @@
 #'     observeEvent(input$btn1, run_js(type = "addValues", 17, 25))
 #'     observeEvent(input$btn2, run_js(type = "myName", name = "Paul"))
 #'   }
-#' )}
+#' )
+#'
+#' }
 add_js <- function(type, functionText) {
   code <- paste0(
     "Shiny.addCustomMessageHandler('", type, "', ", functionText, ");"

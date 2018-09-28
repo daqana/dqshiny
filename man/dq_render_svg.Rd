@@ -31,7 +31,10 @@ list containing ggplot2 figure information
 Returns ggplot2 svg image for shiny::imageOutput
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+library(shiny)
 shinyApp(
   ui = fluidPage(
     selectInput("select","Number of bars", choices=c(4,5,6)),
@@ -45,7 +48,9 @@ shinyApp(
     })
     output$plot <- dq_render_svg(gf)
   }
-)}
+)
+
+}
 }
 \author{
 david.breuer

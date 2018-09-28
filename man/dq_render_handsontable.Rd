@@ -5,10 +5,10 @@
 \alias{dq_render_handsontable}
 \title{Adds an uiOutput}
 \usage{
-dq_handsontable_output(id, width = 12, offset = 0)
+dq_handsontable_output(id, width = 12L, offset = 0L)
 
 dq_render_handsontable(id, data, context = NULL, filters = "T",
-  page_size = 25, reset = TRUE, sorting = FALSE,
+  page_size = 25L, reset = TRUE, sorting = FALSE,
   width_align = FALSE, horizontal_scroll = FALSE, table_param = NULL,
   cols_param = NULL, ...)
 }
@@ -77,22 +77,27 @@ readOnly, all user inputs will automatically stored and updated independent
 from any filters or pages.
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+library(shiny)
 library(rhandsontable)
 shinyApp(
   ui = fluidPage(
-    dqshiny:::dq_handsontable_output("randomTable", 9)
+    dq_handsontable_output("randomTable", 9)
   ),
   server = function(input, output, session) {
     hw <- c("Hello", "my", "funny", "world!")
     data <- data.frame(A = rep(hw, 500), B = rep(hw[c(2,3,4,1)], 500),
       C = 1:500, D = Sys.Date() - 0:499, stringsAsFactors = FALSE)
-    dqshiny:::dq_render_handsontable("randomTable", data, "rand",
+    dq_render_handsontable("randomTable", data, "rand",
       filters = c("S", "T", "R", "R"), sorting = TRUE,
       pCol1=list(col=1, type = "dropdown", source = letters),
       pCol2=list(col=2:4, type = "dropdown", source = LETTERS))
   }
-)}
+)
+
+}
 }
 \seealso{
 \code{\link[rhandsontable:rhandsontable]{rhandsontable}},

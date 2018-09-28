@@ -23,12 +23,15 @@ toggle_class(ids, class_name, condition = NULL)
 Those functions can be used to change an elements classes.
 }
 \note{
-All functions from this family won't work, if there is not at least
-one dqshiny element in the UI. If there is absolutely no need to use any of
-those elements, please add \code{\link{init}} to your UI.
+If you have trouble with these functions, please make sure that you
+either - use any dqshiny element in your UI - load the package with
+\code{\link{library}} - use \code{\link{init}} at the beginning of your UI!
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+library(shiny)
 shinyApp(
   ui = fluidPage(
     tags$head(tags$style(".orange{background:#ff8f00}")),
@@ -52,7 +55,9 @@ shinyApp(
       toggle_class("row", "orange", input$condition)
     )
   }
-)}
+)
+
+}
 }
 \seealso{
 Other js handler: \code{\link{enable}}, \code{\link{hide}}

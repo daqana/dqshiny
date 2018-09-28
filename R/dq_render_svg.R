@@ -12,7 +12,10 @@
 #' @family plotting
 #' @author david.breuer
 #' @export
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
+#'
+#' library(shiny)
 #' shinyApp(
 #'   ui = fluidPage(
 #'     selectInput("select","Number of bars", choices=c(4,5,6)),
@@ -26,7 +29,9 @@
 #'     })
 #'     output$plot <- dq_render_svg(gf)
 #'   }
-#' )}
+#' )
+#'
+#' }
 dq_render_svg <- function(gg, path = NULL, width = 1200, height = 500, alt = "", pdf = FALSE, png = FALSE, deleteFile = TRUE) {
   requireNamespace("ggplot2")
   rf <- shiny::reactive({

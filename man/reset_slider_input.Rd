@@ -17,7 +17,10 @@ Function to send a message to js to reset an existing slider
 input. Use it ro restore a slider input's initial values.
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+library(shiny)
 shinyApp(
   ui = fluidPage(
     init(),
@@ -27,7 +30,9 @@ shinyApp(
   server = function(input, output) {
     observeEvent(input$btn1, reset_slider_input("mySlider"))
   }
-)}
+)
+
+}
 }
 \author{
 richard.kunze

@@ -10,8 +10,10 @@
 #'
 #' @export
 #' @author richard.kunze
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
 #'
+#' library(shiny)
 #' base_url <- "http://download.blender.org/peach/bigbuckbunny_movies/"
 #' shinyApp(
 #'   ui = fluidPage(
@@ -28,7 +30,9 @@
 #'     ))
 #'   ),
 #'   server = function(input, output) {}
-#' )}
+#' )
+#'
+#' }
 video_box <- function(id, src, title = NULL, type = "video/mp4") {
   init()
   if (length(type) != length(src)) {
@@ -50,7 +54,7 @@ video_box <- function(id, src, title = NULL, type = "video/mp4") {
       lapply(seq(src), function(i) {
         shiny::tags$source(src = src[[i]], type = type[[i]])
       })
-    ), dq_dep
+    ), init()
   )
 }
 
@@ -73,6 +77,6 @@ video_tag <- function(id, time = NULL, title = NULL) {
       if (!is.null(title)) paste0(
         "$('#", id, "_title').text('", title, "');"
       )
-    ), dq_dep
+    ), init()
   )
 }

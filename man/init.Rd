@@ -15,13 +15,18 @@ Will be automatically called by loading the package and using any of the
 dqshiny elements.
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+library(shiny)
 shinyApp(
   ui = fluidPage(
     init()
   ),
   server = function(input, output) {}
-)}
+)
+
+}
 }
 \author{
 richard.kunze

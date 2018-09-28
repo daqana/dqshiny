@@ -25,11 +25,14 @@ dq_icon(icon, lib = "font-awesome", color = "#ff8f00",
 icon html element
 }
 \description{
-Creates an html icon element with the specified icon name from
+Creates a html icon element with the specified icon name from
 the given library.
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+library(shiny)
 addResourcePath("images", system.file("www", "img", package = "dqutils"))
 shinyApp(
   ui = fluidPage(
@@ -39,7 +42,9 @@ shinyApp(
     dq_icon("images/logo_daqana.svg", size = "3x")
   ),
   server = function(input, output, session) {}
-)}
+)
+
+}
 }
 \author{
 richard.kunze

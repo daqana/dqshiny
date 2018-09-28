@@ -5,14 +5,17 @@
 #'
 #' @param ... tags to add to the ui, can be a single element or nested tagLists
 #'
-#' @note Both functions won't work, if there is not at least one dqshiny element
-#' in the UI. If there is absolutely no need to use any of those elements,
-#' please add \code{\link{init}} to your UI.
+#' @note If you have trouble with these functions, please make sure that you
+#' either - use any dqshiny element in your UI - load the package with
+#' \code{\link{library}} - use \code{\link{init}} at the beginning of your UI!
 #'
 #' @return tags with the state change
 #' @export
 #' @author richard.kunze
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
+#'
+#' library(shiny)
 #' shinyApp(
 #'   ui = fluidPage(
 #'     init(),
@@ -24,7 +27,9 @@
 #'     observeEvent(input$btn1, toggle("btn3"))
 #'     observeEvent(input$btn2, toggle_state("btn3"))
 #'   }
-#' )}
+#' )
+#'
+#' }
 hidden <- function(...) {
   tl <- list(...)
   if (length(tl) == 1L) {

@@ -15,9 +15,12 @@
 #'
 #' @return filter_row: fluidRow containing the filters
 #' @author richard.kunze
-#' @examples \donttest{library(shiny)
-#' library(rhandsontable)
+#' @export
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
 #'
+#' library(shiny)
+#' library(rhandsontable)
 #' hw <- c("Hello", "my", "funny", "world!")
 #' data <- data.frame(A=rep(hw, 5), B=rep(hw[c(2,3,4,1)], 5), C=1:20,
 #'   D=Sys.Date()-0:19, stringsAsFactors = FALSE)
@@ -39,7 +42,9 @@
 #'       rVals[["rand"]] <- range_filter(df, fVals[sapply(fVals, function(x) length(x) > 1)])
 #'     }, ignoreInit = TRUE)
 #'   }
-#' )}
+#' )
+#'
+#' }
 filter_row <- function(context, data, filters = "T", reset = TRUE, sorting = FALSE) {
   filters <- correct_filters(filters, length(data))
   class <- paste0("filter-row", if (sorting) " sorting")

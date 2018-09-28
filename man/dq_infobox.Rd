@@ -38,7 +38,10 @@ column holding the info box
 Creates an info box with given texts
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+library(shiny)
 shinyApp(
   ui = fluidPage(
     init(),
@@ -53,7 +56,9 @@ shinyApp(
   ),
   server = function(input, output) {
   }
-)}
+)
+
+}
 }
 \author{
 richard.kunze

@@ -12,7 +12,10 @@
 #' @return shiny tag holding the icon
 #' @export
 #' @author richard.kunze
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
+#'
+#' library(shiny)
 #' shinyApp(
 #'   ui = fluidPage(
 #'     dq_busy(time = 1500),
@@ -21,7 +24,9 @@
 #'   server = function(input, output) {
 #'     observeEvent(input$button, Sys.sleep(3))
 #'   }
-#' )}
+#' )
+#'
+#' }
 dq_busy <- function(icon_path = NULL, time = 500, animation = "fadeIn") {
 
   init()

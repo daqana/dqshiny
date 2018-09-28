@@ -15,7 +15,10 @@
 #' @return shiny tag holding the help icon
 #' @export
 #' @author richard.kunze
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
+#'
+#' library(shiny)
 #' shinyApp(
 #'   ui = fluidPage(
 #'     init(),
@@ -35,7 +38,9 @@
 #'     )),
 #'   server = function(input, output) {
 #'   }
-#' )}
+#' )
+#'
+#' }
 dq_helptag <- function(title, trigger = "hover", width = 200, style = NULL) {
 
   if (length(trigger) == 0 || !(trigger %in% c("hover", "focus"))) {
@@ -54,7 +59,7 @@ dq_helptag <- function(title, trigger = "hover", width = 200, style = NULL) {
       shiny::HTML(title),
       style = paste0("width:", shiny::validateCssUnit(width), ";")
     ),
-    dq_dep
+    init()
   )
 
 }

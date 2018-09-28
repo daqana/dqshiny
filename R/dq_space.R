@@ -12,7 +12,10 @@
 #' @return shiny div for spacing
 #' @export
 #' @author richard.kunze
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
+#'
+#' library(shiny)
 #' shinyApp(
 #'   ui = fluidPage(
 #'     fluidRow(
@@ -24,7 +27,9 @@
 #'     )),
 #'   server = function(input, output) {
 #'   }
-#' )}
+#' )
+#'
+#' }
 dq_space <- function(height = 30, clear = "both") {
 
   if (length(clear) == 0 || !(clear %in% c("both", "left", "right", "none"))) {
@@ -36,7 +41,7 @@ dq_space <- function(height = 30, clear = "both") {
       "height:", shiny::validateCssUnit(height), ";",
       "clear:", clear, ";"
     ),
-    dq_dep
+    init()
   )
 
 }

@@ -35,7 +35,10 @@ Changes the value or the options of an icon_state_button
 on the client side.
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+library(shiny)
 hands <- paste0("hand-o-", c("up", "right", "down", "left"))
 shinyApp(
   ui = fluidPage(
@@ -52,7 +55,9 @@ shinyApp(
       session, "mood", c("star", "star-half-o", "star-o"), "star"
     ))
   }
-)}
+)
+
+}
 }
 \author{
 richard.kunze

@@ -17,7 +17,10 @@
 #' @export
 #' @return dq_add_selectize_options: updated rhandsontable object
 #' @author richard.kunze
-#' @examples \donttest{library(rhandsontable)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
+#'
+#' library(rhandsontable)
 #' library(shiny)
 #' hw <- c("Hello", "my", "funny", "world!",
 #'   "Those", "are", "some", "really", "random", "words!")
@@ -45,7 +48,9 @@
 #'         dq_add_selectize_options(NULL, "Multiple", options, maxItems = 2)
 #'     })
 #'   }
-#' )}
+#' )
+#'
+#' }
 dq_add_selectize_options <- function(hot, rows, col, options, ...) {
   if (!inherits(hot, "rhandsontable")) return(hot)
   hot$dependencies <- append(hot$dependencies, selectize_dep)
@@ -103,13 +108,13 @@ dq_as_selectize_options <- function(options, ...) {
 #' parameters and additional custom ones used with custom renderers or editors
 #'
 #' @author richard.kunze
-#'
+#' @export
 #' @examples df <- data.frame(readOrWrite = rep(c("readOnly", "change me!"), 5),
 #'   secret = rep("tops3cr3t", 10), stringsAsFactors = FALSE)
 #'
 #' hot <- rhandsontable::rhandsontable(df, rowHeaders = NULL)
-#' hot <- dqshiny:::dq_hot_cell(hot, seq(1, 10, 2), 1:2, readOnly = TRUE)
-#' hot <- dqshiny:::dq_hot_cell(hot, seq(1, 10, 2), 2, type = "password")
+#' hot <- dq_hot_cell(hot, seq(1, 10, 2), 1:2, readOnly = TRUE)
+#' hot <- dq_hot_cell(hot, seq(1, 10, 2), 2, type = "password")
 #' hot
 dq_hot_cell <- function(hot, row, col, ...) {
   if (!inherits(hot, "rhandsontable")) return(hot)

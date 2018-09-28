@@ -17,7 +17,10 @@
 #' @return HTML table
 #' @export
 #'
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
+#'
+#' library(shiny)
 #' shinyApp(
 #'   ui = fluidPage(
 #'     fluidRow(
@@ -36,7 +39,9 @@
 #'   server = function(input, output) {
 #'     observeEvent(input$value, output$result <- renderText(input$value))
 #'   }
-#' )}
+#' )
+#'
+#' }
 dq_htmltable <- function(elements, id = NULL, align = "left") {
 
   if (is.null(align)) {
@@ -64,7 +69,7 @@ dq_htmltable <- function(elements, id = NULL, align = "left") {
         })
       )
     }),
-    dq_dep
+    init()
   )
 
 }

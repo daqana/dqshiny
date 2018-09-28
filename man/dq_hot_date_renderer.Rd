@@ -37,9 +37,9 @@ df <- data.frame(empty = rep(c("value", ""), 5),
   stringsAsFactors = FALSE)
 
 hot <- rhandsontable::rhandsontable(df, rowHeaders = NULL)
-hot <- rhandsontable::hot_col(hot, 1, renderer = dqshiny:::dq_hot_empty_renderer())
-hot <- rhandsontable::hot_col(hot, 2, renderer = dqshiny:::dq_hot_html_renderer())
-hot <- rhandsontable::hot_col(hot, 3, renderer = dqshiny:::dq_hot_date_renderer())
+hot <- rhandsontable::hot_col(hot, 1, renderer = dq_hot_empty_renderer())
+hot <- rhandsontable::hot_col(hot, 2, renderer = dq_hot_html_renderer())
+hot <- rhandsontable::hot_col(hot, 3, renderer = dq_hot_date_renderer())
 hot
 }
 \author{

@@ -14,7 +14,10 @@
 #'
 #' @export
 #' @author richard.kunze
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
+#'
+#' library(shiny)
 #' hands <- paste0("hand-o-", c("up", "right", "down", "left"))
 #' shinyApp(
 #'   ui = fluidPage(
@@ -31,7 +34,9 @@
 #'       session, "mood", c("star", "star-half-o", "star-o"), "star"
 #'     ))
 #'   }
-#' )}
+#' )
+#'
+#' }
 icon_state_button <- function(id, states, value = NULL, ...) {
   if (length(value) != 1) {
     state <- 1

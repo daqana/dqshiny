@@ -23,12 +23,15 @@ Disabled will recursively traverse the given elements and its
 children and set all inputs, buttons, selects and textfields to be disabled.
 }
 \note{
-Both functions won't work, if there is not at least one dqshiny element
-in the UI. If there is absolutely no need to use any of those elements,
-please add \code{\link{init}} to your UI.
+If you have trouble with these functions, please make sure that you
+either - use any dqshiny element in your UI - load the package with
+\code{\link{library}} - use \code{\link{init}} at the beginning of your UI!
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+library(shiny)
 shinyApp(
   ui = fluidPage(
     init(),
@@ -40,7 +43,9 @@ shinyApp(
     observeEvent(input$btn1, toggle("btn3"))
     observeEvent(input$btn2, toggle_state("btn3"))
   }
-)}
+)
+
+}
 }
 \author{
 richard.kunze

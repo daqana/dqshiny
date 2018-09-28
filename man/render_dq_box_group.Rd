@@ -21,7 +21,10 @@ given dq_boxes will be groupified automatically, meaning that they will
 become 'collapsible' and 'open_callback'ed.
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+library(shiny)
 shinyApp(
   ui = fluidPage(
     fluidRow(column(6, uiOutput("myGroup")))
@@ -36,7 +39,9 @@ shinyApp(
         title = "TestBox3", width = 12),
       open = 3L)
   }
-)}
+)
+
+}
 }
 \author{
 richard.kunze

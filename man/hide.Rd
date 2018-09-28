@@ -23,12 +23,15 @@ Those functions can be used to change an elements visibility
 status.
 }
 \note{
-All functions from this family won't work, if there is not at least
-one dqshiny element in the UI. If there is absolutely no need to use any of
-those elements, please add \code{\link{init}} to your UI.
+If you have trouble with these functions, please make sure that you
+either - use any dqshiny element in your UI - load the package with
+\code{\link{library}} - use \code{\link{init}} at the beginning of your UI!
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+library(shiny)
 shinyApp(
   ui = fluidPage(
     actionButton("hide", "Hide"),
@@ -37,7 +40,6 @@ shinyApp(
     actionButton("toggle_cond", "Toggle Visibility with Condition"),
     actionButton("toggle_all", "Toggle All Visibilities"),
     checkboxInput("condition", "Visible"),
-    dq_space(), # this is needed to make everything work
     actionButton("example1", "EXAMPLE1"),
     actionButton("example2", "EXAMPLE2"),
     actionButton("example3", "EXAMPLE3")
@@ -53,7 +55,9 @@ shinyApp(
       toggle(c("example1", "example2", "example3"))
     )
   }
-)}
+)
+
+}
 }
 \seealso{
 Other js handler: \code{\link{add_class}},

@@ -1,7 +1,7 @@
 context("Test dq_htmltable in dq_htmltable.R")
 
 test_that("bad inputs work", {
-  expect_equal(dq_htmltable(NULL, NULL, NULL), shiny::tags$table(list(), style = "width:100%;", dq_dep))
+  expect_equal(dq_htmltable(NULL, NULL, NULL), shiny::tags$table(list(), style = "width:100%;", init()))
 })
 
 test_that("alignments work", {

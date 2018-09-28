@@ -28,7 +28,10 @@ the alignment for every column or a list of character vectors specifying
 the alignment of every cell.
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+library(shiny)
 shinyApp(
   ui = fluidPage(
     fluidRow(
@@ -47,7 +50,9 @@ shinyApp(
   server = function(input, output) {
     observeEvent(input$value, output$result <- renderText(input$value))
   }
-)}
+)
+
+}
 }
 \author{
 richard.kunze

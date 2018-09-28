@@ -3,16 +3,19 @@
 #' @description Those functions can be used to change an elements disabled
 #' status.
 #'
-#' @note All functions from this family won't work, if there is not at least
-#' one dqshiny element in the UI. If there is absolutely no need to use any of
-#' those elements, please add \code{\link{init}} to your UI.
+#' @note If you have trouble with these functions, please make sure that you
+#' either - use any dqshiny element in your UI - load the package with
+#' \code{\link{library}} - use \code{\link{init}} at the beginning of your UI!
 #'
 #' @param ids Character vector, id(s) of the element to enable/disable.
 #'
 #' @export
 #' @family js handler
 #' @author richard.kunze
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
+#'
+#' library(shiny)
 #' shinyApp(
 #'   ui = fluidPage(
 #'     actionButton("btn_enable", "Enable"),
@@ -37,7 +40,9 @@
 #'       toggle_state(c("example1", "example2", "example3"))
 #'     )
 #'   }
-#' )}
+#' )
+#'
+#' }
 enable <- function(ids) {
   send_message(type = "toggleState", ids = ids, state = FALSE)
 }

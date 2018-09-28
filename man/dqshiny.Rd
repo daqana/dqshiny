@@ -4,12 +4,12 @@
 \name{dqshiny}
 \alias{dqshiny}
 \alias{dqshiny-package}
-\title{dqshiny: Enhance shiny apps with customizable modules}
+\title{dqshiny: Enhance Shiny Apps with Customizable Modules}
 \description{
-This package provides highly customizable modules to enhance
- your shiny apps. Add custom header, headline and footer to your app.
- Include collapsable boxes and value boxes independent from the chosen UI
- Layout.
+Provides highly customizable modules to enhance your shiny apps.
+Includes layout independent collapsable boxes and value boxes, a very fast
+autocomplete input, rhandsontable extensions for filtering and paging and
+much more.
 }
 \section{Section}{
  some more info

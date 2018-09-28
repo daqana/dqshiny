@@ -8,7 +8,10 @@
 #'
 #' @export
 #' @author richard.kunze
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
+#'
+#' library(shiny)
 #' shinyApp(
 #'   ui = fluidPage(
 #'     fluidRow(
@@ -25,7 +28,9 @@
 #'   server = function(input, output, session) {
 #'     create_dq_box_group(session, "box1", "box2", "box3")
 #'   }
-#' )}
+#' )
+#'
+#' }
 create_dq_box_group <- function(session, ...) {
   bL <- list(...)
   if (length(bL) == 0) return()
@@ -56,7 +61,10 @@ create_dq_box_group <- function(session, ...) {
 #' @export
 #'
 #' @author richard.kunze
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
+#'
+#' library(shiny)
 #' shinyApp(
 #'   ui = fluidPage(
 #'     fluidRow(column(6, uiOutput("myGroup")))
@@ -71,7 +79,9 @@ create_dq_box_group <- function(session, ...) {
 #'         title = "TestBox3", width = 12),
 #'       open = 3L)
 #'   }
-#' )}
+#' )
+#'
+#' }
 render_dq_box_group <- function(..., open = NULL) {
   bL <- list(...)
   if (length(bL) > 0) {

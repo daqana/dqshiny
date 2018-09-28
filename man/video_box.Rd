@@ -28,8 +28,10 @@ video_tag adds a small button to show the corresponding
 video box and jump directly to the given position in the video.
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
 
+library(shiny)
 base_url <- "http://download.blender.org/peach/bigbuckbunny_movies/"
 shinyApp(
   ui = fluidPage(
@@ -46,7 +48,9 @@ shinyApp(
     ))
   ),
   server = function(input, output) {}
-)}
+)
+
+}
 }
 \author{
 richard.kunze

@@ -18,7 +18,10 @@
 #' @export
 #' @import shiny
 #' @author richard.kunze
-#' @examples \donttest{library(shiny)
+#' @examples ## Only run examples in interactive R sessions
+#' if (interactive()) {
+#'
+#' library(shiny)
 #' shinyApp(
 #'   ui = fluidPage(
 #'     init(),
@@ -33,7 +36,9 @@
 #'   ),
 #'   server = function(input, output) {
 #'   }
-#' )}
+#' )
+#'
+#' }
 dq_infobox <- function(
   title,
   value = NULL,
@@ -66,6 +71,6 @@ dq_infobox <- function(
     tl <- d
   }
 
-  shiny::column(width, tl, dq_dep)
+  shiny::column(width, tl, init())
 
 }

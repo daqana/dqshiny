@@ -61,7 +61,10 @@ Can be made collapsible and nested.
 Function to update the collapsed state of a dq_box.
 }
 \examples{
-\donttest{library(shiny)
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+library(shiny)
 shinyApp(
   ui = fluidPage(
     fluidRow(
@@ -81,7 +84,9 @@ shinyApp(
   server = function(input, output) {
     observeEvent(input$toggle, update_dq_box("bigBox"))
   }
-)}
+)
+
+}
 }
 \author{
 richard.kunze
