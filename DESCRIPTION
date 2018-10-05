@@ -14,3 +14,5 @@ LazyData: true
 RoxygenNote: 6.1.0
 Imports: shiny, htmltools
 Suggests: testthat, extrafont, ggplot2, jsonlite, rhandsontable, V8, htmlwidgets
+URL: https://github.com/daqana/dqshiny
+BugReports: https://github.com/daqana/dqshiny/issues
