@@ -1,0 +1,19 @@
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+
+language: R
+sudo: false
+cache: packages
+fortran: false
+r:
+  - oldrel
+  - release
+  - devel
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+r_binary_packages:
+  - devtools
+  - covr
+after_success:
+  - test "$TRAVIS_R_VERSION_STRING" = "release"  -a "$TRAVIS_OS_NAME" == "linux" && Rscript -e 'covr::codecov()' || true
