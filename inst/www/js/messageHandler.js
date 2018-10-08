@@ -31,12 +31,14 @@ Shiny.addCustomMessageHandler("toggleState", toggleState);
 function toggleClass(params) {
   var $obj = _getElement(params.id);
   if ($obj !== null) {
+    if ($obj.hasClass("selectized") || $obj.hasClass("js-range-slider")) {
+      $obj = $obj.parents().find(".form-group");
+    }
     if (params.state !== null && typeof params.state != "undefined") {
       $obj.toggleClass(params.className, params.state);
     } else {
       $obj.toggleClass(params.className);
     }
-    /*Shiny.onInputChange(params.id + "_" + params.className, $obj.hasClass(params.className));*/
   } else {
     if (params.retry) {
       params.retry = false;
