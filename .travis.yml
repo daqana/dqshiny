@@ -16,8 +16,9 @@ notifications:
   email:
     on_success: change
     on_failure: change
-r_binary_packages:
+r_packages:
   - devtools
   - covr
+  - shinytest
 after_success:
   - test "$TRAVIS_R_VERSION_STRING" = "release"  -a "$TRAVIS_OS_NAME" == "linux" && Rscript -e 'covr::codecov()' || true
