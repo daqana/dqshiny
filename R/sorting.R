@@ -12,7 +12,7 @@ add_sorting_observer <- function(input, session, dq_values, context, paged, page
         dq_values$sort_col <- i
         dq_values$sort_dir <- dirs[input[[s]]]
         lapply(sorts[sorts != s], function(n) {
-          if (input[[n]] != 1L) {
+          if (length(input[[n]]) == 1L && input[[n]] != 1L) {
             ignore[n] <<- TRUE
             update_icon_state_button(session, n, value = 1L)
           }
