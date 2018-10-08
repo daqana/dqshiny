@@ -40,6 +40,9 @@ $.extend(autocompleteBinding, {
       setVal(el, el.value);
       callback();
     });
+    $(el).on("focus.autocompleteBinding", function (event) {
+      el.select();
+    });
     $(el)
       .parent()
       .on("click.autocompleteBinding", ".auto_selector", function (event) {
