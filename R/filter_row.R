@@ -56,6 +56,9 @@ filter_row <- function(context, data, filters = "T", reset = TRUE, sorting = FAL
     el <- shiny::div(class = "form-group")
     if (f == "T") {
       el <- shiny::textInput(id, NULL, placeholder = names(data)[i])
+    } else if (f == "A") {
+      choices <- c("", sort(unique(as.character(data[[i]]))))
+      el <- autocomplete_input(id, NULL, choices, placeholder = names(data)[i])
     } else if (f == "S") {
       choices <- c("")
       names(choices) <- names(data)[i]
@@ -118,6 +121,6 @@ update_filters <- function(data, filters, context, session) {
 correct_filters <- function(filters, len) {
   if (length(filters) != len) filters <- rep_len(filters, len)
   filters <- toupper(substr(unlist(filters), 1, 1))
-  filters[!filters %in% c("T", "S", "R", "")] <- "T"
+  filters[!filters %in% c("T", "S", "R", "A", "")] <- "T"
   filters
 }

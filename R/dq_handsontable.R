@@ -40,28 +40,30 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #' @param context the context used to specify all ui elements used for this
 #' table, can be omitted which ends up in a randomly generated context
 #' @param filters optional character vector, adds filters for each column,
-#' values must be one of "Text", "Select", "Range" or "" (can be abbreviated) to
-#' add a TextFilter, SelectFilter, RangeFilter or none, vectors of length one
-#' will add a filter of this type for each column
+#' values must be one of "Text", "Select", "Range", "Auto" or "" (can be
+#' abbreviated) to add a Text-, Select-, Range-, AutocompleteInput or none,
+#' vectors of length one will add a filter of this type for each column
 #' @param reset optional logical, specify whether to add a button to reset
 #' filters and sort buttons to initial values or not
-#' @param page_size optional numeric, number of items per page, can be one of
-#' 10, 25, 50, 100 or any other value which will be added to this list, NULL
-#' will disable paging at all
+#' @param page_size optional integer, number of items per page, can be one of
+#' 10, 25, 50, 100 or any other value(s) which will be added to this list, first
+#' value will be used initially, NULL will disable paging at all
 #' @param sorting optional logical, specify whether to add sort buttons for
 #' every column or not, as normal rhandsontable sorting won't work properly
 #' when table is paged, please ensure that rownames of the data are numeric
 #' @param width_align optional boolean to align filter widths with hot columns,
 #' should only be used with either horizontalScroll, stretchH = "all" or a table
 #' fitting in its output element
-#' @param horizontal_scroll optiona boolean to scroll the filterrow according to
-#' the hot table, especially useful for tables with many columns
+#' @param horizontal_scroll optional boolean to scroll the filterrow according
+#' to the hot table, especially useful for tables with many columns
 #' @param table_param optional list, specify parameters to hand to rHandsontable
 #' table element
 #' @param cols_param optional list, specify parameters to hand to rHandsontable
 #' cols elements
-#' @param ... further optional lists to specify parameters to hand to
-#' rHandsontable col elements, those lists have to be assigned to any name
+#' @param col_param optional list of lists to specify parameters to hand to
+#' rHandsontable col elements
+#' @param cell_param optional list of lists to specify parameters to hand to
+#' handsontable cells
 #'
 #' @return dq_render_handsontable: the given data
 #' @author richard.kunze
@@ -74,19 +76,20 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #' if (interactive()) {
 #'
 #' library(shiny)
-#' library(rhandsontable)
 #' shinyApp(
 #'   ui = fluidPage(
-#'     dq_handsontable_output("randomTable", 9)
+#'     dq_handsontable_output("randomTable", 9L)
 #'   ),
 #'   server = function(input, output, session) {
 #'     hw <- c("Hello", "my", "funny", "world!")
-#'     data <- data.frame(A = rep(hw, 500), B = rep(hw[c(2,3,4,1)], 500),
+#'     data <- data.frame(A = rep(hw, 500), B = hw[c(2,3,4,1)],
 #'       C = 1:500, D = Sys.Date() - 0:499, stringsAsFactors = FALSE)
-#'     dq_render_handsontable("randomTable", data, "rand",
-#'       filters = c("S", "T", "R", "R"), sorting = TRUE,
-#'       pCol1=list(col=1, type = "dropdown", source = letters),
-#'       pCol2=list(col=2:4, type = "dropdown", source = LETTERS))
+#'     dq_render_handsontable("randomTable", data,
+#'       filters = c("S", "T", "R", "A"), sorting = TRUE,
+#'       page_size = c(17L, 5L, 500L, 1000L),
+#'       col_param = list(list(col = 1L, type = "dropdown", source = letters)),
+#'       cell_param = list(list(row = 2:9, col = 1:2, readOnly = TRUE))
+#'     )
 #'   }
 #' )
 #'
@@ -94,7 +97,7 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 dq_render_handsontable <- function(
   id, data, context = NULL, filters = "T", page_size = 25L, reset = TRUE,
   sorting = FALSE, width_align = FALSE, horizontal_scroll = FALSE,
-  table_param = NULL, cols_param = NULL, ...
+  table_param = NULL, cols_param = NULL, col_param = NULL, cell_param = NULL
 ) {
   requireNamespace("rhandsontable")
   requireNamespace("shiny")
@@ -106,7 +109,7 @@ dq_render_handsontable <- function(
   input <- session$input
   output <- session$output
 
-  paged <- !is.null(page_size) && page_size > 0L
+  paged <- length(page_size) > 0L && page_size > 0L
   page_id <- context
 
   dq_values <- shiny::reactiveValues()
@@ -136,7 +139,7 @@ dq_render_handsontable <- function(
   # define page_id which is needed for table rendering
   if (paged) {
     page_id <- paste0(context, "Page")
-    dq_values[[page_id]] <- shiny::isolate(dq_values$full)[1:page_size, , drop = FALSE]
+    dq_values[[page_id]] <- shiny::isolate(dq_values$full)[1:page_size[1L], , drop = FALSE]
   }
 
   # render filter row and add observer for filters
@@ -168,9 +171,9 @@ dq_render_handsontable <- function(
   cols_default <- append(cols_param, cols_default)
   cols_default <- cols_default[!duplicated(names(cols_default))]
 
-  params <- list(table_default, cols_default, ...)
+  params <- list(table_default, cols_default, col_param, cell_param)
   params[[1L]] <- add_scripts(params[[1L]], isTRUE(width_align),
-                             isTRUE(horizontal_scroll))
+                              isTRUE(horizontal_scroll))
 
   # render dq_handsontable
   if (!is.null(output)) {
@@ -178,13 +181,13 @@ dq_render_handsontable <- function(
       params[[1L]]$data <- dq_values[[page_id]]
       params[[2L]]$hot <- do.call(rhandsontable::rhandsontable, params[[1L]])
       hot <- do.call(rhandsontable::hot_cols, params[[2L]])
-      if (length(params) > 2L) {
-        for (i in 3:length(params)) {
-          if (!is.null(params[[i]])) {
-            params[[i]]$hot <- hot
-            hot <- do.call(rhandsontable::hot_col, params[[i]])
-          }
-        }
+      for (x in params[[3L]]) {
+        hot <- do.call(rhandsontable::hot_col, append(list(hot), x))
+      }
+      for (x in params[[4L]]) {
+        x$row <- match(x$row, rownames(dq_values[[page_id]]))
+        x$row <- x$row[!is.na(x$row)]
+        hot <- do.call(dq_hot_cell, append(list(hot), x))
       }
       hot$dependencies <- append(hot$dependencies, init())
       hot
@@ -195,7 +198,7 @@ dq_render_handsontable <- function(
   if (paged && !is.null(output)) {
     page_sizes <- sort(unique(c(page_size, 10L, 25L, 50L, 100L)))
     output[[paste0(id, "_pages")]] <- shiny::renderUI({
-      paging_row(context, page_size, page_sizes)
+      paging_row(context, page_size[1L], page_sizes)
     })
     output[[paste0(context, "_maxPages")]] <- shiny::renderText({
       sel <- as.integer(input[[page_select]])
