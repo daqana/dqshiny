@@ -32,7 +32,7 @@ function toggleClass(params) {
   var $obj = _getElement(params.id);
   if ($obj !== null) {
     if ($obj.hasClass("selectized") || $obj.hasClass("js-range-slider")) {
-      $obj = $obj.parents().find(".form-group");
+      $obj = $obj.closest(".form-group");
     }
     if (params.state !== null && typeof params.state != "undefined") {
       $obj.toggleClass(params.className, params.state);
@@ -171,7 +171,7 @@ function toggleSliderState(params, $slider) {
 }
 
 function _highlight($el) {
-  if ($el.css("display") == "none") {
+  if ($el.css("display") == "none" || $el.hasClass("js-range-slider")) {
     var $parEl = $el.closest(".form-group");
     if ($parEl.length) $el = $parEl;
   }
