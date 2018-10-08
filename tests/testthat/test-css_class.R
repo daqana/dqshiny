@@ -46,6 +46,7 @@ test_that("toggle_class works with different class inputs", {
 })
 
 testthat::skip_on_cran()
+testthat::skip_on_travis()
 
 test_that("shinytest will be passed", {
   shinytest::expect_pass(shinytest::testApp("shinytest/css_class"))

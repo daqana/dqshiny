@@ -38,6 +38,7 @@ test_that("toggle works with conditions", {
 })
 
 testthat::skip_on_cran()
+testthat::skip_on_travis()
 
 test_that("shinytest will be passed", {
   shinytest::expect_pass(shinytest::testApp("shinytest/display"))
