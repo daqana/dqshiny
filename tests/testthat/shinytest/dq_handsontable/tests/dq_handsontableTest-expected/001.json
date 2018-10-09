@@ -1,0 +1,848 @@
+{
+  "input": {
+    "filter_rand_A": "",
+    "filter_rand_B": "",
+    "filter_rand_C": [
+      1,
+      500
+    ],
+    "filter_rand_D": "",
+    "num_rand_page": 1,
+    "randomTable": {
+      "data": [
+        [
+          "Hello",
+          "my",
+          1,
+          "10/09/2018"
+        ],
+        [
+          "my",
+          "funny",
+          2,
+          "10/08/2018"
+        ],
+        [
+          "funny",
+          "world!",
+          3,
+          "10/07/2018"
+        ],
+        [
+          "world!",
+          "Hello",
+          4,
+          "10/06/2018"
+        ],
+        [
+          "Hello",
+          "my",
+          5,
+          "10/05/2018"
+        ],
+        [
+          "my",
+          "funny",
+          6,
+          "10/04/2018"
+        ],
+        [
+          "funny",
+          "world!",
+          7,
+          "10/03/2018"
+        ],
+        [
+          "world!",
+          "Hello",
+          8,
+          "10/02/2018"
+        ],
+        [
+          "Hello",
+          "my",
+          9,
+          "10/01/2018"
+        ],
+        [
+          "my",
+          "funny",
+          10,
+          "09/30/2018"
+        ],
+        [
+          "funny",
+          "world!",
+          11,
+          "09/29/2018"
+        ],
+        [
+          "world!",
+          "Hello",
+          12,
+          "09/28/2018"
+        ],
+        [
+          "Hello",
+          "my",
+          13,
+          "09/27/2018"
+        ],
+        [
+          "my",
+          "funny",
+          14,
+          "09/26/2018"
+        ],
+        [
+          "funny",
+          "world!",
+          15,
+          "09/25/2018"
+        ],
+        [
+          "world!",
+          "Hello",
+          16,
+          "09/24/2018"
+        ],
+        [
+          "Hello",
+          "my",
+          17,
+          "09/23/2018"
+        ]
+      ],
+      "changes": {
+        "event": "afterChange",
+        "changes": null
+      },
+      "params": {
+        "data": [
+          [
+            "Hello",
+            "my",
+            1,
+            "10/09/2018"
+          ],
+          [
+            "my",
+            "funny",
+            2,
+            "10/08/2018"
+          ],
+          [
+            "funny",
+            "world!",
+            3,
+            "10/07/2018"
+          ],
+          [
+            "world!",
+            "Hello",
+            4,
+            "10/06/2018"
+          ],
+          [
+            "Hello",
+            "my",
+            5,
+            "10/05/2018"
+          ],
+          [
+            "my",
+            "funny",
+            6,
+            "10/04/2018"
+          ],
+          [
+            "funny",
+            "world!",
+            7,
+            "10/03/2018"
+          ],
+          [
+            "world!",
+            "Hello",
+            8,
+            "10/02/2018"
+          ],
+          [
+            "Hello",
+            "my",
+            9,
+            "10/01/2018"
+          ],
+          [
+            "my",
+            "funny",
+            10,
+            "09/30/2018"
+          ],
+          [
+            "funny",
+            "world!",
+            11,
+            "09/29/2018"
+          ],
+          [
+            "world!",
+            "Hello",
+            12,
+            "09/28/2018"
+          ],
+          [
+            "Hello",
+            "my",
+            13,
+            "09/27/2018"
+          ],
+          [
+            "my",
+            "funny",
+            14,
+            "09/26/2018"
+          ],
+          [
+            "funny",
+            "world!",
+            15,
+            "09/25/2018"
+          ],
+          [
+            "world!",
+            "Hello",
+            16,
+            "09/24/2018"
+          ],
+          [
+            "Hello",
+            "my",
+            17,
+            "09/23/2018"
+          ]
+        ],
+        "rClass": "data.frame",
+        "rColClasses": {
+          "A": "character",
+          "B": "character",
+          "C": "integer",
+          "D": "Date"
+        },
+        "rColnames": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "rColHeaders": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "rRowHeaders": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17"
+        ],
+        "rDataDim": [
+          17,
+          4
+        ],
+        "selectCallback": false,
+        "colHeaders": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "rowHeaders": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17"
+        ],
+        "columns": [
+          {
+            "type": "dropdown",
+            "readOnly": false,
+            "default": null,
+            "highlightCol": true,
+            "highlightRow": true,
+            "source": [
+              "a",
+              "b",
+              "c",
+              "d",
+              "e",
+              "f",
+              "g",
+              "h",
+              "i",
+              "j",
+              "k",
+              "l",
+              "m",
+              "n",
+              "o",
+              "p",
+              "q",
+              "r",
+              "s",
+              "t",
+              "u",
+              "v",
+              "w",
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          {
+            "type": "text",
+            "readOnly": false,
+            "default": null,
+            "highlightCol": true,
+            "highlightRow": true
+          },
+          {
+            "type": "numeric",
+            "numericFormat": {
+              "pattern": "0"
+            },
+            "readOnly": false,
+            "default": null,
+            "highlightCol": true,
+            "highlightRow": true
+          },
+          {
+            "type": "date",
+            "correctFormat": true,
+            "dateFormat": "MM/DD/YYYY",
+            "readOnly": false,
+            "default": null,
+            "highlightCol": true,
+            "highlightRow": true
+          }
+        ],
+        "width": null,
+        "height": null,
+        "debug": 0,
+        "search": false,
+        "stretchH": "all",
+        "comments": false,
+        "contextMenu": false,
+        "colWidths": 1,
+        "manualColumnResize": true,
+        "cell": [
+          {
+            "row": 1,
+            "col": 1,
+            "readOnly": true
+          },
+          {
+            "row": 2,
+            "col": 1,
+            "readOnly": true
+          },
+          {
+            "row": 3,
+            "col": 1,
+            "readOnly": true
+          },
+          {
+            "row": 4,
+            "col": 1,
+            "readOnly": true
+          },
+          {
+            "row": 5,
+            "col": 1,
+            "readOnly": true
+          },
+          {
+            "row": 6,
+            "col": 1,
+            "readOnly": true
+          },
+          {
+            "row": 7,
+            "col": 1,
+            "readOnly": true
+          },
+          {
+            "row": 8,
+            "col": 1,
+            "readOnly": true
+          }
+        ]
+      }
+    },
+    "reset_rand_filter": 0,
+    "sel_rand_pageSize": "17"
+  },
+  "output": {
+    "rand_maxPages": "of  118",
+    "randomTable": {
+      "x": {
+        "data": [
+          {
+            "A": "Hello",
+            "B": "my",
+            "C": 1,
+            "D": "10/09/2018"
+          },
+          {
+            "A": "my",
+            "B": "funny",
+            "C": 2,
+            "D": "10/08/2018"
+          },
+          {
+            "A": "funny",
+            "B": "world!",
+            "C": 3,
+            "D": "10/07/2018"
+          },
+          {
+            "A": "world!",
+            "B": "Hello",
+            "C": 4,
+            "D": "10/06/2018"
+          },
+          {
+            "A": "Hello",
+            "B": "my",
+            "C": 5,
+            "D": "10/05/2018"
+          },
+          {
+            "A": "my",
+            "B": "funny",
+            "C": 6,
+            "D": "10/04/2018"
+          },
+          {
+            "A": "funny",
+            "B": "world!",
+            "C": 7,
+            "D": "10/03/2018"
+          },
+          {
+            "A": "world!",
+            "B": "Hello",
+            "C": 8,
+            "D": "10/02/2018"
+          },
+          {
+            "A": "Hello",
+            "B": "my",
+            "C": 9,
+            "D": "10/01/2018"
+          },
+          {
+            "A": "my",
+            "B": "funny",
+            "C": 10,
+            "D": "09/30/2018"
+          },
+          {
+            "A": "funny",
+            "B": "world!",
+            "C": 11,
+            "D": "09/29/2018"
+          },
+          {
+            "A": "world!",
+            "B": "Hello",
+            "C": 12,
+            "D": "09/28/2018"
+          },
+          {
+            "A": "Hello",
+            "B": "my",
+            "C": 13,
+            "D": "09/27/2018"
+          },
+          {
+            "A": "my",
+            "B": "funny",
+            "C": 14,
+            "D": "09/26/2018"
+          },
+          {
+            "A": "funny",
+            "B": "world!",
+            "C": 15,
+            "D": "09/25/2018"
+          },
+          {
+            "A": "world!",
+            "B": "Hello",
+            "C": 16,
+            "D": "09/24/2018"
+          },
+          {
+            "A": "Hello",
+            "B": "my",
+            "C": 17,
+            "D": "09/23/2018"
+          }
+        ],
+        "rClass": "data.frame",
+        "rColClasses": {
+          "A": "character",
+          "B": "character",
+          "C": "integer",
+          "D": "Date"
+        },
+        "rColnames": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "rColHeaders": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "rRowHeaders": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17"
+        ],
+        "rDataDim": [
+          17,
+          4
+        ],
+        "selectCallback": false,
+        "colHeaders": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "rowHeaders": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17"
+        ],
+        "columns": [
+          {
+            "type": "dropdown",
+            "readOnly": false,
+            "renderer": "customRenderer",
+            "default": null,
+            "highlightCol": true,
+            "highlightRow": true,
+            "source": [
+              "a",
+              "b",
+              "c",
+              "d",
+              "e",
+              "f",
+              "g",
+              "h",
+              "i",
+              "j",
+              "k",
+              "l",
+              "m",
+              "n",
+              "o",
+              "p",
+              "q",
+              "r",
+              "s",
+              "t",
+              "u",
+              "v",
+              "w",
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          {
+            "type": "text",
+            "readOnly": false,
+            "renderer": "customRenderer",
+            "default": null,
+            "highlightCol": true,
+            "highlightRow": true
+          },
+          {
+            "type": "numeric",
+            "numericFormat": {
+              "pattern": "0"
+            },
+            "readOnly": false,
+            "renderer": "customRenderer",
+            "default": null,
+            "highlightCol": true,
+            "highlightRow": true
+          },
+          {
+            "type": "date",
+            "correctFormat": true,
+            "dateFormat": "MM/DD/YYYY",
+            "readOnly": false,
+            "renderer": "customRenderer",
+            "default": null,
+            "highlightCol": true,
+            "highlightRow": true
+          }
+        ],
+        "width": null,
+        "height": null,
+        "debug": 0,
+        "search": false,
+        "stretchH": "all",
+        "comments": false,
+        "contextMenu": false,
+        "colWidths": 1,
+        "manualColumnResize": true,
+        "cell": [
+          {
+            "row": 1,
+            "col": 1,
+            "readOnly": true
+          },
+          {
+            "row": 2,
+            "col": 1,
+            "readOnly": true
+          },
+          {
+            "row": 3,
+            "col": 1,
+            "readOnly": true
+          },
+          {
+            "row": 4,
+            "col": 1,
+            "readOnly": true
+          },
+          {
+            "row": 5,
+            "col": 1,
+            "readOnly": true
+          },
+          {
+            "row": 6,
+            "col": 1,
+            "readOnly": true
+          },
+          {
+            "row": 7,
+            "col": 1,
+            "readOnly": true
+          },
+          {
+            "row": 8,
+            "col": 1,
+            "readOnly": true
+          }
+        ]
+      },
+      "evals": [
+        "columns.0.renderer",
+        "columns.1.renderer",
+        "columns.2.renderer",
+        "columns.3.renderer"
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "dqshiny",
+          "version": "0.0.1",
+          "src": {
+            "href": "dqshinyRes"
+          },
+          "meta": null,
+          "script": "js/messageHandler.js",
+          "stylesheet": "css/dqshiny.css",
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        }
+      ]
+    },
+    "randomTable_filters": {
+      "html": "<div class=\"row filter-row sorting\">\n  <div class=\"reset-wrapper\">\n    <button class=\"btn btn-default action-button dq-btn-sm\" id=\"reset_rand_filter\" title=\"Reset filters\" type=\"button\">X<\/button>\n  <\/div>\n  <div class=\"form-group shiny-input-container\">\n    <div>\n      <select id=\"filter_rand_A\" class=\"form-control\"><option value=\"\" selected>A<\/option>\n<option value=\"funny\">funny<\/option>\n<option value=\"Hello\">Hello<\/option>\n<option value=\"my\">my<\/option>\n<option value=\"world!\">world!<\/option><\/select>\n      <script type=\"application/json\" data-for=\"filter_rand_A\">{\"dropdownParent\":\"body\"}<\/script>\n    <\/div>\n    <button class=\"btn btn-default state-button sort-button\" data-state=\"1\" data-states=\"[&quot;sort&quot;,&quot;sort-up&quot;,&quot;sort-down&quot;]\" id=\"sort_rand_A\" type=\"button\">\n      <i class=\"fa fa-sort\"><\/i>\n    <\/button>\n  <\/div>\n  <div class=\"form-group shiny-input-container\">\n    <input id=\"filter_rand_B\" type=\"text\" class=\"form-control\" value=\"\" placeholder=\"B\"/>\n    <button class=\"btn btn-default state-button sort-button\" data-state=\"1\" data-states=\"[&quot;sort&quot;,&quot;sort-up&quot;,&quot;sort-down&quot;]\" id=\"sort_rand_B\" type=\"button\">\n      <i class=\"fa fa-sort\"><\/i>\n    <\/button>\n  <\/div>\n  <div class=\"form-group shiny-input-container\">\n    <input class=\"js-range-slider\" id=\"filter_rand_C\" data-type=\"double\" data-min=\"1\" data-max=\"500\" data-from=\"1\" data-to=\"500\" data-step=\"5\" data-grid=\"true\" data-grid-num=\"9.98\" data-grid-snap=\"false\" data-prettify-separator=\",\" data-prettify-enabled=\"true\" data-keyboard=\"true\" data-drag-interval=\"true\" data-data-type=\"number\"/>\n    <button class=\"btn btn-default state-button sort-button\" data-state=\"1\" data-states=\"[&quot;sort&quot;,&quot;sort-up&quot;,&quot;sort-down&quot;]\" id=\"sort_rand_C\" type=\"button\">\n      <i class=\"fa fa-sort\"><\/i>\n    <\/button>\n  <\/div>\n  <div class=\"form-group shiny-input-container autocomplete\">\n    <input id=\"filter_rand_D\" type=\"text\" class=\"form-control\" result=\"\" value=\"\" placeholder=\"D\" data-options=\"[&quot;&quot;,&quot;2017-05-28&quot;,&quot;2017-05-29&quot;,&quot;2017-05-30&quot;,&quot;2017-05-31&quot;,&quot;2017-06-01&quot;,&quot;2017-06-02&quot;,&quot;2017-06-03&quot;,&quot;2017-06-04&quot;,&quot;2017-06-05&quot;,&quot;2017-06-06&quot;,&quot;2017-06-07&quot;,&quot;2017-06-08&quot;,&quot;2017-06-09&quot;,&quot;2017-06-10&quot;,&quot;2017-06-11&quot;,&quot;2017-06-12&quot;,&quot;2017-06-13&quot;,&quot;2017-06-14&quot;,&quot;2017-06-15&quot;,&quot;2017-06-16&quot;,&quot;2017-06-17&quot;,&quot;2017-06-18&quot;,&quot;2017-06-19&quot;,&quot;2017-06-20&quot;,&quot;2017-06-21&quot;,&quot;2017-06-22&quot;,&quot;2017-06-23&quot;,&quot;2017-06-24&quot;,&quot;2017-06-25&quot;,&quot;2017-06-26&quot;,&quot;2017-06-27&quot;,&quot;2017-06-28&quot;,&quot;2017-06-29&quot;,&quot;2017-06-30&quot;,&quot;2017-07-01&quot;,&quot;2017-07-02&quot;,&quot;2017-07-03&quot;,&quot;2017-07-04&quot;,&quot;2017-07-05&quot;,&quot;2017-07-06&quot;,&quot;2017-07-07&quot;,&quot;2017-07-08&quot;,&quot;2017-07-09&quot;,&quot;2017-07-10&quot;,&quot;2017-07-11&quot;,&quot;2017-07-12&quot;,&quot;2017-07-13&quot;,&quot;2017-07-14&quot;,&quot;2017-07-15&quot;,&quot;2017-07-16&quot;,&quot;2017-07-17&quot;,&quot;2017-07-18&quot;,&quot;2017-07-19&quot;,&quot;2017-07-20&quot;,&quot;2017-07-21&quot;,&quot;2017-07-22&quot;,&quot;2017-07-23&quot;,&quot;2017-07-24&quot;,&quot;2017-07-25&quot;,&quot;2017-07-26&quot;,&quot;2017-07-27&quot;,&quot;2017-07-28&quot;,&quot;2017-07-29&quot;,&quot;2017-07-30&quot;,&quot;2017-07-31&quot;,&quot;2017-08-01&quot;,&quot;2017-08-02&quot;,&quot;2017-08-03&quot;,&quot;2017-08-04&quot;,&quot;2017-08-05&quot;,&quot;2017-08-06&quot;,&quot;2017-08-07&quot;,&quot;2017-08-08&quot;,&quot;2017-08-09&quot;,&quot;2017-08-10&quot;,&quot;2017-08-11&quot;,&quot;2017-08-12&quot;,&quot;2017-08-13&quot;,&quot;2017-08-14&quot;,&quot;2017-08-15&quot;,&quot;2017-08-16&quot;,&quot;2017-08-17&quot;,&quot;2017-08-18&quot;,&quot;2017-08-19&quot;,&quot;2017-08-20&quot;,&quot;2017-08-21&quot;,&quot;2017-08-22&quot;,&quot;2017-08-23&quot;,&quot;2017-08-24&quot;,&quot;2017-08-25&quot;,&quot;2017-08-26&quot;,&quot;2017-08-27&quot;,&quot;2017-08-28&quot;,&quot;2017-08-29&quot;,&quot;2017-08-30&quot;,&quot;2017-08-31&quot;,&quot;2017-09-01&quot;,&quot;2017-09-02&quot;,&quot;2017-09-03&quot;,&quot;2017-09-04&quot;,&quot;2017-09-05&quot;,&quot;2017-09-06&quot;,&quot;2017-09-07&quot;,&quot;2017-09-08&quot;,&quot;2017-09-09&quot;,&quot;2017-09-10&quot;,&quot;2017-09-11&quot;,&quot;2017-09-12&quot;,&quot;2017-09-13&quot;,&quot;2017-09-14&quot;,&quot;2017-09-15&quot;,&quot;2017-09-16&quot;,&quot;2017-09-17&quot;,&quot;2017-09-18&quot;,&quot;2017-09-19&quot;,&quot;2017-09-20&quot;,&quot;2017-09-21&quot;,&quot;2017-09-22&quot;,&quot;2017-09-23&quot;,&quot;2017-09-24&quot;,&quot;2017-09-25&quot;,&quot;2017-09-26&quot;,&quot;2017-09-27&quot;,&quot;2017-09-28&quot;,&quot;2017-09-29&quot;,&quot;2017-09-30&quot;,&quot;2017-10-01&quot;,&quot;2017-10-02&quot;,&quot;2017-10-03&quot;,&quot;2017-10-04&quot;,&quot;2017-10-05&quot;,&quot;2017-10-06&quot;,&quot;2017-10-07&quot;,&quot;2017-10-08&quot;,&quot;2017-10-09&quot;,&quot;2017-10-10&quot;,&quot;2017-10-11&quot;,&quot;2017-10-12&quot;,&quot;2017-10-13&quot;,&quot;2017-10-14&quot;,&quot;2017-10-15&quot;,&quot;2017-10-16&quot;,&quot;2017-10-17&quot;,&quot;2017-10-18&quot;,&quot;2017-10-19&quot;,&quot;2017-10-20&quot;,&quot;2017-10-21&quot;,&quot;2017-10-22&quot;,&quot;2017-10-23&quot;,&quot;2017-10-24&quot;,&quot;2017-10-25&quot;,&quot;2017-10-26&quot;,&quot;2017-10-27&quot;,&quot;2017-10-28&quot;,&quot;2017-10-29&quot;,&quot;2017-10-30&quot;,&quot;2017-10-31&quot;,&quot;2017-11-01&quot;,&quot;2017-11-02&quot;,&quot;2017-11-03&quot;,&quot;2017-11-04&quot;,&quot;2017-11-05&quot;,&quot;2017-11-06&quot;,&quot;2017-11-07&quot;,&quot;2017-11-08&quot;,&quot;2017-11-09&quot;,&quot;2017-11-10&quot;,&quot;2017-11-11&quot;,&quot;2017-11-12&quot;,&quot;2017-11-13&quot;,&quot;2017-11-14&quot;,&quot;2017-11-15&quot;,&quot;2017-11-16&quot;,&quot;2017-11-17&quot;,&quot;2017-11-18&quot;,&quot;2017-11-19&quot;,&quot;2017-11-20&quot;,&quot;2017-11-21&quot;,&quot;2017-11-22&quot;,&quot;2017-11-23&quot;,&quot;2017-11-24&quot;,&quot;2017-11-25&quot;,&quot;2017-11-26&quot;,&quot;2017-11-27&quot;,&quot;2017-11-28&quot;,&quot;2017-11-29&quot;,&quot;2017-11-30&quot;,&quot;2017-12-01&quot;,&quot;2017-12-02&quot;,&quot;2017-12-03&quot;,&quot;2017-12-04&quot;,&quot;2017-12-05&quot;,&quot;2017-12-06&quot;,&quot;2017-12-07&quot;,&quot;2017-12-08&quot;,&quot;2017-12-09&quot;,&quot;2017-12-10&quot;,&quot;2017-12-11&quot;,&quot;2017-12-12&quot;,&quot;2017-12-13&quot;,&quot;2017-12-14&quot;,&quot;2017-12-15&quot;,&quot;2017-12-16&quot;,&quot;2017-12-17&quot;,&quot;2017-12-18&quot;,&quot;2017-12-19&quot;,&quot;2017-12-20&quot;,&quot;2017-12-21&quot;,&quot;2017-12-22&quot;,&quot;2017-12-23&quot;,&quot;2017-12-24&quot;,&quot;2017-12-25&quot;,&quot;2017-12-26&quot;,&quot;2017-12-27&quot;,&quot;2017-12-28&quot;,&quot;2017-12-29&quot;,&quot;2017-12-30&quot;,&quot;2017-12-31&quot;,&quot;2018-01-01&quot;,&quot;2018-01-02&quot;,&quot;2018-01-03&quot;,&quot;2018-01-04&quot;,&quot;2018-01-05&quot;,&quot;2018-01-06&quot;,&quot;2018-01-07&quot;,&quot;2018-01-08&quot;,&quot;2018-01-09&quot;,&quot;2018-01-10&quot;,&quot;2018-01-11&quot;,&quot;2018-01-12&quot;,&quot;2018-01-13&quot;,&quot;2018-01-14&quot;,&quot;2018-01-15&quot;,&quot;2018-01-16&quot;,&quot;2018-01-17&quot;,&quot;2018-01-18&quot;,&quot;2018-01-19&quot;,&quot;2018-01-20&quot;,&quot;2018-01-21&quot;,&quot;2018-01-22&quot;,&quot;2018-01-23&quot;,&quot;2018-01-24&quot;,&quot;2018-01-25&quot;,&quot;2018-01-26&quot;,&quot;2018-01-27&quot;,&quot;2018-01-28&quot;,&quot;2018-01-29&quot;,&quot;2018-01-30&quot;,&quot;2018-01-31&quot;,&quot;2018-02-01&quot;,&quot;2018-02-02&quot;,&quot;2018-02-03&quot;,&quot;2018-02-04&quot;,&quot;2018-02-05&quot;,&quot;2018-02-06&quot;,&quot;2018-02-07&quot;,&quot;2018-02-08&quot;,&quot;2018-02-09&quot;,&quot;2018-02-10&quot;,&quot;2018-02-11&quot;,&quot;2018-02-12&quot;,&quot;2018-02-13&quot;,&quot;2018-02-14&quot;,&quot;2018-02-15&quot;,&quot;2018-02-16&quot;,&quot;2018-02-17&quot;,&quot;2018-02-18&quot;,&quot;2018-02-19&quot;,&quot;2018-02-20&quot;,&quot;2018-02-21&quot;,&quot;2018-02-22&quot;,&quot;2018-02-23&quot;,&quot;2018-02-24&quot;,&quot;2018-02-25&quot;,&quot;2018-02-26&quot;,&quot;2018-02-27&quot;,&quot;2018-02-28&quot;,&quot;2018-03-01&quot;,&quot;2018-03-02&quot;,&quot;2018-03-03&quot;,&quot;2018-03-04&quot;,&quot;2018-03-05&quot;,&quot;2018-03-06&quot;,&quot;2018-03-07&quot;,&quot;2018-03-08&quot;,&quot;2018-03-09&quot;,&quot;2018-03-10&quot;,&quot;2018-03-11&quot;,&quot;2018-03-12&quot;,&quot;2018-03-13&quot;,&quot;2018-03-14&quot;,&quot;2018-03-15&quot;,&quot;2018-03-16&quot;,&quot;2018-03-17&quot;,&quot;2018-03-18&quot;,&quot;2018-03-19&quot;,&quot;2018-03-20&quot;,&quot;2018-03-21&quot;,&quot;2018-03-22&quot;,&quot;2018-03-23&quot;,&quot;2018-03-24&quot;,&quot;2018-03-25&quot;,&quot;2018-03-26&quot;,&quot;2018-03-27&quot;,&quot;2018-03-28&quot;,&quot;2018-03-29&quot;,&quot;2018-03-30&quot;,&quot;2018-03-31&quot;,&quot;2018-04-01&quot;,&quot;2018-04-02&quot;,&quot;2018-04-03&quot;,&quot;2018-04-04&quot;,&quot;2018-04-05&quot;,&quot;2018-04-06&quot;,&quot;2018-04-07&quot;,&quot;2018-04-08&quot;,&quot;2018-04-09&quot;,&quot;2018-04-10&quot;,&quot;2018-04-11&quot;,&quot;2018-04-12&quot;,&quot;2018-04-13&quot;,&quot;2018-04-14&quot;,&quot;2018-04-15&quot;,&quot;2018-04-16&quot;,&quot;2018-04-17&quot;,&quot;2018-04-18&quot;,&quot;2018-04-19&quot;,&quot;2018-04-20&quot;,&quot;2018-04-21&quot;,&quot;2018-04-22&quot;,&quot;2018-04-23&quot;,&quot;2018-04-24&quot;,&quot;2018-04-25&quot;,&quot;2018-04-26&quot;,&quot;2018-04-27&quot;,&quot;2018-04-28&quot;,&quot;2018-04-29&quot;,&quot;2018-04-30&quot;,&quot;2018-05-01&quot;,&quot;2018-05-02&quot;,&quot;2018-05-03&quot;,&quot;2018-05-04&quot;,&quot;2018-05-05&quot;,&quot;2018-05-06&quot;,&quot;2018-05-07&quot;,&quot;2018-05-08&quot;,&quot;2018-05-09&quot;,&quot;2018-05-10&quot;,&quot;2018-05-11&quot;,&quot;2018-05-12&quot;,&quot;2018-05-13&quot;,&quot;2018-05-14&quot;,&quot;2018-05-15&quot;,&quot;2018-05-16&quot;,&quot;2018-05-17&quot;,&quot;2018-05-18&quot;,&quot;2018-05-19&quot;,&quot;2018-05-20&quot;,&quot;2018-05-21&quot;,&quot;2018-05-22&quot;,&quot;2018-05-23&quot;,&quot;2018-05-24&quot;,&quot;2018-05-25&quot;,&quot;2018-05-26&quot;,&quot;2018-05-27&quot;,&quot;2018-05-28&quot;,&quot;2018-05-29&quot;,&quot;2018-05-30&quot;,&quot;2018-05-31&quot;,&quot;2018-06-01&quot;,&quot;2018-06-02&quot;,&quot;2018-06-03&quot;,&quot;2018-06-04&quot;,&quot;2018-06-05&quot;,&quot;2018-06-06&quot;,&quot;2018-06-07&quot;,&quot;2018-06-08&quot;,&quot;2018-06-09&quot;,&quot;2018-06-10&quot;,&quot;2018-06-11&quot;,&quot;2018-06-12&quot;,&quot;2018-06-13&quot;,&quot;2018-06-14&quot;,&quot;2018-06-15&quot;,&quot;2018-06-16&quot;,&quot;2018-06-17&quot;,&quot;2018-06-18&quot;,&quot;2018-06-19&quot;,&quot;2018-06-20&quot;,&quot;2018-06-21&quot;,&quot;2018-06-22&quot;,&quot;2018-06-23&quot;,&quot;2018-06-24&quot;,&quot;2018-06-25&quot;,&quot;2018-06-26&quot;,&quot;2018-06-27&quot;,&quot;2018-06-28&quot;,&quot;2018-06-29&quot;,&quot;2018-06-30&quot;,&quot;2018-07-01&quot;,&quot;2018-07-02&quot;,&quot;2018-07-03&quot;,&quot;2018-07-04&quot;,&quot;2018-07-05&quot;,&quot;2018-07-06&quot;,&quot;2018-07-07&quot;,&quot;2018-07-08&quot;,&quot;2018-07-09&quot;,&quot;2018-07-10&quot;,&quot;2018-07-11&quot;,&quot;2018-07-12&quot;,&quot;2018-07-13&quot;,&quot;2018-07-14&quot;,&quot;2018-07-15&quot;,&quot;2018-07-16&quot;,&quot;2018-07-17&quot;,&quot;2018-07-18&quot;,&quot;2018-07-19&quot;,&quot;2018-07-20&quot;,&quot;2018-07-21&quot;,&quot;2018-07-22&quot;,&quot;2018-07-23&quot;,&quot;2018-07-24&quot;,&quot;2018-07-25&quot;,&quot;2018-07-26&quot;,&quot;2018-07-27&quot;,&quot;2018-07-28&quot;,&quot;2018-07-29&quot;,&quot;2018-07-30&quot;,&quot;2018-07-31&quot;,&quot;2018-08-01&quot;,&quot;2018-08-02&quot;,&quot;2018-08-03&quot;,&quot;2018-08-04&quot;,&quot;2018-08-05&quot;,&quot;2018-08-06&quot;,&quot;2018-08-07&quot;,&quot;2018-08-08&quot;,&quot;2018-08-09&quot;,&quot;2018-08-10&quot;,&quot;2018-08-11&quot;,&quot;2018-08-12&quot;,&quot;2018-08-13&quot;,&quot;2018-08-14&quot;,&quot;2018-08-15&quot;,&quot;2018-08-16&quot;,&quot;2018-08-17&quot;,&quot;2018-08-18&quot;,&quot;2018-08-19&quot;,&quot;2018-08-20&quot;,&quot;2018-08-21&quot;,&quot;2018-08-22&quot;,&quot;2018-08-23&quot;,&quot;2018-08-24&quot;,&quot;2018-08-25&quot;,&quot;2018-08-26&quot;,&quot;2018-08-27&quot;,&quot;2018-08-28&quot;,&quot;2018-08-29&quot;,&quot;2018-08-30&quot;,&quot;2018-08-31&quot;,&quot;2018-09-01&quot;,&quot;2018-09-02&quot;,&quot;2018-09-03&quot;,&quot;2018-09-04&quot;,&quot;2018-09-05&quot;,&quot;2018-09-06&quot;,&quot;2018-09-07&quot;,&quot;2018-09-08&quot;,&quot;2018-09-09&quot;,&quot;2018-09-10&quot;,&quot;2018-09-11&quot;,&quot;2018-09-12&quot;,&quot;2018-09-13&quot;,&quot;2018-09-14&quot;,&quot;2018-09-15&quot;,&quot;2018-09-16&quot;,&quot;2018-09-17&quot;,&quot;2018-09-18&quot;,&quot;2018-09-19&quot;,&quot;2018-09-20&quot;,&quot;2018-09-21&quot;,&quot;2018-09-22&quot;,&quot;2018-09-23&quot;,&quot;2018-09-24&quot;,&quot;2018-09-25&quot;,&quot;2018-09-26&quot;,&quot;2018-09-27&quot;,&quot;2018-09-28&quot;,&quot;2018-09-29&quot;,&quot;2018-09-30&quot;,&quot;2018-10-01&quot;,&quot;2018-10-02&quot;,&quot;2018-10-03&quot;,&quot;2018-10-04&quot;,&quot;2018-10-05&quot;,&quot;2018-10-06&quot;,&quot;2018-10-07&quot;,&quot;2018-10-08&quot;,&quot;2018-10-09&quot;]\" data-max=\"0\" data-hide=\"FALSE\"/>\n    <button class=\"btn btn-default state-button sort-button\" data-state=\"1\" data-states=\"[&quot;sort&quot;,&quot;sort-up&quot;,&quot;sort-down&quot;]\" id=\"sort_rand_D\" type=\"button\">\n      <i class=\"fa fa-sort\"><\/i>\n    <\/button>\n  <\/div>\n<\/div>",
+      "deps": [
+        {
+          "name": "font-awesome",
+          "version": "4.7.0",
+          "src": {
+            "href": "shared/font-awesome"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "css/font-awesome.min.css",
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "stateButton",
+          "version": "0.0.1",
+          "src": {
+            "href": "dqshinyRes"
+          },
+          "meta": null,
+          "script": "js/stateButton-binding.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "selectize",
+          "version": "0.11.2",
+          "src": {
+            "href": "shared/selectize"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "css/selectize.bootstrap3.css",
+          "head": "<!--[if lt IE 9]>\n<script src=\"shared/selectize/js/es5-shim.min.js\"><\/script>\n<![endif]-->\n<script src=\"shared/selectize/js/selectize.min.js\"><\/script>",
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "ionrangeslider",
+          "version": "2.1.6",
+          "src": {
+            "href": "shared/ionrangeslider"
+          },
+          "meta": null,
+          "script": "js/ion.rangeSlider.min.js",
+          "stylesheet": [
+            "css/ion.rangeSlider.css",
+            "css/ion.rangeSlider.skinShiny.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "strftime",
+          "version": "0.9.2",
+          "src": {
+            "href": "shared/strftime"
+          },
+          "meta": null,
+          "script": "strftime-min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "autocomplete",
+          "version": "0.0.1",
+          "src": {
+            "href": "dqshinyRes"
+          },
+          "meta": null,
+          "script": "js/autocomplete-binding.js",
+          "stylesheet": "css/autocomplete.css",
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        }
+      ]
+    },
+    "randomTable_pages": {
+      "html": "<div class=\"row vertical-align paging-row\">\n  <div class=\"col-sm-5\" align=\"right\">Page:<\/div>\n  <div class=\"col-sm-1\">\n    <div class=\"form-group shiny-input-container\">\n      <input id=\"num_rand_page\" type=\"number\" class=\"form-control\" value=\"1\" min=\"1\"/>\n    <\/div>\n  <\/div>\n  <div class=\"col-sm-2\">\n    <span id=\"rand_maxPages\" class=\"shiny-text-output\"><\/span>\n  <\/div>\n  <div class=\"col-sm-3\" align=\"right\">Items per page:<\/div>\n  <div class=\"col-sm-1\">\n    <div class=\"form-group shiny-input-container\">\n      <div>\n        <select id=\"sel_rand_pageSize\" class=\"form-control\"><option value=\"5\">5<\/option>\n<option value=\"10\">10<\/option>\n<option value=\"17\" selected>17<\/option>\n<option value=\"25\">25<\/option>\n<option value=\"50\">50<\/option>\n<option value=\"100\">100<\/option>\n<option value=\"500\">500<\/option>\n<option value=\"1000\">1000<\/option><\/select>\n        <script type=\"application/json\" data-for=\"sel_rand_pageSize\">{}<\/script>\n      <\/div>\n    <\/div>\n  <\/div>\n<\/div>",
+      "deps": [
+        {
+          "name": "selectize",
+          "version": "0.11.2",
+          "src": {
+            "href": "shared/selectize"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "css/selectize.bootstrap3.css",
+          "head": "<!--[if lt IE 9]>\n<script src=\"shared/selectize/js/es5-shim.min.js\"><\/script>\n<![endif]-->\n<script src=\"shared/selectize/js/selectize.min.js\"><\/script>",
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        }
+      ]
+    }
+  },
+  "export": {
+
+  }
+}

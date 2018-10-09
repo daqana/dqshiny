@@ -37,8 +37,10 @@ test_that("toggle works with conditions", {
   expect_null(toggle("id", FALSE))
 })
 
-testthat::skip_on_cran()
-testthat::skip_on_travis()
+context("Test display shinytest")
+
+skip_on_cran()
+skip_on_travis()
 
 test_that("shinytest will be passed", {
   shinytest::expect_pass(shinytest::testApp("shinytest/display"))

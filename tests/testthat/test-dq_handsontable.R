@@ -41,3 +41,12 @@ test_that("dq_render_handsontable works properly with different parameters", {
   rV <- shiny::reactiveValues(id = df)
   expect_silent(dq_render_handsontable("id", rV, page_size = 78L))
 })
+
+context("Test dq_handsontable shinytest")
+
+skip_on_cran()
+skip_on_travis()
+
+test_that("shinytest will be passed", {
+  shinytest::expect_pass(shinytest::testApp("shinytest/dq_handsontable"))
+})
