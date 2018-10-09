@@ -13,7 +13,7 @@ test_that("all parameters work", {
   expect_true(grepl("width: 300px", aI("id", NULL, NULL, width = 300)))
   expect_true(grepl("holder=\"pl", aI("id", NULL, NULL, placeholder = "pl")))
   expect_true(grepl("max=\"300", aI("id", NULL, NULL, max_options = 300)))
-  expect_true(grepl("hide=\"TRUE", aI("id", NULL, NULL, hide_values = TRUE)))
+  expect_true(grepl("hide=\"true", aI("id", NULL, NULL, hide_values = TRUE)))
 })
 
 context("Test update_autocomplete_input in autocomplete_input.R")
