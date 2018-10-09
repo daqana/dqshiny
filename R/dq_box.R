@@ -72,7 +72,7 @@ dq_box <- function(
   box_class <- "dq-box"
   box_on_click <- NULL
   body_id <- paste0(sample(letters, 8L), collapse = "")
-  head_class <- "dq-box-header"
+  head_class <- "dq-box-header clearfix"
   box_styles <- ""
 
   if (!is.null(bg_color)) {
@@ -89,7 +89,7 @@ dq_box <- function(
 
   title_tag <- create_box_title(title, color)
 
-  body_class <- "dq-box-body"
+  body_class <- "dq-box-body clearfix"
   body_styles <- NULL
 
   if (!isTRUE(fill)) {
@@ -139,7 +139,7 @@ create_collapse_tag <- function(collapsed, id, body_id, open_callback = TRUE) {
   coll_icon <- if (collapsed) "plus" else "minus"
   btn <- shiny::actionButton(
     paste0(id, "_collapser"), label = NULL, icon = shiny::icon(coll_icon),
-    class = paste0("btn collapser"), "data-toggle" = "collapse",
+    class = "btn collapser", "data-toggle" = "collapse",
     "data-target" = paste0("#", body_id)
   )
   if (open_callback) {
@@ -149,7 +149,7 @@ create_collapse_tag <- function(collapsed, id, body_id, open_callback = TRUE) {
     )
     btn <- shiny::tagAppendAttributes(btn, onclick = on_click)
   }
-  shiny::div(class = "dq-box-tools", btn)
+  shiny::div(class = "collapser-wrapper", btn)
 }
 
 create_box_title <- function(title, color) {

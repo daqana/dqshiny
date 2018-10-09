@@ -48,7 +48,7 @@
   background-color: #eee;
 }
 
-/* ################# dq-boxes ###################### */
+/* ################# dq-info-box ###################### */
 .dq-info-box-wrapper:hover .dq-box {
   opacity: 0.9;
 }
@@ -107,10 +107,7 @@
   display: block;
 }
 
-/*
- * Component: Box
- * --------------
- */
+/* ################### dq-box ####################### */
 .dq-box-wrapper {
   margin-bottom: 20px;
 }
@@ -120,20 +117,6 @@
   background: #ffffff;
   width: 100%;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-}
-.dq-box-header:before,
-.dq-box-body:before,
-.dq-box-footer:before,
-.dq-box-header:after,
-.dq-box-body:after,
-.dq-box-footer:after {
-  content: " ";
-  display: table;
-}
-.dq-box-header:after,
-.dq-box-body:after,
-.dq-box-footer:after {
-  clear: both;
 }
 .dq-box-header {
   color: #444;
@@ -156,31 +139,31 @@
 }
 .dq-box-header > .fa,
 .dq-box-header > .glyphicon,
-.dq-box-header > .ion {
+.dq-box-header > .icon {
   margin-right: 5px;
 }
-.dq-box-header > .dq-box-tools {
+.dq-box-header .collapser-wrapper {
   position: absolute;
   right: 5px;
   top: 5px;
 }
-.dq-box-header > .dq-box-tools .btn {
-  padding: 5px 10px !important;
-  border-width: 2px !important;
+.dq-box-header .collapser {
+  padding: 5px 10px;
+  border-width: 2px;
   color: #000;
   background: #fff;
   font-size: 13px;
   box-shadow: none;
   border-color: transparent;
 }
-.dq-box-header > .dq-box-tools .btn[aria-expanded="true"] .fa:before {
+.dq-box-header .collapser[aria-expanded="true"] .fa:before {
   content: "\f068";
 }
-.dq-box-header > .dq-box-tools .btn[aria-expanded="false"] .fa:before {
+.dq-box-header .collapser[aria-expanded="false"] .fa:before {
   content: "\f067";
 }
-.dq-box-header > .dq-box-tools .btn:hover {
-  border-color: #fff !important;
+.dq-box-header .collapser:hover {
+  border-color: #fff;
   background: transparent;
 }
 .dq-box-body {
@@ -188,7 +171,10 @@
   border-top-right-radius: 0;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
-  padding: 0 15px;
+  padding: 10px 10px 0;
+}
+.dq-box-body.in {
+  padding: 10px;
 }
 .dq-box-body.not-filled {
   background-color: #fff;
@@ -196,15 +182,6 @@
 .no-header .dq-box-body {
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
-}
-.dq-box-footer {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 3px;
-  border-bottom-left-radius: 3px;
-  border-top: 1px solid #f4f4f4;
-  padding: 10px;
-  background-color: #fff;
 }
 
 /* ################# dq-help ################## */
