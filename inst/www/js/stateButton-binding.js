@@ -42,7 +42,6 @@ $.extend(stateButtonBinding, {
   },
 
   // Receive messages from the server.
-  // Messages sent by updateUrlInput() are received by this function.
   receiveMessage: function(el, data) {
     if (data.hasOwnProperty("state")) $(el).data("state", data.state);
     if (data.hasOwnProperty("states")) $(el).data("states", data.states);
@@ -51,23 +50,12 @@ $.extend(stateButtonBinding, {
   },
 
   // This returns a full description of the input's state.
-  // Note that some inputs may be too complex for a full description of the
-  // state to be feasible.
   getState: function(el) {
     return {
-      label: "test",
-      value: ""
-    };
-  },
-
-  // The input rate limiting policy
-  getRatePolicy: function() {
-    return {
-      // Can be 'debounce' or 'throttle'
-      policy: "debounce",
-      delay: 500
+      value: this.getValue(el)
     };
   }
+
 });
 
 Shiny.inputBindings.register(stateButtonBinding, "shiny.stateButton");

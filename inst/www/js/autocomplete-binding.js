@@ -38,18 +38,19 @@ $.extend(autocompleteBinding, {
     var setVal = this.setValue;
     $(el).on("input.autocompleteBinding", function (event) {
       setVal(el, el.value);
-      callback();
+      callback(true);
     });
     $(el).on("focus.autocompleteBinding", function (event) {
       el.select();
     });
-    $(el)
-      .parent()
-      .on("click.autocompleteBinding", ".auto_selector", function (event) {
-        var val = this.getElementsByTagName("input")[0].value;
-        setVal(el, val);
-        callback();
-      });
+    $(el).on("change.autocompleteBinding", function (event) {
+      callback(false);
+    });
+    $(el).parent().on("click.autocompleteBinding", ".auto_selector", function (event) {
+      var val = this.getElementsByTagName("input")[0].value;
+      setVal(el, val);
+      callback(false);
+    });
   },
 
   unsubscribe: function (el) {
