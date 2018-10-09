@@ -71,7 +71,7 @@ autocomplete_input <- function(
     shiny::tags$input(
       id = id, type = "text", class = "form-control", result = value,
       value = value, placeholder = placeholder, "data-options" = js_opts,
-      "data-max" = max_options, "data-hide" = isTRUE(hide_values)
+      "data-max" = max_options, "data-hide" = tolower(isTRUE(hide_values))
     ),
     htmltools::htmlDependency(
       "autocomplete", "0.0.1", c(href = "dqshinyRes"),
