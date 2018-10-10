@@ -44,8 +44,8 @@ test_that("dq_render_handsontable works properly with different parameters", {
 
 context("Test dq_handsontable shinytest")
 
-skip_on_cran()
-skip_on_travis()
+# skip_on_cran()
+# skip_on_travis()
 
 test_that("shinytest will be passed", {
   shinytest::expect_pass(shinytest::testApp("shinytest/dq_handsontable"))
