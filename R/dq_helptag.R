@@ -49,7 +49,7 @@ dq_helptag <- function(title, trigger = "hover", width = 200, style = NULL) {
 
   divC <- paste0("dq-help on-", trigger)
 
-  shiny::tags$div(
+  res <- shiny::tags$div(
     class = divC,
     shiny::icon("question-circle"),
     style = style,
@@ -58,8 +58,9 @@ dq_helptag <- function(title, trigger = "hover", width = 200, style = NULL) {
       class = "dq-help-inner",
       shiny::HTML(title),
       style = paste0("width:", shiny::validateCssUnit(width), ";")
-    ),
-    init()
+    )
   )
+
+  htmltools::attachDependencies(res, init())
 
 }

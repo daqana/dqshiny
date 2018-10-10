@@ -5,14 +5,14 @@
 \alias{run_js}
 \title{Adds a custom js function}
 \usage{
-add_js(type, functionText)
+add_js(type, function_text)
 
 run_js(type, ...)
 }
 \arguments{
 \item{type}{name of the function}
 
-\item{functionText}{js function definition, this should be an anonymous
+\item{function_text}{js function definition, this should be an anonymous
 function accepting exactly one argument}
 
 \item{...}{arguments to pass to the function, those will be combined to a

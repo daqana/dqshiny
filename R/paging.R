@@ -2,13 +2,13 @@
 update_page <- function(df, context, page, size, session) {
   if (is.null(session) || is.null(df)) return()
   l <- nrow(df)
-  if (is.null(page) || is.na(page)) page <- 1L
+  if (length(page) != 1L || is.na(page)) page <- 1L
   else if (is.infinite(page)) page <- l
-  if (is.null(size) || is.na(size)) size <- 25L
+  if (length(size) != 1L || is.na(size)) size <- 25L
   else if (is.infinite(size)) size <- l
 
   maxP <- max(ceiling(l / size), 1L)
-  p <- ifelse(is.na(as.numeric(page)), 1L, page)
+  p <- if (is.na(as.numeric(page))) 1L else page
   p <- max(min(p, maxP), 1L)
   shiny::updateNumericInput(
     session, paste0("num_", context, "_page"), value = p, max = maxP

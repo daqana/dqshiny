@@ -7,7 +7,7 @@
 #' @param alt alternative image title (optional, default = "")
 #' @param pdf boolean variable controlling if pdf output is generated (optional, default = FALSE)
 #' @param png boolean variable controlling if png output is generated (optional, default = FALSE)
-#' @param deleteFile parameter for shiny::renderImage function
+#' @param delete_file parameter for shiny::renderImage function
 #' @return list containing ggplot2 figure information
 #' @family plotting
 #' @author david.breuer
@@ -32,7 +32,7 @@
 #' )
 #'
 #' }
-dq_render_svg <- function(gg, path = NULL, width = 1200, height = 500, alt = "", pdf = FALSE, png = FALSE, deleteFile = TRUE) {
+dq_render_svg <- function(gg, path = NULL, width = 1200, height = 500, alt = "", pdf = FALSE, png = FALSE, delete_file = TRUE) {
   requireNamespace("ggplot2")
   rf <- shiny::reactive({
     if (!is.null(gg)) {
@@ -47,7 +47,7 @@ dq_render_svg <- function(gg, path = NULL, width = 1200, height = 500, alt = "",
     list(src = normalizePath(out_svg), contentType = "image/svg+xml",
          width = width, height = height, alt = alt)
   })
-  shiny::renderImage(rf(), deleteFile = deleteFile)
+  shiny::renderImage(rf(), deleteFile = delete_file)
 }
 
 #' @author david.breuer

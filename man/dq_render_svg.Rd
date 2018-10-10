@@ -5,7 +5,7 @@
 \title{Render ggplot2 figure as svg}
 \usage{
 dq_render_svg(gg, path = NULL, width = 1200, height = 500,
-  alt = "", pdf = FALSE, png = FALSE, deleteFile = TRUE)
+  alt = "", pdf = FALSE, png = FALSE, delete_file = TRUE)
 }
 \arguments{
 \item{gg}{reactive or non-reactive ggplot2 object}
@@ -22,7 +22,7 @@ dq_render_svg(gg, path = NULL, width = 1200, height = 500,
 
 \item{png}{boolean variable controlling if png output is generated (optional, default = FALSE)}
 
-\item{deleteFile}{parameter for shiny::renderImage function}
+\item{delete_file}{parameter for shiny::renderImage function}
 }
 \value{
 list containing ggplot2 figure information

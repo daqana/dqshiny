@@ -10,7 +10,7 @@
 #' After successfull adding any function can be used with run_js.
 #'
 #' @param type name of the function
-#' @param functionText js function definition, this should be an anonymous
+#' @param function_text js function definition, this should be an anonymous
 #' function accepting exactly one argument
 #'
 #' @export
@@ -37,9 +37,9 @@
 #' )
 #'
 #' }
-add_js <- function(type, functionText) {
+add_js <- function(type, function_text) {
   code <- paste0(
-    "Shiny.addCustomMessageHandler('", type, "', ", functionText, ");"
+    "Shiny.addCustomMessageHandler('", type, "', ", function_text, ");"
   )
   parse_code(code)
   shiny::tags$head(shiny::tags$script(code))

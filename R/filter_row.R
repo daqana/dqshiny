@@ -99,7 +99,7 @@ update_filters <- function(data, filters, context, session) {
   names(els) <- gsub(paste0("^filter_", context, "_"), "", els)
   for (n in names(els)) {
     filter <- filters[names(data) == n]
-    if (length(filter) == 1) {
+    if (length(filter) == 1L) {
       if (filter == "S") {
         shiny::updateSelectInput(
           session, unname(els[n]), choices = sort(unique(data[[n]])),

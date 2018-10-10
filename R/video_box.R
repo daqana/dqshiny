@@ -34,7 +34,6 @@
 #'
 #' }
 video_box <- function(id, src, title = NULL, type = "video/mp4") {
-  init()
   if (length(type) != length(src)) {
     type <- rep_len(type, length(src))
   }
@@ -65,7 +64,6 @@ video_box <- function(id, src, title = NULL, type = "video/mp4") {
 #' @export
 #' @rdname video_box
 video_tag <- function(id, time = NULL, title = NULL) {
-  init()
   shiny::tags$div(
     class = "video-button", shiny::icon("play-circle"),
     onclick = paste0(

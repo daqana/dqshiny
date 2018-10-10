@@ -29,7 +29,6 @@
 #' }
 dq_busy <- function(icon_path = NULL, time = 500, animation = "fadeIn") {
 
-  init()
   if (is.null(icon_path)) icon_path <- "dqshinyRes/img/busy.gif"
   if (!is.numeric(time)) time <- 500
   busy_styles <- paste0(
@@ -39,6 +38,7 @@ dq_busy <- function(icon_path = NULL, time = 500, animation = "fadeIn") {
   shiny::conditionalPanel(
     "$('html').hasClass('shiny-busy')",
     shiny::tags$img(style = busy_styles, src = icon_path),
+    init(),
     htmltools::htmlDependency("transitions", "0.0.1", c(href = "dqshinyRes"),
                               stylesheet = "css/transitions.min.css")
   )
