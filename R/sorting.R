@@ -1,7 +1,7 @@
 #' @author richard.kunze
 add_sorting_observer <- function(input, session, dq_values, context, paged, page_id) {
   dirs <- c("", "up", "down")
-  sorts <- paste("sort", context, shiny::isolate(names(dq_values$full)), sep = "_")
+  sorts <- paste("sort", context, shiny::isolate(names(dq_values[[context]])), sep = "_")
   ignore <- structure(logical(length(sorts)), names = sorts)
   lapply(seq(sorts), function(i) {
     s <- sorts[i]

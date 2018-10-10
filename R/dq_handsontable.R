@@ -145,16 +145,16 @@ dq_render_handsontable <- function(
     set_data(data)
   }
 
-  # define page_id which is needed for table rendering
+  # define page_id which is needed for table rendering and reduce data to first page
   if (paged) {
     page_id <- paste0(context, "Page")
-    dq_values[[page_id]] <- shiny::isolate(dq_values$full)[1:page_size[1L], columns, drop = FALSE]
+    dq_values[[page_id]] <- shiny::isolate(dq_values[[context]])[1:page_size[1L],]
   }
 
   # render filter row and add observer for filters
   if (!all(filters == "") && !is.null(output)) {
     output[[paste0(id, "_filters")]] <- shiny::renderUI({
-      filter_row(context, shiny::isolate(dq_values$full), filters, reset, sorting)
+      filter_row(context, shiny::isolate(dq_values[[context]]), filters, reset, sorting)
     })
     shiny::observeEvent(get_filters(input, context), {
       f_vals <- get_filters(input, context)
