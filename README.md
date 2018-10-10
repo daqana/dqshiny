@@ -13,7 +13,7 @@ Installation
 You can install the development version of dqshiny using:
 
 ``` r
-remotes::install_.packages_github("daqana/dqshiny")
+devtools::install_github("daqana/dqshiny")
 ```
 
 Example
