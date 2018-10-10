@@ -8,7 +8,7 @@
 dq_handsontable_output(id, width = 12L, offset = 0L)
 
 dq_render_handsontable(id, data, context = NULL, filters = "T",
-  page_size = 25L, reset = TRUE, sorting = FALSE,
+  page_size = 25L, reset = TRUE, sorting = FALSE, columns = NULL,
   width_align = FALSE, horizontal_scroll = FALSE, table_param = NULL,
   cols_param = NULL, col_param = NULL, cell_param = NULL)
 }
@@ -42,6 +42,9 @@ filters and sort buttons to initial values or not}
 \item{sorting}{optional logical, specify whether to add sort buttons for
 every column or not, as normal rhandsontable sorting won't work properly
 when table is paged, please ensure that rownames of the data are numeric}
+
+\item{columns}{optional, specify which columns to show in the table, useful
+in combination with reactive values, which will still hold all the data}
 
 \item{width_align}{optional boolean to align filter widths with hot columns,
 should only be used with either horizontalScroll, stretchH = "all" or a table

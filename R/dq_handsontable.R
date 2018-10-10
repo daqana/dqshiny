@@ -51,6 +51,8 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #' @param sorting optional logical, specify whether to add sort buttons for
 #' every column or not, as normal rhandsontable sorting won't work properly
 #' when table is paged, please ensure that rownames of the data are numeric
+#' @param columns optional, specify which columns to show in the table, useful
+#' in combination with reactive values, which will still hold all the data
 #' @param width_align optional boolean to align filter widths with hot columns,
 #' should only be used with either horizontalScroll, stretchH = "all" or a table
 #' fitting in its output element
@@ -96,7 +98,7 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #' }
 dq_render_handsontable <- function(
   id, data, context = NULL, filters = "T", page_size = 25L, reset = TRUE,
-  sorting = FALSE, width_align = FALSE, horizontal_scroll = FALSE,
+  sorting = FALSE, columns = NULL, width_align = FALSE, horizontal_scroll = FALSE,
   table_param = NULL, cols_param = NULL, col_param = NULL, cell_param = NULL
 ) {
   requireNamespace("rhandsontable")
@@ -104,6 +106,7 @@ dq_render_handsontable <- function(
 
   if (is.null(id) || is.null(data)) return()
   if (is.null(context)) context <- paste0(sample(letters, 6L), collapse = "")
+  if (length(columns) == 0L) columns <- TRUE
 
   session <- shiny::getDefaultReactiveDomain()
   input <- session$input
@@ -126,20 +129,26 @@ dq_render_handsontable <- function(
     }
   }
 
+  set_data <- function(df) {
+    df <- as.data.frame(df)
+    dq_values$full <- df
+    dq_values[[context]] <- df[, columns, drop = FALSE]
+  }
+
   if (shiny::is.reactivevalues(data)) {
     shiny::observeEvent(data[[id]], {
-      dq_values$full <- dq_values[[context]] <- as.data.frame(data[[id]])
+      set_data(data[[id]])
       update_page_if_necessary()
     }, ignoreInit = TRUE)
-    dq_values$full <- dq_values[[context]] <- shiny::isolate(as.data.frame(data[[id]]))
+    set_data(shiny::isolate(data[[id]]))
   } else {
-    dq_values$full <- dq_values[[context]] <- as.data.frame(data)
+    set_data(data)
   }
 
   # define page_id which is needed for table rendering
   if (paged) {
     page_id <- paste0(context, "Page")
-    dq_values[[page_id]] <- shiny::isolate(dq_values$full)[1:page_size[1L], , drop = FALSE]
+    dq_values[[page_id]] <- shiny::isolate(dq_values$full)[1:page_size[1L], columns, drop = FALSE]
   }
 
   # render filter row and add observer for filters
@@ -150,7 +159,7 @@ dq_render_handsontable <- function(
     shiny::observeEvent(get_filters(input, context), {
       f_vals <- get_filters(input, context)
       if (length(f_vals) == 0) return()
-      df <- text_filter(dq_values$full, f_vals[sapply(f_vals, function(x) length(x) == 1)])
+      df <- text_filter(dq_values$full[, columns, drop = FALSE], f_vals[sapply(f_vals, function(x) length(x) == 1)])
       dq_values[[context]] <- range_filter(df, f_vals[sapply(f_vals, function(x) length(x) > 1)])
       if (sorting) {
         dq_values[[context]] <- sort_data(
@@ -231,12 +240,13 @@ dq_render_handsontable <- function(
   # add observer for table changes
   shiny::observeEvent(input[[id]], {
     if (!is.null(input[[id]]$changes$source)) {
-      rowNames <- as.character(rownames(rhandsontable::hot_to_r(input[[id]])))
+      row_names <- as.character(rownames(rhandsontable::hot_to_r(input[[id]])))
+      col_names <- colnames(dq_values[[context]])
       lapply(input[[id]]$changes$changes, function(ch) {
         row <- ch[[1L]] + 1L
         col <- ch[[2L]] + 1L
-        dq_values$full[rowNames[row], col] <- ch[[4L]]
-        dq_values[[context]][rowNames[row], col] <- ch[[4L]]
+        dq_values[[context]][row_names[row], col] <- ch[[4L]]
+        dq_values$full[row_names[row], col_names[col]] <- ch[[4L]]
       })
       if (shiny::is.reactivevalues(data)) {
         data[[id]] <- dq_values$full
