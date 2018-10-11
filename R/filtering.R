@@ -4,6 +4,7 @@
 #' given context and returns them in a list.
 #'
 #' @param input shiny input environment
+#' @param context the context used to specify all ui elements
 #'
 #' @return getFilter: list of filter values
 #' @export
