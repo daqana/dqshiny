@@ -8,7 +8,7 @@
 dq_handsontable_output(id, width = 12L, offset = 0L)
 
 dq_render_handsontable(id, data, context = NULL, filters = "T",
-  page_size = 25L, reset = TRUE, sorting = FALSE, columns = NULL,
+  page_size = 25L, reset = TRUE, sorting = NULL, columns = NULL,
   width_align = FALSE, horizontal_scroll = FALSE, table_param = NULL,
   cols_param = NULL, col_param = NULL, cell_param = NULL)
 }
@@ -39,9 +39,11 @@ value will be used initially, NULL will disable paging at all}
 \item{reset}{optional logical, specify whether to add a button to reset
 filters and sort buttons to initial values or not}
 
-\item{sorting}{optional logical, specify whether to add sort buttons for
-every column or not, as normal rhandsontable sorting won't work properly
-when table is paged, please ensure that rownames of the data are numeric}
+\item{sorting}{optional, specify whether to add sort buttons for every column
+or not, as normal handsontable sorting won't work properly when table is
+paged, value can be logical of length one or a character specifying the
+initial sort "col"umn and "dir"ection e.g. c(dir="down", col="FirstColname")
+(note that rownames of data must be numeric for sorting)}
 
 \item{columns}{optional, specify which columns to show in the table, useful
 in combination with reactive values, which will still hold all the data}
@@ -63,7 +65,7 @@ cols elements}
 rHandsontable col elements}
 
 \item{cell_param}{optional list of lists to specify parameters to hand to
-handsontable cells}
+rHandsontable cells}
 }
 \value{
 dq_handsontable_output: fluidrow containing the output fields
@@ -80,7 +82,7 @@ filters to filter the data and a feature to split the table into several
 pages with a given page size. The function will also add all needed
 observeEvents to establish the required functionalities. If table is not
 readOnly, all user inputs will automatically stored and updated independent
-from any filters or pages.
+from any filters, sortings or pages.
 }
 \examples{
 ## Only run examples in interactive R sessions
@@ -96,7 +98,7 @@ shinyApp(
     data <- data.frame(A = rep(hw, 500), B = hw[c(2,3,4,1)],
       C = 1:500, D = Sys.Date() - 0:499, stringsAsFactors = FALSE)
     dq_render_handsontable("randomTable", data,
-      filters = c("S", "T", "R", "A"), sorting = TRUE,
+      filters = c("S", "T", "R", "A"), sorting = c(dir = "up", col = "B"),
       page_size = c(17L, 5L, 500L, 1000L),
       col_param = list(list(col = 1L, type = "dropdown", source = letters)),
       cell_param = list(list(row = 2:9, col = 1:2, readOnly = TRUE))

@@ -2,7 +2,7 @@
 add_sorting_observer <- function(input, session, dq_values, context, paged, page_id) {
   dirs <- c("", "up", "down")
   sorts <- paste("sort", context, shiny::isolate(names(dq_values[[context]])), sep = "_")
-  ignore <- structure(logical(length(sorts)), names = sorts)
+  ignore <- structure(rep(TRUE, length(sorts)), names = sorts)
   lapply(seq(sorts), function(i) {
     s <- sorts[i]
     shiny::observeEvent(input[[s]], {
@@ -42,8 +42,8 @@ sort_data <- function(df, sort_dir, sort_col) {
 }
 
 #' @author richard.kunze
-sort_button <- function(context, name, input = NULL) {
+sort_button <- function(context, name, value = NULL) {
   id <- paste("sort", context, name, sep = "_")
-  val <- if (is.null(input[[id]])) NULL else input[[id]]
-  icon_state_button(id, c("sort", "sort-up", "sort-down"), val, class = "sort-button")
+  if (length(value) > 0L) value <- paste0("sort-", value)
+  icon_state_button(id, c("sort", "sort-up", "sort-down"), value, class = "sort-button")
 }

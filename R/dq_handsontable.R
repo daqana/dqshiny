@@ -23,7 +23,7 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
   ))
 }
 
-#' Renders a dq handsontable
+#' Renders an enhanced rHandsontable html widget
 #'
 #' @description dq_render_handsontable renders a handsontable into the given
 #' uiOutput id with the given data and parameters. Can also contain several
@@ -31,7 +31,7 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #' pages with a given page size. The function will also add all needed
 #' observeEvents to establish the required functionalities. If table is not
 #' readOnly, all user inputs will automatically stored and updated independent
-#' from any filters or pages.
+#' from any filters, sortings or pages.
 #'
 #' @param data data to show in the table, should be a data.frame'ish object, can
 #' also be a reactiveValues object holding the data under the given id
@@ -48,9 +48,11 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #' @param page_size optional integer, number of items per page, can be one of
 #' 10, 25, 50, 100 or any other value(s) which will be added to this list, first
 #' value will be used initially, NULL will disable paging at all
-#' @param sorting optional logical, specify whether to add sort buttons for
-#' every column or not, as normal rhandsontable sorting won't work properly
-#' when table is paged, please ensure that rownames of the data are numeric
+#' @param sorting optional, specify whether to add sort buttons for every column
+#' or not, as normal handsontable sorting won't work properly when table is
+#' paged, value can be logical of length one or a character specifying the
+#' initial sort "col"umn and "dir"ection e.g. c(dir="down", col="FirstColname")
+#' (note that rownames of data must be numeric for sorting)
 #' @param columns optional, specify which columns to show in the table, useful
 #' in combination with reactive values, which will still hold all the data
 #' @param width_align optional boolean to align filter widths with hot columns,
@@ -65,7 +67,7 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #' @param col_param optional list of lists to specify parameters to hand to
 #' rHandsontable col elements
 #' @param cell_param optional list of lists to specify parameters to hand to
-#' handsontable cells
+#' rHandsontable cells
 #'
 #' @return dq_render_handsontable: the given data
 #' @author richard.kunze
@@ -87,7 +89,7 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #'     data <- data.frame(A = rep(hw, 500), B = hw[c(2,3,4,1)],
 #'       C = 1:500, D = Sys.Date() - 0:499, stringsAsFactors = FALSE)
 #'     dq_render_handsontable("randomTable", data,
-#'       filters = c("S", "T", "R", "A"), sorting = TRUE,
+#'       filters = c("S", "T", "R", "A"), sorting = c(dir = "up", col = "B"),
 #'       page_size = c(17L, 5L, 500L, 1000L),
 #'       col_param = list(list(col = 1L, type = "dropdown", source = letters)),
 #'       cell_param = list(list(row = 2:9, col = 1:2, readOnly = TRUE))
@@ -98,12 +100,13 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #' }
 dq_render_handsontable <- function(
   id, data, context = NULL, filters = "T", page_size = 25L, reset = TRUE,
-  sorting = FALSE, columns = NULL, width_align = FALSE, horizontal_scroll = FALSE,
+  sorting = NULL, columns = NULL, width_align = FALSE, horizontal_scroll = FALSE,
   table_param = NULL, cols_param = NULL, col_param = NULL, cell_param = NULL
 ) {
   requireNamespace("rhandsontable")
   requireNamespace("shiny")
 
+  # initial settings
   if (is.null(id) || is.null(data)) return()
   if (is.null(context)) context <- paste0(sample(letters, 6L), collapse = "")
   if (length(columns) == 0L) columns <- TRUE
@@ -119,7 +122,9 @@ dq_render_handsontable <- function(
 
   page_select <- paste0("sel_", context, "_pageSize")
   page_num <- paste0("num_", context, "_page")
+  to_sort <- (length(sorting) > 0L && sorting != FALSE)
 
+  # used functions
   update_page_if_necessary <- function() {
     if (paged) {
       sel <- as.integer(input[[page_select]])
@@ -154,14 +159,14 @@ dq_render_handsontable <- function(
   # render filter row and add observer for filters
   if (!all(filters == "") && !is.null(output)) {
     output[[paste0(id, "_filters")]] <- shiny::renderUI({
-      filter_row(context, shiny::isolate(dq_values[[context]]), filters, reset, sorting)
+      filter_row(context, dq_values, filters, reset, sorting)
     })
     shiny::observeEvent(get_filters(input, context), {
       f_vals <- get_filters(input, context)
       if (length(f_vals) == 0) return()
       df <- text_filter(dq_values$full[, columns, drop = FALSE], f_vals[sapply(f_vals, function(x) length(x) == 1)])
       dq_values[[context]] <- range_filter(df, f_vals[sapply(f_vals, function(x) length(x) > 1)])
-      if (sorting) {
+      if (to_sort) {
         dq_values[[context]] <- sort_data(
           dq_values[[context]], dq_values$sort_dir, dq_values$sort_col
         )
@@ -219,7 +224,7 @@ dq_render_handsontable <- function(
   }
 
   # add sort buttons
-  if (sorting) {
+  if (to_sort) {
     sorts <- add_sorting_observer(input, session, dq_values, context, paged, page_id)
   }
 
@@ -230,8 +235,8 @@ dq_render_handsontable <- function(
         shiny::updateTextInput(session, n, value = "")
         reset_slider_input(n)
       }
-      if (sorting) {
-        dq_values$sorter <- "-"
+      if (to_sort) {
+        dq_values$sort_dir <- dq_values$sort_col <- ""
         lapply(sorts, function(n) update_icon_state_button(session, n, value = 1L))
       }
     })
