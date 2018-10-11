@@ -38,16 +38,15 @@
 #'
 #' }
 icon_state_button <- function(id, states, value = NULL, ...) {
-  if (length(value) != 1) {
-    state <- 1
+  if (length(value) != 1L) {
+    state <- 1L
   } else if (is.numeric(value)) {
     state <- value
   } else if (value %in% states) {
     state <- match(value, states)
   } else {
-    state <- 1
+    state <- 1L
   }
-  value <- if (is.null(value)) 1 else value
   js_states <- jsonlite::toJSON(states, auto_unbox = TRUE)
   shiny::tags$button(
     class = "btn btn-default state-button", id = id, shiny::icon(states[state]),
