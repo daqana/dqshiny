@@ -272,24 +272,26 @@ add_scripts <- function(params, width, scroll) {
       "function() {
         const hider = $(this.rootElement).find('.wtHider');
         var $filter = $(document.getElementById(this.rootElement.id + '_filters'));
-        $filter.css('overflow', 'hidden');
-        var row = $filter.find('.row');
-        row.width(hider.width());",
+        let that = this;
+        $filter.ready(function() {
+          $filter.css('overflow', 'hidden');
+          var row = $filter.find('.row');
+          row.width(hider.width());",
       if (width)
         "var els = $filter.find('.form-group'), sum = 0, w, cW;
-         if (this.params) {
-           cW = this.params.colWidths;
+         if (that.params) {
+           cW = that.params.colWidths;
            const reset = $filter.find('.reset-wrapper');
            w = hider.width() - (reset.length ? reset.width() : 0);
            if (cW) {
-             if (cW.length) {
-               for (var i = 0; i < cW.length; i++) sum += cW[i];
-             } else sum = els.length * cW;
+             if (cW.length) for (var i = 0; i < cW.length; i++) sum += cW[i];
+             else sum = els.length * cW;
            }
          }
          for (var i = 0; i < els.length; i++) {
-           els[i].style.width = (sum ? w / sum * this.getColWidth(i) : this.getColWidth(i)) + 'px';
-         }",
+           els[i].style.width = (sum ? w / sum * that.getColWidth(i) : that.getColWidth(i)) + 'px';
+         }
+       });",
       "}"))
   }
   if (scroll) {
