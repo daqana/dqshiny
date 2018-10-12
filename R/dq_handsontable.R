@@ -102,8 +102,8 @@ dq_render_handsontable <- function(
   sorting = NULL, columns = NULL, width_align = FALSE, horizontal_scroll = FALSE,
   table_param = NULL, cols_param = NULL, col_param = NULL, cell_param = NULL
 ) {
-  requireNamespace("rhandsontable")
-  requireNamespace("shiny")
+  requireNamespace("rhandsontable", quietly = TRUE)
+  requireNamespace("shiny", quietly = TRUE)
 
   # initial settings
   if (is.null(id) || is.null(data)) return()
@@ -135,8 +135,8 @@ dq_render_handsontable <- function(
 
   set_data <- function(df) {
     df <- as.data.frame(df)
-    dq_values$full <- df
-    dq_values[[context]] <- df[, columns, drop = FALSE]
+    dq_values$full <- dq_values[[context]] <- df
+    if (length(df) > 0L) dq_values[[context]] <- df[, columns, drop = FALSE]
   }
 
   if (shiny::is.reactivevalues(data)) {
