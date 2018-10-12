@@ -34,9 +34,9 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #' from any filters, sortings or pages.
 #'
 #' @param data data to show in the table, should be a data.frame'ish object, can
-#' also be a reactiveValues object holding the data under the given id
-#' (e.g. myReactiveValues[[id]] <- data). In case of reactiveValues, those will
-#' always be in line with user inputs.
+#' also be reactive or a reactiveValues object holding the data under the given
+#' id (e.g. myReactiveValues[[id]] <- data). In case of reactiveValues, those
+#' will always be in line with user inputs.
 #' @param context the context used to specify all ui elements used for this
 #' table, can be omitted which ends up in a randomly generated context
 #' @param filters optional character vector, adds filters for each column,
@@ -145,6 +145,12 @@ dq_render_handsontable <- function(
       update_page_if_necessary()
     }, ignoreInit = TRUE)
     set_data(shiny::isolate(data[[id]]))
+  } else if (shiny::is.reactive(data)) {
+    shiny::observe({
+      set_data(data())
+      update_page_if_necessary()
+    })
+    set_data(shiny::isolate(data()))
   } else {
     set_data(data)
   }
