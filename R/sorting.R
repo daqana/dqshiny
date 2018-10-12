@@ -35,7 +35,9 @@ add_sorting_observer <- function(input, session, dq_values, context, paged, page
 #' @author richard.kunze
 sort_data <- function(df, sort_dir, sort_col) {
   if (length(sort_dir) == 0 || sort_dir == "") {
-    df[order(as.numeric(rownames(df))), , drop = FALSE]
+    row_names <- suppressWarnings(as.numeric(rownames(df)))
+    if (any(is.na(row_names))) df[order(rownames(df)), , drop = FALSE]
+    else df[order(row_names), , drop = FALSE]
   } else {
     df[order(df[, sort_col], decreasing = (sort_dir == "down")), , drop = FALSE]
   }

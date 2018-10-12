@@ -50,9 +50,8 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #' value will be used initially, NULL will disable paging at all
 #' @param sorting optional, specify whether to add sort buttons for every column
 #' or not, as normal handsontable sorting won't work properly when table is
-#' paged, value can be logical of length one or a character specifying the
-#' initial sort "col"umn and "dir"ection e.g. c(dir="down", col="FirstColname")
-#' (note that rownames of data must be numeric for sorting)
+#' paged, value can be logical of length one or a vector specifying the initial
+#' sort "col"umn and "dir"ection e.g. c(dir="down", col="FirstColname")
 #' @param columns optional, specify which columns to show in the table, useful
 #' in combination with reactive values, which will still hold all the data
 #' @param width_align optional boolean to align filter widths with hot columns,
