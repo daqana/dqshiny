@@ -275,9 +275,9 @@ add_scripts <- function(params, width, scroll) {
   if (width || scroll) {
     params$afterRender <- htmlwidgets::JS(paste0(
       "function() {
-        const hider = $(this.rootElement).find('.wtHider');
+        var hider = $(this.rootElement).find('.wtHider');
         var $filter = $(document.getElementById(this.rootElement.id + '_filters'));
-        let that = this;
+        var that = this;
         $filter.ready(function() {
           $filter.css('overflow', 'hidden');
           var row = $filter.find('.row');
