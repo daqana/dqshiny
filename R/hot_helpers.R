@@ -84,7 +84,7 @@ dq_add_selectize_options <- function(hot, rows, col, options, ...) {
 #'
 #' @export
 #' @return dq_as_selectize_options: list containing all options and additional
-#' setings
+#' settings
 #' @rdname dq_add_selectize_options
 dq_as_selectize_options <- function(options, ...) {
   if (is.null(names(options))) names(options) <- options

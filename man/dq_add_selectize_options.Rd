@@ -27,7 +27,7 @@ options of one cell}
 dq_add_selectize_options: updated rhandsontable object
 
 dq_as_selectize_options: list containing all options and additional
-setings
+settings
 }
 \description{
 dq_add_selectize_options adds selectizeOptions to a column of
