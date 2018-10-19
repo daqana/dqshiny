@@ -25,7 +25,7 @@ filter_row <- function(context, dq_values, filters = "T", reset = TRUE, sorting 
       names(choices) <- names(data)[i]
       choices <- c(choices, sort(unique(as.character(data[[i]]))))
       el <- shiny::selectizeInput(id, NULL, choices, options = list(dropdownParent = "body"))
-    } else if (f == "R") {
+    } else if (f %in% c("R", "D")) {
       try({
         suppressWarnings({
           min_val <- min(unlist(data[[i]]))
@@ -33,8 +33,12 @@ filter_row <- function(context, dq_values, filters = "T", reset = TRUE, sorting 
           mi <- as.numeric(min_val)
           ma <- as.numeric(max_val)
         })
-        if (!any(is.na(c(mi, ma)) | is.infinite(c(mi, ma))) || all(grepl("\\d{4}-\\d{2}-\\d{2}", c(min_val, max_val)))) {
+        valid_nums <- !any(is.na(c(mi, ma)) | is.infinite(c(mi, ma)))
+        is_date <- all(grepl("\\d{4}-\\d{2}-\\d{2}", c(min_val, max_val)))
+        if (f == "R" && (valid_nums || is_date)) {
           el <- shiny::sliderInput(id, NULL, min_val, max_val, c(min_val, max_val))
+        } else if (f == "D" && is_date) {
+          el <- shiny::dateRangeInput(id, NULL, min_val, max_val, min_val, max_val)
         }
       })
     }
@@ -86,7 +90,7 @@ update_filters <- function(data, filters, context, session) {
 #' @author richard.kunze
 correct_filters <- function(filters, len) {
   if (length(filters) != len) filters <- rep_len(filters, len)
-  filters <- toupper(substr(unlist(filters), 1, 1))
-  filters[!filters %in% c("T", "S", "R", "A", "")] <- "T"
+  filters <- toupper(substr(unlist(filters), 1L, 1L))
+  filters[!filters %in% c("T", "S", "R", "A", "D", "")] <- "T"
   filters
 }

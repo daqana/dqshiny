@@ -40,9 +40,9 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #' @param context the context used to specify all ui elements used for this
 #' table, can be omitted which ends up in a randomly generated context
 #' @param filters optional character vector, adds filters for each column,
-#' values must be one of "Text", "Select", "Range", "Auto" or "" (can be
-#' abbreviated) to add a Text-, Select-, Range-, AutocompleteInput or none,
-#' vectors of length one will add a filter of this type for each column
+#' values must be one of "Text", "Select", "Range", "Date", "Auto" or "" (can be
+#' abbreviated) to add a Text-, Select-, Range-, DateRange-, AutocompleteInput
+#' or none, vectors of length one will add a filter of this type for each column
 #' @param reset optional logical, specify whether to add a button to reset
 #' filters and sort buttons to initial values or not
 #' @param page_size optional integer, number of items per page, can be one of
@@ -88,7 +88,7 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #'     data <- data.frame(A = rep(hw, 500), B = hw[c(2,3,4,1)],
 #'       C = 1:500, D = Sys.Date() - 0:499, stringsAsFactors = FALSE)
 #'     dq_render_handsontable("randomTable", data,
-#'       filters = c("S", "T", "R", "A"), sorting = c(dir = "up", col = "B"),
+#'       filters = c("S", "T", "R", "D"), sorting = c(dir = "up", col = "B"),
 #'       page_size = c(17L, 5L, 500L, 1000L),
 #'       col_param = list(list(col = 1L, type = "dropdown", source = letters)),
 #'       cell_param = list(list(row = 2:9, col = 1:2, readOnly = TRUE))

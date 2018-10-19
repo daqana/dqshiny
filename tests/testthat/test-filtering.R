@@ -81,6 +81,14 @@ test_that("correct filters work, named and unnamed", {
   expect_equal(range_filter(df, list(B = c(201, 220))), df[1:20,])
 })
 
+test_that("correct date ranges work, named and unnamed", {
+  df$B <- Sys.Date() - 1:50L
+  start <- Sys.Date() - 12L
+  end <- Sys.Date() - 3L
+  expect_equal(range_filter(df, list(NA, c(start, end))), df[3:12,])
+  expect_equal(range_filter(df, list(B = c(start, end))), df[3:12,])
+})
+
 test_that("correct filters work, even if not listed", {
   expect_equal(range_filter(df, c(NA, NA)), df)
   expect_equal(range_filter(df, c(17, 25)), df[17:25,])

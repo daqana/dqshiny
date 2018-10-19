@@ -71,7 +71,7 @@ range_filter <- function(df, ranges) {
   })
   if (!is.null(names(ranges))) {
     newRanges <- lapply(names(df), function(x) {
-      if (x %in% names(ranges)) ranges[[x]]
+      if (x %in% names(ranges)) newRanges[[x]]
       else NA
     })
   }
