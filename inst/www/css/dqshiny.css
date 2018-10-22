@@ -147,14 +147,14 @@
   right: 5px;
   top: 5px;
 }
-.dq-box-header .collapser {
-  padding: 5px 10px;
-  border-width: 2px;
-  color: #000;
-  background: #fff;
-  font-size: 13px;
-  box-shadow: none;
-  border-color: transparent;
+.dq-box-header .collapser, .dq-box-header .collapser:active, .dq-box-header .collapser:focus {
+	padding: 5px 10px;
+	border-width: 2px;
+	color: #000;
+	background: #fff;
+	font-size: 13px;
+	box-shadow: none;
+	border-color: transparent;
 }
 .dq-box-header .collapser[aria-expanded="true"] .fa:before {
   content: "\f068";
@@ -165,6 +165,7 @@
 .dq-box-header .collapser:hover {
   border-color: #fff;
   background: transparent;
+  color: #000;
 }
 .dq-box-body {
   border-top-left-radius: 0;
