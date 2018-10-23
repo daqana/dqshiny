@@ -27,18 +27,23 @@ filter_row <- function(context, dq_values, filters = "T", reset = TRUE, sorting 
       el <- shiny::selectizeInput(id, NULL, choices, options = list(dropdownParent = "body"))
     } else if (f %in% c("R", "D")) {
       try({
-        suppressWarnings({
-          min_val <- min(unlist(data[[i]]))
-          max_val <- max(unlist(data[[i]]))
-          mi <- as.numeric(min_val)
-          ma <- as.numeric(max_val)
-        })
-        valid_nums <- !any(is.na(c(mi, ma)) | is.infinite(c(mi, ma)))
-        is_date <- all(grepl("\\d{4}-\\d{2}-\\d{2}", c(min_val, max_val)))
-        if (f == "R" && (valid_nums || is_date)) {
-          el <- shiny::sliderInput(id, NULL, min_val, max_val, c(min_val, max_val))
-        } else if (f == "D" && is_date) {
-          el <- shiny::dateRangeInput(id, NULL, min_val, max_val, min_val, max_val)
+        d <- unlist(data[[i]])
+        if (f == "R") {
+          suppressWarnings({
+            min_val <- min(d, na.rm = TRUE)
+            max_val <- max(d, na.rm = TRUE)
+            mi <- as.numeric(min_val)
+            ma <- as.numeric(max_val)
+          })
+          if (!any(is.na(c(mi, ma)) | is.infinite(c(mi, ma))) ||
+              all(grepl("\\d{4}-\\d{2}-\\d{2}", c(min_val, max_val)))) {
+            el <- shiny::sliderInput(id, NULL, min_val, max_val, c(min_val, max_val))
+          }
+        } else if (f == "D") {
+          dates <- grepl("\\d{4}-\\d{2}-\\d{2}", d)
+          min_d <- min(d[dates], na.rm = TRUE)
+          max_d <- max(d[dates], na.rm = TRUE)
+          el <- shiny::dateRangeInput(id, NULL, min_d, max_d, min_d, max_d)
         }
       })
     }
