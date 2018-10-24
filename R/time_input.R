@@ -58,8 +58,8 @@ time_input <- function(
       ),
       htmltools::htmlDependency(
         "timePicker", "2.7.1", list(href = "dqshinyRes"),
-        script = "js/bootstrap-material-datetimepicker.js",
-        stylesheet = "css/bootstrap-material-datetimepicker.css"
+        script = "js/bootstrap-material-datetimepicker.min.js",
+        stylesheet = "css/bootstrap-material-datetimepicker.min.css"
       )
     )
   }
