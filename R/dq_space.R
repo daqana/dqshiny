@@ -3,7 +3,7 @@
 #' @description Creates an empty div with the desired height
 #' clearing the space on the desired sites.
 #'
-#' @param height Height of the space, can be any valid css unit,
+#' @param height Height of the space, can be any valid CSS unit,
 #'   validation will be done with \code{\link{validateCssUnit}}.
 #' @param clear Optional, can be one of 'both', 'left', 'right' and 'none'
 #'   to specify which elements should be cleared, will be 'both'

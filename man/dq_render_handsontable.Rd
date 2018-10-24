@@ -48,8 +48,8 @@ sort "col"umn and "dir"ection e.g. c(dir="down", col="FirstColname")}
 in combination with reactive values, which will still hold all the data}
 
 \item{width_align}{optional boolean to align filter widths with hot columns,
-should only be used with either horizontalScroll, stretchH = "all" or a table
-fitting in its output element}
+should only be used with either horizontal_scroll, stretchH = "all" or a
+table fitting in its output element}
 
 \item{horizontal_scroll}{optional boolean to scroll the filterrow according
 to the hot table, especially useful for tables with many columns}

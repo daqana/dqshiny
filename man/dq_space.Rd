@@ -7,7 +7,7 @@
 dq_space(height = 30, clear = "both")
 }
 \arguments{
-\item{height}{Height of the space, can be any valid css unit,
+\item{height}{Height of the space, can be any valid CSS unit,
 validation will be done with \code{\link{validateCssUnit}}.}
 
 \item{clear}{Optional, can be one of 'both', 'left', 'right' and 'none'

@@ -7,7 +7,7 @@
 init()
 }
 \value{
-dqshiny css and js dependency
+dqshiny CSS and JS dependency
 }
 \description{
 Can be used inside the shinyUI to add dq shiny resource path.

@@ -7,7 +7,7 @@
 #' @param id id of the element
 #' @param label label to show for the input, NULL for no label
 #' @param options list (or vector) of possible options
-#' @param value initital value
+#' @param value initial value
 #' @param width optional, the width of the input, see
 #' \code{\link[shiny:validateCssUnit]{validateCssUnit}}
 #' @param placeholder optional character specifying the placeholder text

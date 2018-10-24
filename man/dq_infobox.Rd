@@ -13,7 +13,7 @@ dq_infobox(title, value = NULL, subtitle = NULL, icon = NULL,
 
 \item{value}{Optional, value to show under the title.}
 
-\item{subtitle}{Optional, subtitl to show under the value.}
+\item{subtitle}{Optional, subtitle to show under the value.}
 
 \item{icon}{Optional, icon to show on the left, can be any string, shiny
 icon or just NULL to omit it.}

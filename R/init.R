@@ -4,7 +4,7 @@
 #' Will be automatically called by loading the package and using any of the
 #' dqshiny elements.
 #'
-#' @return dqshiny css and js dependency
+#' @return dqshiny CSS and JS dependency
 #' @export
 #' @author richard.kunze
 #' @examples ## Only run examples in interactive R sessions

@@ -55,8 +55,8 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #' @param columns optional, specify which columns to show in the table, useful
 #' in combination with reactive values, which will still hold all the data
 #' @param width_align optional boolean to align filter widths with hot columns,
-#' should only be used with either horizontalScroll, stretchH = "all" or a table
-#' fitting in its output element
+#' should only be used with either horizontal_scroll, stretchH = "all" or a
+#' table fitting in its output element
 #' @param horizontal_scroll optional boolean to scroll the filterrow according
 #' to the hot table, especially useful for tables with many columns
 #' @param table_param optional list, specify parameters to hand to rHandsontable

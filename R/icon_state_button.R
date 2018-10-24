@@ -8,7 +8,7 @@
 #' names \code{\link[shiny:icon]{icon}}
 #' @param value optional value, can be integer position in states or
 #' character giving the state, must be of length one
-#' @param ... additional parameters like css classes or styles
+#' @param ... additional parameters like CSS classes or styles
 #'
 #' @return icon_state_button: shiny input element
 #'

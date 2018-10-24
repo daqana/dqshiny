@@ -2,7 +2,7 @@
 #'
 #' @param title Title of the box.
 #' @param value Optional, value to show under the title.
-#' @param subtitle Optional, subtitl to show under the value.
+#' @param subtitle Optional, subtitle to show under the value.
 #' @param icon Optional, icon to show on the left, can be any string, shiny
 #'   icon or just NULL to omit it.
 #' @param bg_color Optional, sets the background color of the box, can be any

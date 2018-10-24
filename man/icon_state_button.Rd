@@ -18,7 +18,7 @@ names \code{\link[shiny:icon]{icon}}}
 \item{value}{optional value, can be integer position in states or
 character giving the state, must be of length one}
 
-\item{...}{additional parameters like css classes or styles}
+\item{...}{additional parameters like CSS classes or styles}
 
 \item{session}{the shiny session object}
 }

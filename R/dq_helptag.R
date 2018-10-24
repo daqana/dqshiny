@@ -9,7 +9,7 @@
 #' @param trigger Optional, can either be 'hover' to show the popover while the
 #'   mouse is over the icon or 'focus' to show it while the tag is in focus.
 #' @param width Optional, width of the popover, can be numeric or character
-#'   including any valid css unit.
+#'   including any valid CSS unit.
 #' @param style Optional character, additional style attributes for the tag.
 #'
 #' @return shiny tag holding the help icon

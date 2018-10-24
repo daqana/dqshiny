@@ -5,7 +5,7 @@
 #'
 #' @param icon_path optional character, icon source path
 #' @param time optional integer indicating the animation time of the loader.
-#' Can be useful to omitt loader for many short loading moments, but show it if
+#' Can be useful to omit loader for many short loading moments, but show it if
 #' calculation really needs some time. Set to 0 to disable animations.
 #' @param animation optional character specifying the animation of the loader
 #'

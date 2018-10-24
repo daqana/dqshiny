@@ -12,9 +12,9 @@ dq_icon(icon, lib = "font-awesome", color = "#ff8f00",
 
 \item{lib}{library used, needed to append the proper dependency}
 
-\item{color}{icon color, can be any valid css color code}
+\item{color}{icon color, can be any valid CSS color code}
 
-\item{bg_color}{icon background color, can be any valid css color code}
+\item{bg_color}{icon background color, can be any valid CSS color code}
 
 \item{size}{character specifying the size of the icon, can be one of "xs",
 "sm", "lg", "2x", "3x", "4x", "5x", "6x", "7x", "8x", "9x", "10x"}

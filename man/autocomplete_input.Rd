@@ -19,7 +19,7 @@ update_autocomplete_input(session, id, label = NULL, options = NULL,
 
 \item{options}{list (or vector) of possible options}
 
-\item{value}{initital value}
+\item{value}{initial value}
 
 \item{width}{optional, the width of the input, see
 \code{\link[shiny:validateCssUnit]{validateCssUnit}}}

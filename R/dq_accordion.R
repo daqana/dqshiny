@@ -1,6 +1,6 @@
 #' Accordion module to show several collapsible boxes
 #'
-#' @description Ceates an accordion object where one of the contents can be
+#' @description Creates an accordion object where one of the contents can be
 #' shown and the others will be hidden. The currently activated panel will be
 #' available to R over the input$id element.
 #'

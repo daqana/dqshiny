@@ -5,8 +5,8 @@
 #'
 #' @param icon name of the icon to show
 #' @param lib library used, needed to append the proper dependency
-#' @param color icon color, can be any valid css color code
-#' @param bg_color icon background color, can be any valid css color code
+#' @param color icon color, can be any valid CSS color code
+#' @param bg_color icon background color, can be any valid CSS color code
 #' @param size character specifying the size of the icon, can be one of "xs",
 #' "sm", "lg", "2x", "3x", "4x", "5x", "6x", "7x", "8x", "9x", "10x"
 #' @param ... additional attributes like style or class

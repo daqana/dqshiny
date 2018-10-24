@@ -39,7 +39,7 @@ front of the header title showing the state of the content (open or closed)}
 shiny div holding the accordion
 }
 \description{
-Ceates an accordion object where one of the contents can be
+Creates an accordion object where one of the contents can be
 shown and the others will be hidden. The currently activated panel will be
 available to R over the input$id element.
 }
