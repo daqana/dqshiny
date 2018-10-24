@@ -38,18 +38,23 @@
 #' )
 #'
 #' }
-time_input <- function(id, label, value = "", placeholder = NULL, width = NULL, use_material_picker = FALSE) {
+time_input <- function(
+  id, label, value = "", placeholder = NULL, width = NULL,
+  use_material_picker = FALSE
+) {
   input_dep <- htmltools::htmlDependency(
-    "timeInput", "0.0.1", list(href = "dqshinyRes"), script = "js/time-input-binding.js"
+    "timeInput", "0.0.1", list(href = "dqshinyRes"),
+    script = "js/time-input-binding.js"
   )
-  deps <- tagList()
+  deps <- NULL
   type <- "time"
   width <- shiny::validateCssUnit(width)
   if (use_material_picker) {
     type <- "text"
-    deps <- tagList(
+    deps <- list(
       htmltools::htmlDependency(
-        "moment", "2.22.2", list(href = "dqshinyRes"), script = "js/moment.min.js"
+        "moment", "2.22.2", list(href = "dqshinyRes"),
+        script = "js/moment.min.js"
       ),
       htmltools::htmlDependency(
         "timePicker", "2.7.1", list(href = "dqshinyRes"),

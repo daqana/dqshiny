@@ -11,6 +11,7 @@ test_that("all parameters work", {
   expect_true(grepl("width: 300px", tI("id", NULL, width = 300)))
   expect_true(grepl("holder=\"pl", tI("id", NULL, placeholder = "pl")))
   expect_true(grepl("lue=\"12:34", tI("id", NULL, value = "12:34")))
+  expect_true(grepl("type=\"text", tI("id", NULL, use_material_picker = TRUE)))
 })
 
 context("Test update_time_input in time_input.R")
