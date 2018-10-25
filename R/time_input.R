@@ -9,7 +9,7 @@
 #' @param min minimum time value, must follow the specified format, e.g. "08:00"
 #' @param max maximum time value, must follow the specified format, e.g. "17:00"
 #' @param format format to use for the time string, can be any valid
-#' \code{\href{https://momentjs.com/docs/#/displaying/format/}{moment.js}} time
+#' \href{https://momentjs.com/docs/#/displaying/format/}{moment.js} time
 #' format (NOTE: this will only work with the material time picker and can't be
 #' updated!)
 #' @param placeholder optional character specifying the placeholder text

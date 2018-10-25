@@ -29,7 +29,7 @@ $.extend(timeInputBinding, {
   },
 
   getValue: function (el) {
-    if (el) return $(el).attr("value");
+    if (el) return el.value;
     return "";
   },
 
@@ -45,6 +45,10 @@ $.extend(timeInputBinding, {
           setVal(el, date.format($(el).attr("format") || "HH:mm"));
         }
         callback(false);
+      });
+    } else {
+      $(el).on("change.timeInputBinding", function (event, date) {
+        callback(true);
       });
     }
   },
