@@ -13,7 +13,7 @@ $.extend(timeInputBinding, {
   },
 
   initialize: function (el) {
-    if (el.type != "time") {
+    if ($(el).attr("ui") == "material") {
       const format = $(el).attr("format") || "HH:mm";
       const min = moment(el.min, format);
       const max = moment(el.max, format);
@@ -39,7 +39,7 @@ $.extend(timeInputBinding, {
 
   subscribe: function (el, callback) {
     var setVal = this.setValue;
-    if (el.type != "time") {
+    if ($(el).attr("ui") == "material") {
       $(el).on("change.timeInputBinding", function (event, date) {
         if (date) {
           setVal(el, date.format($(el).attr("format") || "HH:mm"));
@@ -61,11 +61,13 @@ $.extend(timeInputBinding, {
     if (data.hasOwnProperty("label"))
       $(el).parent().find('label[for="' + el.id + '"]').text(data.label);
 
-    const format = $(el).attr("format");
-    if (data.hasOwnProperty("min"))
-      $(el).bootstrapMaterialDatePicker("setMinDate", moment(data.min, format));
-    if (data.hasOwnProperty("max"))
-      $(el).bootstrapMaterialDatePicker("setMaxDate", moment(data.max, format));
+    if ($(el).attr("ui") == "material") {
+      const format = $(el).attr("format");
+      if (data.hasOwnProperty("min"))
+        $(el).bootstrapMaterialDatePicker("setMinDate", moment(data.min, format));
+      if (data.hasOwnProperty("max"))
+        $(el).bootstrapMaterialDatePicker("setMaxDate", moment(data.max, format));
+    }
 
     $(el).trigger("change");
   },

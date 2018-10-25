@@ -78,7 +78,8 @@ time_input <- function(
     class = "form-group shiny-bound-input shiny-input-container time-input",
     shiny::tags$input(
       id = id, class = "form-control", value = value, type = type, min = min,
-      max = max, format = format, placeholder = placeholder, color = color
+      max = max, format = format, placeholder = placeholder, color = color,
+      ui = if (use_material_picker) "material" else "standard"
     ),
     deps
   )
