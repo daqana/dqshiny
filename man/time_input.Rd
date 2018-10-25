@@ -5,11 +5,12 @@
 \alias{update_time_input}
 \title{Creates an time input field}
 \usage{
-time_input(id, label, value = "", placeholder = NULL, width = NULL,
+time_input(id, label, value = "", min = NULL, max = NULL,
+  format = "HH:mm", placeholder = NULL, width = NULL,
   use_material_picker = FALSE)
 
 update_time_input(session, id, label = NULL, value = NULL,
-  placeholder = NULL)
+  min = NULL, max = NULL, placeholder = NULL)
 }
 \arguments{
 \item{id}{id of the element}
@@ -17,6 +18,15 @@ update_time_input(session, id, label = NULL, value = NULL,
 \item{label}{label to show for the input, NULL for no label}
 
 \item{value}{initital value}
+
+\item{min}{minimum time value, must follow the specified format, e.g. "08:00"}
+
+\item{max}{maximum time value, must follow the specified format, e.g. "17:00"}
+
+\item{format}{format to use for the time string, can be any valid
+\code{\href{https://momentjs.com/docs/#/displaying/format/}{moment.js}} time
+format (NOTE: this will only work with the material time picker and can't be
+updated!)}
 
 \item{placeholder}{optional character specifying the placeholder text}
 

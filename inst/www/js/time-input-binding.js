@@ -14,10 +14,15 @@ $.extend(timeInputBinding, {
 
   initialize: function (el) {
     if (el.type != "time") {
+      const format = $(el).attr("format") || "HH:mm";
+      const min = moment(el.min, format);
+      const max = moment(el.max, format);
       $(el).bootstrapMaterialDatePicker({
 				date: false,
 				shortTime: false,
-				format: "HH:mm"
+				format: format,
+				minDate: (el.min && min) || null,
+				maxDate: (el.max && max) || null
 			});
     }
   },
@@ -36,7 +41,7 @@ $.extend(timeInputBinding, {
     if (el.type != "time") {
       $(el).on("change.timeInputBinding", function (event, date) {
         if (date) {
-          setVal(el, date.format("HH:mm"));
+          setVal(el, date.format($(el).attr("format") || "HH:mm"));
         }
         callback(false);
       });
@@ -54,6 +59,12 @@ $.extend(timeInputBinding, {
     if (data.hasOwnProperty("placeholder")) el.placeholder = data.placeholder;
     if (data.hasOwnProperty("label"))
       $(el).parent().find('label[for="' + el.id + '"]').text(data.label);
+
+    const format = $(el).attr("format");
+    if (data.hasOwnProperty("min"))
+      $(el).bootstrapMaterialDatePicker("setMinDate", moment(data.min, format));
+    if (data.hasOwnProperty("max"))
+      $(el).bootstrapMaterialDatePicker("setMaxDate", moment(data.max, format));
 
     $(el).trigger("change");
   },
