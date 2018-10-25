@@ -15,6 +15,7 @@
 #' @param placeholder optional character specifying the placeholder text
 #' @param width optional, the width of the input, see
 #' \code{\link[shiny:validateCssUnit]{validateCssUnit}}
+#' @param color color of the watch hand (of material time picker)
 #' @param use_material_picker boolean to specify if the input should be a
 #' simple time (text) input or use the bootstrap material time picker
 #'
@@ -46,7 +47,7 @@
 #' }
 time_input <- function(
   id, label, value = "", min = NULL, max = NULL,
-  format = "HH:mm", placeholder = NULL, width = NULL,
+  format = "HH:mm", placeholder = NULL, width = NULL, color = NULL,
   use_material_picker = FALSE
 ) {
   input_dep <- htmltools::htmlDependency(
@@ -76,8 +77,8 @@ time_input <- function(
     if (!is.null(label)) shiny::tags$label(label, `for` = id),
     class = "form-group shiny-bound-input shiny-input-container time-input",
     shiny::tags$input(
-      id = id, class = "form-control", value = value, type = type,
-      min = min, max = max, format = format, placeholder = placeholder
+      id = id, class = "form-control", value = value, type = type, min = min,
+      max = max, format = format, placeholder = placeholder, color = color
     ),
     deps
   )

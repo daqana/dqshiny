@@ -6,7 +6,7 @@
 \title{Creates an time input field}
 \usage{
 time_input(id, label, value = "", min = NULL, max = NULL,
-  format = "HH:mm", placeholder = NULL, width = NULL,
+  format = "HH:mm", placeholder = NULL, width = NULL, color = NULL,
   use_material_picker = FALSE)
 
 update_time_input(session, id, label = NULL, value = NULL,
@@ -32,6 +32,8 @@ updated!)}
 
 \item{width}{optional, the width of the input, see
 \code{\link[shiny:validateCssUnit]{validateCssUnit}}}
+
+\item{color}{color of the watch hand (of material time picker)}
 
 \item{use_material_picker}{boolean to specify if the input should be a
 simple time (text) input or use the bootstrap material time picker}

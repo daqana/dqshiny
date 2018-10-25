@@ -22,7 +22,8 @@ $.extend(timeInputBinding, {
 				shortTime: false,
 				format: format,
 				minDate: (el.min && min) || null,
-				maxDate: (el.max && max) || null
+				maxDate: (el.max && max) || null,
+				color: $(el).attr("color")
 			});
     }
   },
