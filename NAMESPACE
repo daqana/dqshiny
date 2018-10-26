@@ -3,6 +3,7 @@
 export(add_class)
 export(add_js)
 export(autocomplete_input)
+export(click)
 export(create_dq_box_group)
 export(disable)
 export(disabled)
