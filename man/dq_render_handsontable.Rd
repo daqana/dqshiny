@@ -98,7 +98,7 @@ shinyApp(
       C = 1:500, D = Sys.Date() - 0:499, stringsAsFactors = FALSE)
     dq_render_handsontable("randomTable", data,
       filters = c("S", "T", "R", "D"), sorting = c(dir = "up", col = "B"),
-      page_size = c(17L, 5L, 500L, 1000L),
+      page_size = c(17L, 5L, 500L, 1000L), width_align = TRUE,
       col_param = list(list(col = 1L, type = "dropdown", source = letters)),
       cell_param = list(list(row = 2:9, col = 1:2, readOnly = TRUE))
     )

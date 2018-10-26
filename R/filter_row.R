@@ -36,12 +36,12 @@ filter_row <- function(context, dq_values, filters = "T", reset = TRUE, sorting 
             ma <- as.numeric(max_val)
           })
           if (!any(is.na(c(mi, ma)) | is.infinite(c(mi, ma))) ||
-              !any(is.na(as.Date(c(min_val, max_val))))) {
+              !any(is.na(as.Date.character(c(min_val, max_val))))) {
             el <- shiny::sliderInput(id, NULL, min_val, max_val, c(min_val, max_val))
           }
         } else if (f == "D") {
-          min_d <- min(as.Date(d), na.rm = TRUE)
-          max_d <- max(as.Date(d), na.rm = TRUE)
+          min_d <- min(as.Date.character(d), na.rm = TRUE)
+          max_d <- max(as.Date.character(d), na.rm = TRUE)
           el <- shiny::dateRangeInput(id, NULL, min_d, max_d, min_d, max_d)
         }
       })
