@@ -1,4 +1,4 @@
-context("Test enable in state.R")
+context("state / enable")
 
 test_that("enable works with any input", {
   expect_null(enable(NULL))
@@ -9,7 +9,7 @@ test_that("enable works with any input", {
   expect_null(enable(list("my", "id", "is")))
 })
 
-context("Test disable in state.R")
+context("state / disable")
 
 test_that("disable works with any input", {
   expect_null(disable(NULL))
@@ -20,7 +20,7 @@ test_that("disable works with any input", {
   expect_null(disable(list("my", "id", "is")))
 })
 
-context("Test toggle_state in state.R")
+context("state / toggle_state")
 
 test_that("toggle_state works with any input", {
   expect_null(toggle_state(NULL))
@@ -37,7 +37,7 @@ test_that("toggle_state works with conditions", {
   expect_null(toggle_state("id", FALSE))
 })
 
-context("Test state shinytest")
+context("state / shinytest")
 
 skip_on_cran()
 skip_on_travis()

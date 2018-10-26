@@ -1,4 +1,4 @@
-context("Test dq_handsontable_output in dq_handsontable.R")
+context("dq_handsontable / dq_handsontable_output")
 
 test_that("dq_handsontable_output works with any input", {
   expect_null(dq_handsontable_output(NULL))
@@ -7,7 +7,7 @@ test_that("dq_handsontable_output works with any input", {
   expect_silent(dq_handsontable_output(TRUE))
 })
 
-context("Test dq_render_handsontable in dq_handsontable.R")
+context("dq_handsontable / dq_render_handsontable")
 
 test_that("dq_render_handsontable works with null input", {
   expect_null(dq_render_handsontable(NULL, NULL))
@@ -42,7 +42,7 @@ test_that("dq_render_handsontable works properly with different parameters", {
   expect_silent(dq_render_handsontable("id", rV, page_size = 78L))
 })
 
-context("Test dq_handsontable shinytest")
+context("dq_handsontable / shinytest")
 
 skip_on_cran()
 skip_on_travis()

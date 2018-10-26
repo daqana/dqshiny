@@ -1,4 +1,4 @@
-context("Test get_filters in filtering.R")
+context("filtering / get_filters")
 
 test_that("get_filters works with NULL inputs", {
   expect_silent(get_filters(NULL, NULL))
@@ -19,7 +19,7 @@ test_that("get_filters works with correct input element", {
   })
 })
 
-context("Test text_filter in filtering.R")
+context("filtering / text_filter")
 
 test_that("text_filter works with null inputs", {
   expect_equal(text_filter(NULL, NULL), NULL)
@@ -53,7 +53,7 @@ test_that("text_filter works with NAs in data.frame", {
   expect_equal(text_filter(inp, c("V", "")), res)
 })
 
-context("Test range_filter in filtering.R")
+context("filtering / range_filter")
 
 test_that("null works", {
   expect_equal(range_filter(NULL, NULL), NULL)
@@ -118,7 +118,7 @@ test_that("NA in data.frame works", {
 })
 
 
-context("Test update_filters in filtering.R")
+context("filtering / update_filters")
 
 session <- readRDS(file.path("data", "shinySession.RData"))
 test_that("update_page works with NULL inputs", {

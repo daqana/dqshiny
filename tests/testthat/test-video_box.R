@@ -1,4 +1,4 @@
-context("Test video_box in video_box.R")
+context("video_box / video_box")
 
 test_that("bad inputs work", {
   expect_silent(video_box(NULL, NULL))
@@ -11,7 +11,7 @@ test_that("all parameters work", {
   expect_true(grepl("title\">title", video_box("id", NULL, "title")))
 })
 
-context("Test video_tag in video_box.R")
+context("video_box / video_tag")
 
 test_that("bad inputs work", {
   expect_silent(video_tag(NULL))

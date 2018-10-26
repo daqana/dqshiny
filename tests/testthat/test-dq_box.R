@@ -1,4 +1,4 @@
-context("Test dq_box in dq_box.R")
+context("dq_box / dq_box")
 
 test_that("dq_box works with bad inputs", {
   expect_silent(dq_box())
@@ -17,4 +17,13 @@ test_that("dq_box works with all parameters", {
   expect_true(grepl("collapsible.* in\"", dq_box(collapsible = TRUE)))
   expect_true(grepl("collapse \"", dq_box(collapsed = TRUE)))
   expect_true(grepl("collapse.*click=\"Shiny", dq_box(open_callback = TRUE)))
+})
+
+context("dq_box / update_dq_box")
+
+test_that("works with all inputs", {
+  expect_silent(update_dq_box(NULL, NULL))
+  expect_silent(update_dq_box("string", TRUE))
+  expect_silent(update_dq_box(2, FALSE))
+  expect_silent(update_dq_box(TRUE, TRUE, TRUE))
 })

@@ -1,4 +1,4 @@
-context("Test dq_accordion in dq_accordion.R")
+context("dq_accordion / dq_accordion")
 
 test_that("dq_accordion works with NULL inputs", {
   expect_silent(dq_accordion(NULL, NULL, NULL))
@@ -53,7 +53,7 @@ test_that("dq_accordion works with all inputs", {
   ), "shiny.tag")
 })
 
-context("Test accordion_script in dq_accordion.R")
+context("dq_accordion / accordion_script")
 
 test_that("accordion_script works with all inputs", {
   testthat::skip_if_not_installed("V8")

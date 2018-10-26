@@ -1,4 +1,4 @@
-context("Test dq_as_selectize_options in hot_helpers.R")
+context("hot_helpers / dq_as_selectize_options")
 
 test_that("null works", {
   expect_equal(dq_as_selectize_options(NULL), list(options = list()))
@@ -23,7 +23,7 @@ test_that("named inputs work", {
   expect_equal(dq_as_selectize_options(inp), res)
 })
 
-context("Test dq_add_selectize_options in hot_helpers.R")
+context("hot_helpers / dq_add_selectize_options")
 
 hot <- rhandsontable::rhandsontable(mtcars)
 
@@ -63,7 +63,7 @@ test_that("proper inputs work", {
   expect_length(res$x$cell, nrow(mtcars))
 })
 
-context("Test dq_hot_cell in hot_helpers.R")
+context("hot_helpers / dq_hot_cell")
 
 test_that("null works and always returns hot element", {
   expect_equal(dq_hot_cell(NULL, NULL, NULL), NULL)

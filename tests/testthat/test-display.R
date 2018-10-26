@@ -1,4 +1,4 @@
-context("Test hide in display.R")
+context("display / hide")
 
 test_that("hide works with any input", {
   expect_null(hide(NULL))
@@ -9,7 +9,7 @@ test_that("hide works with any input", {
   expect_null(hide(list("my", "id", "is")))
 })
 
-context("Test show in display.R")
+context("display / show")
 
 test_that("show works with any input", {
   expect_null(show(NULL))
@@ -20,7 +20,7 @@ test_that("show works with any input", {
   expect_null(show(list("my", "id", "is")))
 })
 
-context("Test toggle in display.R")
+context("display / toggle")
 
 test_that("toggle works with any input", {
   expect_null(toggle(NULL))
@@ -37,7 +37,7 @@ test_that("toggle works with conditions", {
   expect_null(toggle("id", FALSE))
 })
 
-context("Test display shinytest")
+context("display shinytest")
 
 skip_on_cran()
 skip_on_travis()

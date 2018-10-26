@@ -2,7 +2,7 @@ app <- ShinyDriver$new("../")
 app$snapshotInit("autocomplete_inputTest")
 
 app$snapshot(screenshot = FALSE)
-app$setInputs(auto1 = "Just")
+app$setInputs(auto1 = "just")
 app$snapshot(screenshot = FALSE)
 app$setInputs(auto2 = "field")
 app$snapshot(screenshot = FALSE)

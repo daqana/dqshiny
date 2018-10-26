@@ -1,4 +1,4 @@
-context("Test package quality")
+context("package quality")
 
 skip_if(!requireNamespace("dqutils"))
 

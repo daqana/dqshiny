@@ -1,4 +1,4 @@
-context("Test add_class in css_class.R")
+context("css_class / add_class")
 
 test_that("add_class works with any input", {
   expect_null(add_class(NULL, NULL))
@@ -9,7 +9,7 @@ test_that("add_class works with any input", {
   expect_null(add_class(list("my", "id", "is"), "string"))
 })
 
-context("Test remove_class in css_class.R")
+context("css_class / remove_class")
 
 test_that("remove_class works with any input", {
   expect_null(remove_class(NULL, "string"))
@@ -20,7 +20,7 @@ test_that("remove_class works with any input", {
   expect_null(remove_class(list("my", "id", "is"), "string"))
 })
 
-context("Test toggle_class in css_class.R")
+context("css_class / toggle_class")
 
 test_that("toggle_class works with any input", {
   expect_null(toggle_class(NULL, 2))
@@ -45,7 +45,7 @@ test_that("toggle_class works with different class inputs", {
   expect_null(toggle_class("id", FALSE, TRUE))
 })
 
-context("Test css_class shinytest")
+context("css_class / shinytest")
 
 skip_on_cran()
 skip_on_travis()

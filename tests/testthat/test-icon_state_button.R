@@ -1,4 +1,4 @@
-context("Test icon_state_button in icon_state_button.R")
+context("icon_state_button / icon_state_button")
 
 test_that("bad inputs work", {
   expect_silent(icon_state_button(NULL, NULL))
@@ -14,7 +14,7 @@ test_that("all parameters work", {
   expect_true(grepl("style=\"col", icon_state_button("id", hands, style = "color:red;")))
 })
 
-context("Test update_icon_state_button in icon_state_button.R")
+context("icon_state_button / update_icon_state_button")
 
 test_that("function works like shiny functions", {
   expect_error(update_icon_state_button(NULL, NULL), "Nicht|non")

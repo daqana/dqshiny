@@ -1,4 +1,4 @@
-context("Test dq_space in dq_space.R")
+context("dq_space / dq_space")
 
 test_that("dq_space works with all inputs", {
   dep <- init()

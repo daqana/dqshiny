@@ -1,4 +1,4 @@
-context("Test dq_busy in dq_busy.R")
+context("dq_busy / dq_busy")
 
 test_that("dq_busy works with all inputs", {
   expect_is(dq_busy(), "shiny.tag")

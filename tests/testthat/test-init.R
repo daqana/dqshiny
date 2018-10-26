@@ -1,10 +1,10 @@
-context("Test init in init.R")
+context("init / init")
 
 test_that("init works without error", {
   expect_length(init(), 1L)
 })
 
-context("Test init_fonts in init.R")
+context("init / init_fonts")
 
 test_that("init_fonts works without error", {
   expect_silent(init_fonts("."))

@@ -1,4 +1,4 @@
-context("Test dq_infobox in dq_infobox.R")
+context("dq_infobox / dq_infobox")
 
 test_that("dq_infobox works with any input", {
   expect_silent(dq_infobox(NULL))

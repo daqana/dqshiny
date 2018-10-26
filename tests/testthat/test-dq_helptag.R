@@ -1,4 +1,4 @@
-context("Test dq_helptag in dq_helptag.R")
+context("dq_helptag / dq_helptag")
 
 test_that("dq_helptag works with all inputs", {
   expect_silent(dq_helptag(NULL))

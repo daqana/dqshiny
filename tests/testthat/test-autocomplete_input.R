@@ -1,4 +1,4 @@
-context("Test autocomplete_input in autocomplete_input.R")
+context("autocomplete_input / autocomplete_input")
 
 test_that("bad inputs work", {
   expect_silent(autocomplete_input("id", NULL, NULL))
@@ -16,7 +16,7 @@ test_that("all parameters work", {
   expect_true(grepl("hide=\"true", aI("id", NULL, NULL, hide_values = TRUE)))
 })
 
-context("Test update_autocomplete_input in autocomplete_input.R")
+context("autocomplete_input / update_autocomplete_input")
 
 test_that("function works like shiny functions", {
   expect_error(update_autocomplete_input(NULL, NULL), "Nicht|non")
@@ -33,7 +33,7 @@ test_that("all parameters work", {
   expect_error(update_autocomplete_input(NULL, "id", hide_values = TRUE), e)
 })
 
-context("Test autocomplete_input shinytest")
+context("autocomplete_input / shinytest")
 
 skip_on_cran()
 skip_on_travis()

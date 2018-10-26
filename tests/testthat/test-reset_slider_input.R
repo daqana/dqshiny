@@ -1,4 +1,4 @@
-context("Test reset_slider_input in reset_slider_input.R")
+context("reset_slider_input / reset_slider_input")
 
 test_that("reset_slider_input works with all inputs", {
   expect_null(reset_slider_input(NULL))

@@ -1,6 +1,6 @@
 library(shiny)
 library(dqshiny)
-opts <- c("Just", "a", "few", "words", "to", "check", "the", "functionality",
+opts <- c("just", "a", "few", "words", "to", "check", "the", "functionality",
           "of", "this", "autocomplete", "input", "field")
 shinyApp(
   ui = fluidPage(

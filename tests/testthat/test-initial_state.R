@@ -1,4 +1,4 @@
-context("Test hidden in initial_state.R")
+context("initial_state / hidden")
 
 test_that("hidden works with any input", {
   expect_silent(hidden(NULL))
@@ -10,7 +10,7 @@ test_that("hidden works with any input", {
   expect_silent(hidden(shiny::fluidRow(), shiny::fluidRow()))
 })
 
-context("Test disabled in initial_state.R")
+context("initial_state / disabled")
 
 test_that("disabled works with any input", {
   expect_silent(disabled(NULL))

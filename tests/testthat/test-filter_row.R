@@ -1,4 +1,4 @@
-context("Test filter_row in filter_row.R")
+context("filter_row / filter_row")
 
 test_that("null works", {
   expect_silent(res <- shiny::fluidRow(class = "filter-row"))

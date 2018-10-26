@@ -1,4 +1,4 @@
-context("Test update_page in paging.R")
+context("paging / update_page")
 
 session <- readRDS(file.path("data", "shinySession.RData"))
 test_that("update_page works with NULL inputs", {
@@ -26,7 +26,7 @@ test_that("update_page works with strange inputs", {
   expect_equal(update_page(mtcars, NULL, Inf, Inf, session), mtcars)
 })
 
-context("Test paging_row in paging.R")
+context("paging / paging_row")
 
 session <- readRDS(file.path("data", "shinySession.RData"))
 test_that("update_page works with NULL inputs", {

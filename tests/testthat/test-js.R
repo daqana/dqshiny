@@ -1,4 +1,4 @@
-context("Test add_js in js.R")
+context("js / add_js")
 
 test_that("add_js works with any input", {
   if (requireNamespace("V8", quietly = TRUE)) {
@@ -18,7 +18,7 @@ test_that("add_js works with any input", {
   }
 })
 
-context("Test run_js in js.R")
+context("js / run_js")
 
 test_that("run_js works with any input", {
   expect_null(run_js(NULL, NULL))
@@ -28,7 +28,7 @@ test_that("run_js works with any input", {
   expect_null(run_js("type", list("my", "params", "are")))
 })
 
-context("Test parse_code in js.R")
+context("js / parse_code")
 
 test_that("parse_code works with any input", {
   expect_warning(parse_code(NULL), "Nothing to parse")

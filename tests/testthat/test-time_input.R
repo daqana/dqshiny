@@ -1,4 +1,4 @@
-context("Test time_input in time_input.R")
+context("time_input / time_input")
 
 test_that("bad inputs work", {
   expect_silent(time_input("id", NULL))
@@ -14,7 +14,7 @@ test_that("all parameters work", {
   expect_true(grepl("type=\"text", tI("id", NULL, use_material_picker = TRUE)))
 })
 
-context("Test update_time_input in time_input.R")
+context("time_input / update_time_input")
 
 test_that("function works like shiny functions", {
   expect_error(update_time_input(NULL, NULL), "Nicht|non")
@@ -29,7 +29,7 @@ test_that("all parameters work", {
   expect_error(update_time_input(NULL, "id", label = "lab"), e)
 })
 
-context("Test time_input shinytest")
+context("time_input / shinytest")
 
 skip_on_cran()
 skip_on_travis()

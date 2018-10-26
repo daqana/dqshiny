@@ -1,4 +1,4 @@
-context("Test dq_render_svg in dq_render_svg.R")
+context("dq_render_svg / dq_render_svg")
 
 test_that("dq_render_svg works and returns a closure for rendering", {
   plot <- dq_render_svg({ggplot2::ggplot(

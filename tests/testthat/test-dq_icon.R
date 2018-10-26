@@ -1,4 +1,4 @@
-context("Test dq_icon in dq_icon.R")
+context("dq_icon / dq_icon")
 
 test_that("bad inputs work", {
   expect_silent(dq_icon(NULL))

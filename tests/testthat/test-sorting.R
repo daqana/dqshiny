@@ -1,4 +1,4 @@
-context("Test sort_button in sorting.R")
+context("sorting / sort_button")
 
 test_that("bad inputs works", {
   expect_silent(sort_button(NULL, NULL, NULL))
@@ -9,7 +9,7 @@ test_that("all parameters work", {
   expect_true(grepl("cont_name", sort_button("cont", "name", NULL)))
 })
 
-context("Test sort_data in sorting.R")
+context("sorting / sort_data")
 
 test_that("bad inputs works", {
   expect_silent(sort_data(NULL, NULL, NULL))

@@ -1,4 +1,4 @@
-context("Test render_hot in render_hot.R")
+context("render_hot / render_hot")
 
 test_that("render_hot works with all inputs", {
   expect_null(render_hot(NULL))
