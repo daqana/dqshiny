@@ -28,3 +28,12 @@ test_that("all parameters work", {
   expect_error(update_time_input(NULL, "id", placeholder = "pl"), e)
   expect_error(update_time_input(NULL, "id", label = "lab"), e)
 })
+
+context("Test time_input shinytest")
+
+skip_on_cran()
+skip_on_travis()
+
+test_that("shinytest will be passed", {
+  shinytest::expect_pass(shinytest::testApp("shinytest/time_picker"))
+})
