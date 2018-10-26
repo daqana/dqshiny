@@ -21,7 +21,6 @@
 #' hands <- paste0("hand-o-", c("up", "right", "down", "left"))
 #' shinyApp(
 #'   ui = fluidPage(
-#'     init(),
 #'     fluidRow(column(12,
 #'       icon_state_button("sort", c("sort", "sort-up", "sort-down")),
 #'       icon_state_button("hands", hands, 1),
@@ -49,8 +48,8 @@ icon_state_button <- function(id, states, value = NULL, ...) {
   }
   js_states <- jsonlite::toJSON(states, auto_unbox = TRUE)
   shiny::tags$button(
-    class = "btn btn-default state-button", id = id, shiny::icon(states[state]),
-    "data-state" = state, "data-states" = js_states, ...,
+    class = "btn btn-default state-button", id = id, dq_icon(states[state]),
+    type = "button", "data-state" = state, "data-states" = js_states, ...,
     htmltools::htmlDependency(
       "stateButton", "0.0.1", c(href = "dqshinyRes"),
       script = "js/stateButton-binding.js"

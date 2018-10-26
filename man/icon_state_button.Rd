@@ -42,7 +42,6 @@ library(shiny)
 hands <- paste0("hand-o-", c("up", "right", "down", "left"))
 shinyApp(
   ui = fluidPage(
-    init(),
     fluidRow(column(12,
       icon_state_button("sort", c("sort", "sort-up", "sort-down")),
       icon_state_button("hands", hands, 1),
