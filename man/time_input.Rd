@@ -17,14 +17,14 @@ update_time_input(session, id, label = NULL, value = NULL,
 
 \item{label}{label to show for the input, NULL for no label}
 
-\item{value}{initital value}
+\item{value}{initial value}
 
 \item{min}{minimum time value, must follow the specified format, e.g. "08:00"}
 
 \item{max}{maximum time value, must follow the specified format, e.g. "17:00"}
 
 \item{format}{format to use for the time string, can be any valid
-\href{https://momentjs.com/docs/#/displaying/format/}{moment.js} time
+\href{http://momentjs.com/docs/#/displaying/format/}{moment.js} time
 format (NOTE: this will only work with the material time picker and can't be
 updated!)}
 
@@ -47,7 +47,7 @@ update_time_input: message to the client
 }
 \description{
 time_input creates a time input field for correctly formatted
-time values.
+time values
 
 update_time_input changes the value/label or placeholder of an
 time input element on the client side.

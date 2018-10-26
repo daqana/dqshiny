@@ -1,0 +1,11 @@
+app <- ShinyDriver$new("../")
+app$snapshotInit("time_pickerTest")
+
+app$snapshot(screenshot = FALSE)
+app$setInputs(time1 = "22:34")
+app$setInputs(time1 = "22:17")
+app$snapshot(screenshot = FALSE)
+app$setInputs(time2 = "14:25")
+app$snapshot(screenshot = FALSE)
+app$setInputs(update = "click")
+app$snapshot(screenshot = FALSE)

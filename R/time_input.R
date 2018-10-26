@@ -1,15 +1,15 @@
 #' @title Creates an time input field
 #'
 #' @description time_input creates a time input field for correctly formatted
-#' time values.
+#' time values
 #'
 #' @param id id of the element
 #' @param label label to show for the input, NULL for no label
-#' @param value initital value
+#' @param value initial value
 #' @param min minimum time value, must follow the specified format, e.g. "08:00"
 #' @param max maximum time value, must follow the specified format, e.g. "17:00"
 #' @param format format to use for the time string, can be any valid
-#' \href{https://momentjs.com/docs/#/displaying/format/}{moment.js} time
+#' \href{http://momentjs.com/docs/#/displaying/format/}{moment.js} time
 #' format (NOTE: this will only work with the material time picker and can't be
 #' updated!)
 #' @param placeholder optional character specifying the placeholder text
