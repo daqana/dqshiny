@@ -32,3 +32,12 @@ test_that("all parameters work", {
   expect_error(update_autocomplete_input(NULL, "id", placeholder = "pl"), e)
   expect_error(update_autocomplete_input(NULL, "id", hide_values = TRUE), e)
 })
+
+context("Test autocomplete_input shinytest")
+
+skip_on_cran()
+skip_on_travis()
+
+test_that("shinytest will be passed", {
+  shinytest::expect_pass(shinytest::testApp("shinytest/autocomplete_input"))
+})

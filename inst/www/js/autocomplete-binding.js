@@ -58,7 +58,6 @@ $.extend(autocompleteBinding, {
   },
 
   // Receive messages from the server.
-  // Messages sent by updateUrlInput() are received by this function.
   receiveMessage: function (el, data) {
     if (data.hasOwnProperty("value")) el.value = data.value;
 
@@ -77,8 +76,6 @@ $.extend(autocompleteBinding, {
   },
 
   // This returns a full description of the input's state.
-  // Note that some inputs may be too complex for a full description of the
-  // state to be feasible.
   getState: function (el) {
     return {
       label: "test",
