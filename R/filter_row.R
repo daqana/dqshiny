@@ -26,7 +26,7 @@ filter_row <- function(context, dq_values, filters = "T", reset = TRUE, sorting 
       choices <- c(choices, sort(unique(as.character(data[[i]]))))
       el <- shiny::selectizeInput(id, NULL, choices, options = list(dropdownParent = "body"))
     } else if (f %in% c("R", "D")) {
-      try({
+      tryCatch({
         d <- unlist(data[[i]])
         if (f == "R") {
           suppressWarnings({
@@ -44,7 +44,7 @@ filter_row <- function(context, dq_values, filters = "T", reset = TRUE, sorting 
           max_d <- max(as.Date.character(d, "%Y-%m-%d"), na.rm = TRUE)
           el <- shiny::dateRangeInput(id, NULL, min_d, max_d, min_d, max_d)
         }
-      })
+      }, error = function(e) print(e$message))
     }
     if (to_sort && f != "") {
       val <- NULL
