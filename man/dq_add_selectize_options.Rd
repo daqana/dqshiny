@@ -31,7 +31,7 @@ settings
 }
 \description{
 dq_add_selectize_options adds selectizeOptions to a column of
-a handsontable to be used with the selectize editor. Especially useful if
+a rhandsontable to be used with the selectize editor. Especially useful if
 each cell should have individual dropdowns. It will also set the type and
 editor for the specified column.
 

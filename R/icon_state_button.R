@@ -4,7 +4,7 @@
 #' icons.
 #'
 #' @param id id of the element
-#' @param states character of possible states, must be valid fontAwesome icon
+#' @param states character of possible states, must be valid FontAwesome icon
 #' names \code{\link[shiny:icon]{icon}}
 #' @param value optional value, can be integer position in states or
 #' character giving the state, must be of length one

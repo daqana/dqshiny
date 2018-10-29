@@ -50,14 +50,14 @@ create_dq_box_group <- function(session, ...) {
 #' @title Directly render a set of dq_boxes as a group
 #'
 #' @description Directly render a set of dq_boxes into an uiOutput element. All
-#' given dq_boxes will be groupified automatically, meaning that they will
-#' become 'collapsible' and 'open_callback'ed.
+#' given dq_boxes will be prepared automatically, meaning that they become
+#' 'collapsible' and 'open_callback'ed.
 #'
 #' @param ... a set of dq_boxes
 #' @param open optional integer or character of length one, specifying the
 #' initially opened box
 #'
-#' @return fluidRow containing the set of groupified dq_boxes
+#' @return fluidRow containing the grouped dq_boxes
 #' @export
 #'
 #' @author richard.kunze

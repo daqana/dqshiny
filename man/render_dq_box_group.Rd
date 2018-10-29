@@ -13,12 +13,12 @@ render_dq_box_group(..., open = NULL)
 initially opened box}
 }
 \value{
-fluidRow containing the set of groupified dq_boxes
+fluidRow containing the grouped dq_boxes
 }
 \description{
 Directly render a set of dq_boxes into an uiOutput element. All
-given dq_boxes will be groupified automatically, meaning that they will
-become 'collapsible' and 'open_callback'ed.
+given dq_boxes will be prepared automatically, meaning that they become
+'collapsible' and 'open_callback'ed.
 }
 \examples{
 ## Only run examples in interactive R sessions

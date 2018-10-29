@@ -1,13 +1,13 @@
-#' Adds an uiOutput
+#' Adds an uiOutput and renders an enhanced rhandsontable html widget
 #'
-#' @description dq_handsontable_output adds a fluidrow containing a column with
+#' @description dq_handsontable_output adds a fluidRow containing a column with
 #' the given width, ready to support a dq_handsontable.
 #'
 #' @param id id of the element
 #' @param width width of the table in bootstrap columns
 #' @param offset optional offset of the column
 #'
-#' @return dq_handsontable_output: fluidrow containing the output fields
+#' @return dq_handsontable_output: fluidRow containing the output fields
 #' @rdname dq_render_handsontable
 #' @export
 dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
@@ -23,9 +23,9 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
   ))
 }
 
-#' Renders an enhanced rHandsontable html widget
+#' Adds an uiOutput and renders an enhanced rhandsontable html widget
 #'
-#' @description dq_render_handsontable renders a handsontable into the given
+#' @description dq_render_handsontable renders a rhandsontable into the given
 #' uiOutput id with the given data and parameters. Can also contain several
 #' filters to filter the data and a feature to split the table into several
 #' pages with a given page size. The function will also add all needed
@@ -49,9 +49,9 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #' 10, 25, 50, 100 or any other value(s) which will be added to this list, first
 #' value will be used initially, NULL will disable paging at all
 #' @param sorting optional, specify whether to add sort buttons for every column
-#' or not, as normal handsontable sorting won't work properly when table is
+#' or not, as normal rhandsontable sorting won't work properly when table is
 #' paged, value can be logical of length one or a vector specifying the initial
-#' sort "col"umn and "dir"ection e.g. c(dir="down", col="FirstColname")
+#' sort "col"umn and "dir"ection e.g. c(dir="down", col="Colname")
 #' @param columns optional, specify which columns to show in the table, useful
 #' in combination with reactive values, which will still hold all the data
 #' @param width_align optional boolean to align filter widths with hot columns,
@@ -59,14 +59,14 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #' table fitting in its output element
 #' @param horizontal_scroll optional boolean to scroll the filterrow according
 #' to the hot table, especially useful for tables with many columns
-#' @param table_param optional list, specify parameters to hand to rHandsontable
+#' @param table_param optional list, specify parameters to hand to rhandsontable
 #' table element
-#' @param cols_param optional list, specify parameters to hand to rHandsontable
+#' @param cols_param optional list, specify parameters to hand to rhandsontable
 #' cols elements
 #' @param col_param optional list of lists to specify parameters to hand to
-#' rHandsontable col elements
+#' rhandsontable col elements
 #' @param cell_param optional list of lists to specify parameters to hand to
-#' rHandsontable cells
+#' rhandsontable cells
 #'
 #' @return dq_render_handsontable: the given data
 #' @author richard.kunze

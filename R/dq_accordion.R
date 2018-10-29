@@ -16,7 +16,7 @@
 #' @param bg_color optional character specifying the background color of the
 #' headers, can be any valid HTML color code
 #' @param hover optional logical indicating whether headers should have an hover
-#' effekt or not
+#' effect or not
 #' @param style optional character for additional header style attributes
 #' @param icons optional named character vector of length one or two indicating
 #' the \href{http://fontawesome.io/icons/}{FontAwesome} icons to be used in

@@ -5,7 +5,7 @@ Version: 0.0.1
 Author: Richard Kunze, Mirjam Rehr
 Maintainer: Richard Kunze <richard.kunze@daqana.com>
 Description: Provides highly customizable modules to enhance your shiny apps.
-    Includes layout independent collapsable boxes and value boxes, a very fast
+    Includes layout independent collapsible boxes and value boxes, a very fast
     autocomplete input, rhandsontable extensions for filtering and paging and
     much more.
 License: GPL (>= 3)

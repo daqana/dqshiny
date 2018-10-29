@@ -3,7 +3,7 @@
 \name{dq_handsontable_output}
 \alias{dq_handsontable_output}
 \alias{dq_render_handsontable}
-\title{Adds an uiOutput}
+\title{Adds an uiOutput and renders an enhanced rhandsontable html widget}
 \usage{
 dq_handsontable_output(id, width = 12L, offset = 0L)
 
@@ -40,9 +40,9 @@ value will be used initially, NULL will disable paging at all}
 filters and sort buttons to initial values or not}
 
 \item{sorting}{optional, specify whether to add sort buttons for every column
-or not, as normal handsontable sorting won't work properly when table is
+or not, as normal rhandsontable sorting won't work properly when table is
 paged, value can be logical of length one or a vector specifying the initial
-sort "col"umn and "dir"ection e.g. c(dir="down", col="FirstColname")}
+sort "col"umn and "dir"ection e.g. c(dir="down", col="Colname")}
 
 \item{columns}{optional, specify which columns to show in the table, useful
 in combination with reactive values, which will still hold all the data}
@@ -54,28 +54,28 @@ table fitting in its output element}
 \item{horizontal_scroll}{optional boolean to scroll the filterrow according
 to the hot table, especially useful for tables with many columns}
 
-\item{table_param}{optional list, specify parameters to hand to rHandsontable
+\item{table_param}{optional list, specify parameters to hand to rhandsontable
 table element}
 
-\item{cols_param}{optional list, specify parameters to hand to rHandsontable
+\item{cols_param}{optional list, specify parameters to hand to rhandsontable
 cols elements}
 
 \item{col_param}{optional list of lists to specify parameters to hand to
-rHandsontable col elements}
+rhandsontable col elements}
 
 \item{cell_param}{optional list of lists to specify parameters to hand to
-rHandsontable cells}
+rhandsontable cells}
 }
 \value{
-dq_handsontable_output: fluidrow containing the output fields
+dq_handsontable_output: fluidRow containing the output fields
 
 dq_render_handsontable: the given data
 }
 \description{
-dq_handsontable_output adds a fluidrow containing a column with
+dq_handsontable_output adds a fluidRow containing a column with
 the given width, ready to support a dq_handsontable.
 
-dq_render_handsontable renders a handsontable into the given
+dq_render_handsontable renders a rhandsontable into the given
 uiOutput id with the given data and parameters. Can also contain several
 filters to filter the data and a feature to split the table into several
 pages with a given page size. The function will also add all needed

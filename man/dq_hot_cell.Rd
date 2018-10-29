@@ -7,7 +7,7 @@
 dq_hot_cell(hot, row, col, ...)
 }
 \arguments{
-\item{hot}{handsontable object}
+\item{hot}{rhandsontable object}
 
 \item{row}{integer vector specifying the rows to configure}
 

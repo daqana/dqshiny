@@ -1,7 +1,7 @@
 #' Adds selectizeOptions to a column of rhandsontable
 #'
 #' @description dq_add_selectize_options adds selectizeOptions to a column of
-#' a handsontable to be used with the selectize editor. Especially useful if
+#' a rhandsontable to be used with the selectize editor. Especially useful if
 #' each cell should have individual dropdowns. It will also set the type and
 #' editor for the specified column.
 #'
@@ -101,7 +101,7 @@ dq_as_selectize_options <- function(options, ...) {
 #' \code{\link[rhandsontable:hot_col]{hot_col}} to specify custom options or
 #' cells. All possible combinations of row and column indices will be set.
 #'
-#' @param hot handsontable object
+#' @param hot rhandsontable object
 #' @param row integer vector specifying the rows to configure
 #' @param col integer vector specifying the columns to configure
 #' @param ... parameters to be set in the cells, can be all rhandsontable

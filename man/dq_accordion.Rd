@@ -27,7 +27,7 @@ should be rearrangeable or not}
 headers, can be any valid HTML color code}
 
 \item{hover}{optional logical indicating whether headers should have an hover
-effekt or not}
+effect or not}
 
 \item{style}{optional character for additional header style attributes}
 

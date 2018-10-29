@@ -27,7 +27,7 @@ Before adding anything the code will be parsed with V8 if the package is
 available on your machine. If package is available and parsing fails, an
 error will be thrown.
 
-After successfull adding any function can be used with run_js.
+After successfully adding a function it can be used with run_js.
 }
 \examples{
 ## Only run examples in interactive R sessions

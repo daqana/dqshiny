@@ -4,7 +4,7 @@
 \alias{dq_hot_date_renderer}
 \alias{dq_hot_empty_renderer}
 \alias{dq_hot_html_renderer}
-\title{handsontable renderer}
+\title{rhandsontable renderer}
 \usage{
 dq_hot_date_renderer()
 
@@ -13,7 +13,7 @@ dq_hot_empty_renderer(renderer = "Autocomplete")
 dq_hot_html_renderer()
 }
 \arguments{
-\item{renderer}{handsontable base renderer to be adjusted, can be one of
+\item{renderer}{rhandsontable base renderer to be adjusted, can be one of
 ("Autocomplete", "Base", "Checkbox", "Date", "Dropdown", "Html", "Numeric",
 "Password", "Text", "Time")}
 }
@@ -21,11 +21,11 @@ dq_hot_html_renderer()
 character containing js renderer
 }
 \description{
-dq_hot_date_renderer: Renderer to show handsontable dates in
+dq_hot_date_renderer: Renderer to show rhandsontable dates in
 proper formatting.
 
 dq_hot_empty_renderer: Renderer to highlight empty cells in
-handsontable.
+rhandsontable.
 
 dq_hot_html_renderer: Renderer to replace missing "html"
 rhandsontable renderer.

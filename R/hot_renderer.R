@@ -1,6 +1,6 @@
-#' handsontable renderer
+#' rhandsontable renderer
 #'
-#' @description dq_hot_date_renderer: Renderer to show handsontable dates in
+#' @description dq_hot_date_renderer: Renderer to show rhandsontable dates in
 #' proper formatting.
 #'
 #' @return character containing js renderer
@@ -27,8 +27,8 @@ dq_hot_date_renderer <- function() {
 }
 
 #' @description dq_hot_empty_renderer: Renderer to highlight empty cells in
-#' handsontable.
-#' @param renderer handsontable base renderer to be adjusted, can be one of
+#' rhandsontable.
+#' @param renderer rhandsontable base renderer to be adjusted, can be one of
 #' ("Autocomplete", "Base", "Checkbox", "Date", "Dropdown", "Html", "Numeric",
 #' "Password", "Text", "Time")
 #' @export

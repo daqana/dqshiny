@@ -12,7 +12,7 @@ update_icon_state_button(session, id, states = NULL, value = NULL)
 \arguments{
 \item{id}{id of the element}
 
-\item{states}{character of possible states, must be valid fontAwesome icon
+\item{states}{character of possible states, must be valid FontAwesome icon
 names \code{\link[shiny:icon]{icon}}}
 
 \item{value}{optional value, can be integer position in states or

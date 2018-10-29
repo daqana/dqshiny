@@ -7,7 +7,7 @@
 #' available on your machine. If package is available and parsing fails, an
 #' error will be thrown.
 #'
-#' After successfull adding any function can be used with run_js.
+#' After successfully adding a function it can be used with run_js.
 #'
 #' @param type name of the function
 #' @param function_text js function definition, this should be an anonymous

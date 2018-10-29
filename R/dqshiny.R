@@ -1,7 +1,7 @@
 #' dqshiny: Enhance Shiny Apps with Customizable Modules
 #'
 #' @description Provides highly customizable modules to enhance your shiny apps.
-#' Includes layout independent collapsable boxes and value boxes, a very fast
+#' Includes layout independent collapsible boxes and value boxes, a very fast
 #' autocomplete input, rhandsontable extensions for filtering and paging and
 #' much more.
 #'
