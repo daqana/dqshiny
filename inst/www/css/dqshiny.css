@@ -48,11 +48,16 @@
   background-color: #eee;
 }
 
+.form-group input[type = "time"].form-control {
+  line-height: 1;
+}
+
 input:invalid {
 	box-shadow: 0 0 3px red;
 }
 
 /* ################# dq-info-box ###################### */
+
 .dq-info-box-wrapper:hover .dq-box {
   opacity: 0.9;
 }
