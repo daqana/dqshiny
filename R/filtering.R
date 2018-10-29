@@ -32,7 +32,7 @@ text_filter <- function(df, values) {
 }
 
 #' @author richard.kunze
-text_filter_rec <- function(df, values, valid, depth = 1) {
+text_filter_rec <- function(df, values, valid, depth = 1L) {
   if (depth > length(values)) return(df[valid, , drop = FALSE])
   if (!is.na(values[depth])) {
     index <- tryCatch(
@@ -41,7 +41,7 @@ text_filter_rec <- function(df, values, valid, depth = 1) {
     ) # catch invalid regex
     valid <- valid[index]
   }
-  return(text_filter_rec(df, values, valid, depth + 1))
+  return(text_filter_rec(df, values, valid, depth + 1L))
 }
 
 #' @title numeric range filter for data.frames
@@ -50,14 +50,15 @@ text_filter_rec <- function(df, values, valid, depth = 1) {
 #' values. Names of the given ranges vector should be the indices of the
 #' corresponding data frame columns.
 #'
-#' @param ranges numeric (or numeric makeable) vector with the filter ranges,
+#' @param df data frame to filter
+#' @param ranges numeric (or convertable) vector with the filter ranges,
 #' should have length of data or being named
 #'
 #' @return range_filter: filtered data frame
 #' @author richard.kunze
 #' @export
 range_filter <- function(df, ranges) {
-  if (is.atomic(ranges) && length(ranges) == 2) ranges <- list(ranges)
+  if (is.atomic(ranges) && length(ranges) == 2L) ranges <- list(ranges)
   newRanges <- lapply(ranges, function(x) {
     vals <- suppressWarnings(as.numeric(x))
     if (length(x) == 2 && all(!is.na(vals))) vals
@@ -73,11 +74,11 @@ range_filter <- function(df, ranges) {
 }
 
 #' @author richard.kunze
-range_filter_rec <- function(df, ranges, valid, depth = 1) {
+range_filter_rec <- function(df, ranges, valid, depth = 1L) {
   if (depth > length(ranges) || length(valid) == 0) return(df[valid,])
   if (all(!is.na(ranges[depth]))) {
     tmp <- suppressWarnings(as.numeric(df[valid, depth]))
-    valid <- valid[!is.na(tmp) & tmp >= ranges[[depth]][1] & tmp <= ranges[[depth]][2]]
+    valid <- valid[!is.na(tmp) & tmp >= ranges[[depth]][1L] & tmp <= ranges[[depth]][2L]]
   }
-  return(range_filter_rec(df, ranges, valid, depth + 1))
+  return(range_filter_rec(df, ranges, valid, depth + 1L))
 }

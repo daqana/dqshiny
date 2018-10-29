@@ -7,7 +7,9 @@
 range_filter(df, ranges)
 }
 \arguments{
-\item{ranges}{numeric (or numeric makeable) vector with the filter ranges,
+\item{df}{data frame to filter}
+
+\item{ranges}{numeric (or convertable) vector with the filter ranges,
 should have length of data or being named}
 }
 \value{
