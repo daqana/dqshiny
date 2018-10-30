@@ -193,6 +193,10 @@ input:invalid {
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
 }
+.dq-box-body > .row {
+	margin-left: -10px;
+	margin-right: -10px;
+}
 
 /* ################# dq-help ################## */
 
