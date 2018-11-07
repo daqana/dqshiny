@@ -30,7 +30,7 @@ selectize_dep <- htmltools::tagList(
     stylesheet = "css/handsontable-selectize-editor.css",
     script = "js/handsontable-selectize-editor.js"
   ), htmltools::htmlDependency(
-    "selectize", "0.11.2", c(href = "shared/selectize"),
+    "selectize", "0.12.4", c(href = "shared/selectize"),
     stylesheet = "css/selectize.bootstrap3.css",
     head = format(htmltools::tagList(
       htmltools::HTML("<!--[if lt IE 9]>"),
@@ -41,9 +41,15 @@ selectize_dep <- htmltools::tagList(
   )
 )
 
-fontawesome_dep <- htmltools::htmlDependency(
-  "font-awesome", "4.7.0", c(href = "shared/font-awesome"),
-  stylesheet = "css/font-awesome.min.css"
+fontawesome_dep <- htmltools::tagList(
+  htmltools::htmlDependency(
+    "font-awesome", "4.7.0", c(href = "shared/font-awesome/css"),
+    stylesheet = "font-awesome.min.css"
+  ),
+  htmltools::htmlDependency(
+    "font-awesome", "5.3.1", c(href = "shared/fontawesome/css"),
+    stylesheet = "all.min.css"
+  )
 )
 
 jqueryui_dep <- htmltools::htmlDependency(

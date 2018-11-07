@@ -48,7 +48,7 @@ dq_icon <- function(
     sPre <- "dq-icon"
     if (lib == "font-awesome") {
       pre <- sPre <- "fa"
-      dep <- append(dep, list(fontawesome_dep))
+      dep <- append(dep, fontawesome_dep)
     } else if (lib != "glyphicon") {
       warning(paste("Unknown library", lib, "for dq_icon specified!"))
     }

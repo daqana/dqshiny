@@ -34,12 +34,12 @@
 #' shinyApp(
 #'   ui = fluidPage(
 #'     fluidRow(
-#'       column(12, dq_accordion("myAccordion", titles, contents, hover = FALSE,
+#'       column(5, dq_accordion("myAccordion", titles, contents, hover = FALSE,
 #'         style = "border:1px solid red;margin-top: 5px;color: red;"
 #'       ), dq_space(),
 #'       dq_accordion("myAccordion2", titles, contents,
 #'         bg_color = NULL, options = list(animate = 500, collapsible = TRUE),
-#'         icons = c(open = "hand-o-down", closed = "hand-o-right")
+#'         icons = c(open = "hand-point-down", closed = "hand-point-right")
 #'       ), dq_space(),
 #'       dq_accordion("myAccordion3", titles, contents,
 #'         bg_color = "pink", icons = NULL, sortable = TRUE
@@ -76,7 +76,7 @@ dq_accordion <- function(
       if (is.na(rot)) {
         rot <- icons[[1]]
       }
-      rot <- sub("^(fa-)?", "fa-", rot)
+      rot <- sub("^(fa-)?", "fa fa-", rot)
       icons <- list(header = rot, activeHeader = rot)
       acc_class <- paste(acc_class, "dq_accordion_rotated_icon")
     } else if (length(icons) == 2) {
@@ -85,8 +85,8 @@ dq_accordion <- function(
                 " \"open\") will be used in this order.")
         names(icons) <- c("closed", "open")
       }
-      icons <- list(header = sub("^(fa-)?", "fa-", icons["closed"]),
-                    activeHeader = sub("^(fa-)?", "fa-", icons["open"]))
+      icons <- list(header = sub("^(fa-)?", "fa fa-", icons["closed"]),
+                    activeHeader = sub("^(fa-)?", "fa fa-", icons["open"]))
     } else {
       warning("Incorrect icon vector found!")
       return(NULL)
@@ -118,9 +118,9 @@ dq_accordion <- function(
     jqueryui_dep,
     htmltools::htmlDependency(
       "accordion", "0.0.1", c(href = "dqshinyRes"),
-      stylesheet = "css/accordion.css"),
+      stylesheet = "css/accordion.css"
+    ),
     icon_dep,
-    init(),
     t$script(accordion_script(id, options, sortable))
   )
 
