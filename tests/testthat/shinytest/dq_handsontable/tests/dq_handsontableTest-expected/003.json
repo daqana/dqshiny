@@ -1,6 +1,7 @@
 {
   "input": {
     "filter_rand_A": "",
+    "filter_rand_A-selectized": "",
     "filter_rand_B": "f",
     "filter_rand_C": [
       1,
@@ -130,7 +131,8 @@
       }
     },
     "reset_rand_filter": 0,
-    "sel_rand_pageSize": "5"
+    "sel_rand_pageSize": "5",
+    "sel_rand_pageSize-selectized": ""
   },
   "output": {
     "rand_maxPages": "of  1",
@@ -282,13 +284,13 @@
       "deps": [
         {
           "name": "font-awesome",
-          "version": "4.7.0",
+          "version": "5.3.1",
           "src": {
-            "href": "shared/font-awesome"
+            "href": "shared/fontawesome/css"
           },
           "meta": null,
           "script": null,
-          "stylesheet": "css/font-awesome.min.css",
+          "stylesheet": "all.min.css",
           "head": null,
           "attachment": null,
           "package": null,
