@@ -1,4 +1,4 @@
-#' @title Creates an time input field
+#' @title Creates a time input field
 #'
 #' @description time_input creates a time input field for correctly formatted
 #' time values

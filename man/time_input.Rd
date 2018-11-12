@@ -3,7 +3,7 @@
 \name{time_input}
 \alias{time_input}
 \alias{update_time_input}
-\title{Creates an time input field}
+\title{Creates a time input field}
 \usage{
 time_input(id, label, value = "", min = NULL, max = NULL,
   format = "HH:mm", placeholder = NULL, width = NULL, color = NULL,
