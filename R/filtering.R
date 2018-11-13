@@ -24,9 +24,8 @@ text_filter <- function(df, values) {
   values <- unlist(values)
   if (!is.null(names(values))) {
     values <- values[match(names(df), names(values))]
-  } else {
-    values[values == ""] <- NA
   }
+  values[values == ""] <- NA
   if (all(is.na(values))) return(df)
   return(text_filter_rec(df, values, seq(nrow(df))))
 }

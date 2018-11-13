@@ -171,8 +171,8 @@ dq_render_handsontable <- function(
     shiny::observeEvent(get_filters(input, context), {
       f_vals <- get_filters(input, context)
       if (length(f_vals) == 0) return()
-      df <- text_filter(dq_values$full[, columns, drop = FALSE], f_vals[sapply(f_vals, function(x) length(x) == 1)])
-      dq_values[[context]] <- range_filter(df, f_vals[sapply(f_vals, function(x) length(x) > 1)])
+      df <- text_filter(dq_values$full[, columns, drop = FALSE], f_vals[sapply(f_vals, function(x) length(x) == 1L)])
+      dq_values[[context]] <- range_filter(df, f_vals[sapply(f_vals, function(x) length(x) == 2L)])
       if (to_sort) {
         dq_values[[context]] <- sort_data(
           dq_values[[context]], dq_values$sort_dir, dq_values$sort_col
