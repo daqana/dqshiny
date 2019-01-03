@@ -7,12 +7,14 @@ test_that("null works", {
 })
 
 test_that("all filters work for empty data", {
-  df <- data.frame(A = character(0), B = logical(0), C = as.Date(character(0)),
-                   D = numeric(0), stringsAsFactors = FALSE)
+  df <- data.frame(A = character(), B = logical(), C = as.Date(character()),
+                   D = numeric(), stringsAsFactors = FALSE)
   expect_silent(filter_row("con", list(con = df)))
   expect_silent(filter_row("con", list(con = df), reset = FALSE))
   expect_silent(filter_row("con", list(con = df), "S"))
   expect_silent(filter_row("con", list(con = df), "R"))
+  expect_silent(filter_row("con", list(con = df), "A"))
+  expect_silent(filter_row("con", list(con = df), "D"))
   expect_silent(filter_row("con", list(con = df), ""))
 })
 
@@ -27,8 +29,8 @@ test_that("all filters work for proper data", {
   expect_silent(filter_row("con", list(con = df), ""))
   expect_silent(filter_row("con", list(con = df), c("T", "S")))
   expect_silent(filter_row("con", list(con = df), c("t", "s", "r")))
-  expect_silent(filter_row("con", list(con = df), c("T", "S", "r", "T")))
-  expect_silent(filter_row("con", list(con = df), c("T", "s", "R", "", "R")))
+  expect_silent(filter_row("con", list(con = df), c("T", "A", "r", "T")))
+  expect_silent(filter_row("con", list(con = df), c("T", "a", "R", "", "R")))
   expect_silent(filter_row("con", list(con = df), c("T", NA, "NA", NULL)))
   expect_silent(filter_row("con", list(con = df), c(NA, "something", "strange", "")))
 })
@@ -43,8 +45,15 @@ test_that("all filters work for proper data with non bootstrap width", {
   expect_silent(filter_row("con", list(con = df), ""))
   expect_silent(filter_row("con", list(con = df), c("T", "S")))
   expect_silent(filter_row("con", list(con = df), c("t", "s", "r")))
-  expect_silent(filter_row("con", list(con = df), c("T", "S", "r", "T")))
-  expect_silent(filter_row("con", list(con = df), c("T", "s", "R", "", "R")))
+  expect_silent(filter_row("con", list(con = df), c("T", "A", "r", "T")))
+  expect_silent(filter_row("con", list(con = df), c("T", "a", "R", "", "R")))
   expect_silent(filter_row("con", list(con = df), c("T", NA, "NA", NULL)))
   expect_silent(filter_row("con", list(con = df), c(NA, "something", "strange", "")))
+})
+
+test_that("all sorting options work", {
+  df <- mtcars
+  expect_silent(filter_row("con", list(con = df)))
+  expect_silent(filter_row("con", list(con = df), sorting = TRUE))
+  expect_silent(filter_row("con", list(con = df), sorting = c(dir = "down", col = "mpg")))
 })

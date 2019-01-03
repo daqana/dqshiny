@@ -40,8 +40,10 @@ filter_row <- function(context, dq_values, filters = "T", reset = TRUE, sorting 
             el <- shiny::sliderInput(id, NULL, min_val, max_val, c(min_val, max_val))
           }
         } else if (f == "D") {
-          min_d <- min(as.Date.character(d, "%Y-%m-%d"), na.rm = TRUE)
-          max_d <- max(as.Date.character(d, "%Y-%m-%d"), na.rm = TRUE)
+          suppressWarnings({
+            min_d <- min(as.Date.character(d, "%Y-%m-%d"), na.rm = TRUE)
+            max_d <- max(as.Date.character(d, "%Y-%m-%d"), na.rm = TRUE)
+          })
           el <- shiny::dateRangeInput(id, NULL, min_d, max_d, min_d, max_d)
         }
       }, error = function(e) print(e$message))
@@ -84,8 +86,9 @@ update_filters <- function(data, filters, context, session) {
           min_val <- min(data[[n]], na.rm = TRUE)
           max_val <- max(data[[n]], na.rm = TRUE)
         })
-        shiny::updateSliderInput(session, unname(els[n]),
-                                 min = min_val, max = max_val)
+        shiny::updateSliderInput(
+          session, unname(els[n]), min = min_val, max = max_val
+        )
       }
     }
   }
