@@ -1,6 +1,9 @@
 # dqshiny 0.0.2
 
 * Fix text filter to properly skip empty filters.
+* Add borders and headers to dq_htmltable.
+* Add 'base-features' demo.
+* Support reactiveVal as dq_hot data.
 
 # dqshiny 0.0.1
 
