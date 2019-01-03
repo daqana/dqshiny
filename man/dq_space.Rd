@@ -29,10 +29,10 @@ library(shiny)
 shinyApp(
   ui = fluidPage(
     fluidRow(
-      dq_box(title = "I need space!!", dqSpace(200)),
+      dq_box(title = "I need space!!", dq_space(200)),
       dq_box(
       title = "I need more space", collapsible = TRUE, collapsed = TRUE,
-            "...but I'm collapsible!", dqSpace("50vh")
+            "...but I'm collapsible!", dq_space("50vh")
             )
     )),
   server = function(input, output) {
