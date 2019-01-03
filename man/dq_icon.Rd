@@ -5,7 +5,7 @@
 \title{Creates an icon element}
 \usage{
 dq_icon(icon, lib = "font-awesome", color = "#ff8f00",
-  bg_color = "#fff", size = NULL, ...)
+  bg_color = NULL, size = NULL, ...)
 }
 \arguments{
 \item{icon}{name of the icon to show}

@@ -32,7 +32,7 @@
 #' }
 dq_icon <- function(
   icon, lib = "font-awesome",
-  color = "#ff8f00", bg_color = "#fff", size = NULL, ...
+  color = "#ff8f00", bg_color = NULL, size = NULL, ...
 ) {
   if (length(size) > 0 && !(size %in% c("xs", "sm", "lg", paste0(2:10, "x")))) {
     size <- NULL
