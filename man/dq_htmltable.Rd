@@ -5,7 +5,7 @@
 \title{Create a HTML table containing the given list of elements}
 \usage{
 dq_htmltable(elements, id = NULL, align = "left",
-  head_align = "center", borders = "inner")
+  head_align = "center", borders = "none")
 }
 \arguments{
 \item{elements}{List of elements to show in the list, each element of the
@@ -50,7 +50,8 @@ shinyApp(
       column(3, dq_htmltable(
         list(list("Description", icon("hashtag")),
              list("Value", textInput("value", NULL)),
-             list("Result", textOutput("result")))
+             list("Result", textOutput("result"))),
+        borders = "inner"
       )),
       column(2, dq_htmltable(lets, borders = "outer")),
       column(3, dq_htmltable(

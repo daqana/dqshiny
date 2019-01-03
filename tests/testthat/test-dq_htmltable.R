@@ -15,7 +15,8 @@ test_that("alignments work", {
 
 test_that("borders without header work", {
   el <- list(c("a", "b"), c("c", "d"))
-  expect_silent(res <- dq_htmltable(el))
+  expect_silent(dq_htmltable(el))
+  expect_silent(res <- dq_htmltable(el, borders = "inner"))
   expect_true(grepl("right bottom$", res$children[[2]][[1]]$children[[1]][[1]]$attribs$class))
   expect_silent(res <- dq_htmltable(el, borders = "outer"))
   expect_true(grepl("left top$", res$children[[2]][[1]]$children[[1]][[1]]$attribs$class))
@@ -27,12 +28,13 @@ test_that("borders without header work", {
     c("left right", ""), c("", "")
   )))
   expect_true(grepl("left right$", res$children[[2]][[1]]$children[[1]][[1]]$attribs$class))
-  expect_silent(res <- dq_htmltable(el, borders = NULL))
+  expect_silent(dq_htmltable(el, borders = NULL))
 })
 
 test_that("borders with header work", {
   el <- data.frame(A = c("a", "b"), B = c("c", "d"))
-  expect_silent(res <- dq_htmltable(el))
+  expect_silent(dq_htmltable(el))
+  expect_silent(res <- dq_htmltable(el, borders = "inner"))
   expect_true(grepl("right bottom$", res$children[[1]]$children[[1]][[1]]$attribs$class))
   expect_silent(res <- dq_htmltable(el, borders = "outer"))
   expect_true(grepl("left top bottom$", res$children[[1]]$children[[1]][[1]]$attribs$class))
@@ -44,5 +46,5 @@ test_that("borders with header work", {
     c("left right", ""), c("", ""), c("", "")
   )))
   expect_true(grepl("left right$", res$children[[1]]$children[[1]][[1]]$attribs$class))
-  expect_silent(res <- dq_htmltable(el, borders = NULL))
+  expect_silent(dq_htmltable(el, borders = NULL))
 })
