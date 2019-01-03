@@ -26,3 +26,9 @@ test_that("all parameters work", {
   df <- sort_data(df, NULL, NULL)
   expect_equal(order(as.integer(rownames(df))), 1:100)
 })
+
+test_that("none numeric row names work", {
+  df <- data.frame(A = sample(1:100, 100), B = sample(1:100, 100))
+  rownames(df) <- paste0("A", 1:100, "B")
+  expect_silent(sort_data(df, NULL, NULL))
+})

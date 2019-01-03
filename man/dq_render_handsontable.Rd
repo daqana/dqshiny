@@ -20,9 +20,9 @@ dq_render_handsontable(id, data, context = NULL, filters = "T",
 \item{offset}{optional offset of the column}
 
 \item{data}{data to show in the table, should be a data.frame'ish object, can
-also be reactive or a reactiveValues object holding the data under the given
-id (e.g. myReactiveValues[[id]] <- data). In case of reactiveValues, those
-will always be in line with user inputs.}
+also be reactive(Val) or a reactiveValues object holding the data under the
+given id (e.g. myReactiveValues[[id]] <- data). In case of reactiveVal(ues)
+data will always be in sync with user inputs.}
 
 \item{context}{the context used to specify all ui elements used for this
 table, can be omitted which ends up in a randomly generated context}

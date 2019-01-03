@@ -1,11 +1,10 @@
-app <- ShinyDriver$new("../")
+app <- ShinyDriver$new("../", cleanLogs = FALSE)
 app$snapshotInit("dq_handsontableTest")
 
 app$snapshot(screenshot = FALSE)
 app$setInputs(filter_rand_B = "f")
 app$setInputs(sel_rand_pageSize = "5")
 app$snapshot(screenshot = FALSE)
-# app$setInputs(filter_rand_C = c(1, 36))
 app$setInputs(filter_rand_D = "564")
 app$snapshot(screenshot = FALSE)
 app$setInputs(filter_rand_B = "")

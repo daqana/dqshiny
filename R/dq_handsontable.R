@@ -34,9 +34,9 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #' from any filters, sortings or pages.
 #'
 #' @param data data to show in the table, should be a data.frame'ish object, can
-#' also be reactive or a reactiveValues object holding the data under the given
-#' id (e.g. myReactiveValues[[id]] <- data). In case of reactiveValues, those
-#' will always be in line with user inputs.
+#' also be reactive(Val) or a reactiveValues object holding the data under the
+#' given id (e.g. myReactiveValues[[id]] <- data). In case of reactiveVal(ues)
+#' data will always be in sync with user inputs.
 #' @param context the context used to specify all ui elements used for this
 #' table, can be omitted which ends up in a randomly generated context
 #' @param filters optional character vector, adds filters for each column,
@@ -114,6 +114,8 @@ dq_render_handsontable <- function(
   input <- session$input
   output <- session$output
 
+  table_data <- data
+
   paged <- length(page_size) > 0L && page_size > 0L
   page_id <- context
 
@@ -122,6 +124,7 @@ dq_render_handsontable <- function(
   page_select <- paste0("sel_", context, "_pageSize")
   page_num <- paste0("num_", context, "_page")
   to_sort <- (length(sorting) > 0L && sorting != FALSE)
+  no_update <- FALSE
 
   # used functions
   update_page_if_necessary <- function() {
@@ -130,6 +133,7 @@ dq_render_handsontable <- function(
       dq_values[[page_id]] <- update_page(
         dq_values[[context]], context, input[[page_num]], sel, session
       )
+      dq_values[[page_id]]
     }
   }
 
@@ -139,20 +143,28 @@ dq_render_handsontable <- function(
     if (length(df) > 0L) dq_values[[context]] <- df[, columns, drop = FALSE]
   }
 
-  if (shiny::is.reactivevalues(data)) {
-    shiny::observeEvent(data[[id]], {
-      set_data(data[[id]])
-      update_page_if_necessary()
+  if (shiny::is.reactivevalues(table_data)) {
+    shiny::observeEvent(table_data[[id]], {
+      if (no_update) {
+        no_update <<- FALSE
+      } else {
+        set_data(table_data[[id]])
+        update_page_if_necessary()
+      }
     }, ignoreInit = TRUE)
-    set_data(shiny::isolate(data[[id]]))
-  } else if (shiny::is.reactive(data)) {
-    shiny::observe({
-      set_data(data())
-      update_page_if_necessary()
-    })
-    set_data(shiny::isolate(data()))
+    set_data(shiny::isolate(table_data[[id]]))
+  } else if (shiny::is.reactive(table_data)) {
+    shiny::observeEvent(table_data(), {
+      if (no_update) {
+        no_update <<- FALSE
+      } else {
+        set_data(table_data())
+        update_page_if_necessary()
+      }
+    }, ignoreInit = TRUE)
+    set_data(shiny::isolate(table_data()))
   } else {
-    set_data(data)
+    set_data(table_data)
   }
 
   # define page_id which is needed for table rendering and reduce data to first page
@@ -260,8 +272,12 @@ dq_render_handsontable <- function(
         dq_values[[context]][row_names[row], col] <- ch[[4L]]
         dq_values$full[row_names[row], col_names[col]] <- ch[[4L]]
       })
-      if (shiny::is.reactivevalues(data)) {
-        data[[id]] <- dq_values$full
+      if (shiny::is.reactivevalues(table_data)) {
+        no_update <<- TRUE
+        table_data[[id]] <- dq_values$full
+      } else if (inherits(table_data, "reactiveVal")) {
+        no_update <<- TRUE
+        table_data(dq_values$full)
       }
       if (!is.null(filters)) {
         update_filters(dq_values$full, filters, context, session)
