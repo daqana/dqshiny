@@ -210,11 +210,6 @@ input:invalid {
   line-height: 1;
 }
 
-.orange .dq-help,
-.orange .video-button {
-  color: #fff;
-}
-
 .dq-help-inner {
   display: none;
   opacity: 0;
@@ -233,11 +228,6 @@ input:invalid {
   top: -50%;
   z-index: 10;
   line-height: 1.3;
-}
-
-.orange .dq-help-inner {
-  background-color: rgba(255, 255, 255, 0.5);
-  border: 2px solid #fff;
 }
 
 .dq-help.on-hover:hover .dq-help-inner,
@@ -332,6 +322,53 @@ img.dq-icon-9x {
 }
 img.dq-icon-10x {
   height: 10em;
+}
+
+/* ############### dq-html-table ################# */
+
+.dq-html-table {
+  width: 100%;
+}
+
+.dq-html-table td, .dq-html-table th {
+  border: 1px solid transparent;
+  padding: 2px 4px;
+}
+
+.dq-html-table th {
+  border-bottom-width: 2px;
+}
+
+.dq-html-table .align-left {
+  text-align: left;
+}
+
+.dq-html-table .align-right {
+  text-align: right;
+}
+
+.dq-html-table .align-center {
+  text-align: center;
+}
+
+.dq-html-table .right {
+  border-right-color: #777;
+}
+
+.dq-html-table .left {
+  border-left-color: #777;
+}
+
+.dq-html-table .top {
+  border-top-color: #777;
+}
+
+.dq-html-table .bottom {
+  border-bottom-color: #777;
+}
+
+.dq-html-table .form-group {
+	margin: 2px 0;
 }
 
 /* ################# filter-row ################## */

@@ -4,17 +4,28 @@
 \alias{dq_htmltable}
 \title{Create a HTML table containing the given list of elements}
 \usage{
-dq_htmltable(elements, id = NULL, align = "left")
+dq_htmltable(elements, id = NULL, align = "left",
+  head_align = "center", borders = "inner")
 }
 \arguments{
 \item{elements}{List of elements to show in the list, each element of the
-list should be a row of the table.}
+list should be a row of the table. Can also be a data.frame with names used
+as header.}
 
 \item{id}{Optional, character specifying the elements id.}
 
 \item{align}{Optional, character (vector) or list of characters showing the
-alignment of the table or each column/cell, can be one of "left", "right"
+alignment of the table for each column/cell, can be one of "left", "right"
 or "center", defaults to "left", can be abbreviated.}
+
+\item{head_align}{Optional character vector of header alignments, defaults to
+"center", can be abbreviated.}
+
+\item{borders}{Optional character specifying the desired borders to show. Can
+be either a single character vector of length one with one of c("inner",
+"outer", "all", "tex") or a list of character vectors specifying all
+borders by hand. Possible values are "top", "right", "bottom", "left". The
+first entry of the list will be used for the header row if given.}
 }
 \value{
 HTML table
@@ -32,23 +43,29 @@ the alignment of every cell.
 if (interactive()) {
 
 library(shiny)
+lets <- data.frame(lower = letters[1:5], UPPER = LETTERS[1:5])
 shinyApp(
   ui = fluidPage(
-    fluidRow(
-      column(3, dq_htmltable(list(list("Description", icon("hashtag")),
-                             list("Value", textInput("value", NULL)),
-                             list("Result", textOutput("result")))),
-                             offset = 2, style="background:#ff8f00"
-      ),
-      column(3, dq_htmltable(list(list("Left", "Center", "Right"),
-                             list("Center", "Right", "Left")),
-                             align = list(c("left", "center", "right"),
-                             c("center", "right", "left"))),
-                             offset = 1, style="background:#ff8f00"
-      )
+    dq_space(), fluidRow(
+      column(3, dq_htmltable(
+        list(list("Description", icon("hashtag")),
+             list("Value", textInput("value", NULL)),
+             list("Result", textOutput("result")))
+      )),
+      column(2, dq_htmltable(lets, borders = "outer")),
+      column(3, dq_htmltable(
+        list(c("Left", "Center", "Right"), c("Center", "Right", "Left")),
+        align = list(c("LEFT", "center", "right"), c("c", "R", "l")),
+        borders = "all"
+      )),
+      column(2, dq_htmltable(lets, borders = "tex")),
+      column(2, dq_htmltable(lets, borders = list(
+        c("top left", "bottom right"), # header
+        c("", ""), c("", ""), c("", ""), c("", ""), c("bottom", "bottom")
+      )))
     )),
   server = function(input, output) {
-    observeEvent(input$value, output$result <- renderText(input$value))
+    output$result <- renderText(input$value)
   }
 )
 
