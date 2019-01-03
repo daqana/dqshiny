@@ -115,8 +115,8 @@ Shiny.addCustomMessageHandler("renderHot", renderHot);
 function updateBox(params) {
   var $obj = _getElement(params.id);
   if ($obj !== null) {
-    const open = $obj.find(".collapse").hasClass("in");
-    const coll = params.collapsed;
+    var open = $obj.find(".collapse").hasClass("in");
+    var coll = params.collapsed;
     if ((coll === true && open) || (coll === false && !open) || coll === null) {
       if (params.silent) {
         $obj.find(".collapse").toggleClass("in");
