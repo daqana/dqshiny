@@ -4,6 +4,7 @@
 \alias{dq_hot_date_renderer}
 \alias{dq_hot_empty_renderer}
 \alias{dq_hot_html_renderer}
+\alias{dq_hot_selectize_renderer}
 \title{rhandsontable renderer}
 \usage{
 dq_hot_date_renderer()
@@ -11,6 +12,8 @@ dq_hot_date_renderer()
 dq_hot_empty_renderer(renderer = "Autocomplete")
 
 dq_hot_html_renderer()
+
+dq_hot_selectize_renderer()
 }
 \arguments{
 \item{renderer}{rhandsontable base renderer to be adjusted, can be one of
@@ -29,6 +32,9 @@ rhandsontable.
 
 dq_hot_html_renderer: Renderer to replace missing "html"
 rhandsontable renderer.
+
+dq_hot_selectize_renderer: Renderer to properly display multiple
+selectize options.
 }
 \examples{
 df <- data.frame(empty = rep(c("value", ""), 5),

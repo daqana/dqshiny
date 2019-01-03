@@ -56,8 +56,11 @@ dq_hot_html_renderer <- function() {
    }"
 }
 
-#' TODO use for dq_add_selectize_options
-selectizeRenderer <- function() {
+#' @description dq_hot_selectize_renderer: Renderer to properly display multiple
+#' selectize options.
+#' @export
+#' @rdname dq_hot_date_renderer
+dq_hot_selectize_renderer <- function() {
   "function (instance, td, row, col, prop, value, cellProperties) {
     var settings = cellProperties.selectizeOptions;
     if (value && settings && (settings.maxItems === null || settings.maxItems > 1)) {
