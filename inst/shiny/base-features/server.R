@@ -1,13 +1,16 @@
 # Define server logic
+library(shiny)
+library(dqshiny)
+
 shinyServer(
-  function(input, output) {
+  function(input, output, session) {
     # initial data
     cars <- reactiveVal(datasets::mtcars)
 
     # render data to handsontable
     dq_render_handsontable(
-      "cars", cars, filters = c("Auto", "Range", "Text"), reset = FALSE,
-      page_size = 16L, sorting = TRUE, columns = -(1:2),
+      "cars", cars, reset = FALSE, filters = c(NA, "Auto"),
+      page_size = 16L, sorting = c(dir = "up", col = "hp"), columns = -(1:2),
       table_param = list(rowHeaders = NULL)
     )
 

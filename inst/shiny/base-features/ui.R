@@ -1,4 +1,7 @@
 # Define UI for application
+library(shiny)
+library(dqshiny)
+
 shinyUI(
   fluidPage(
     column(2L, offset = 1L, dq_space(250), h4(paste(
