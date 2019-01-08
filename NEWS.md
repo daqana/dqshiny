@@ -4,6 +4,7 @@
 * Add borders and headers to dq_htmltable.
 * Add 'base-features' demo.
 * Support reactiveVal as dq_hot data.
+* Support NA filter to detect proper filter values.
 
 # dqshiny 0.0.1
 
