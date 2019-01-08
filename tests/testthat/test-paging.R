@@ -1,6 +1,6 @@
 context("paging / update_page")
 
-session <- readRDS(file.path("data", "shinySession.RData"))
+session <- create_test_session("")
 test_that("update_page works with NULL inputs", {
   expect_null(update_page(NULL, NULL, NULL, NULL, NULL))
   expect_null(update_page(mtcars, NULL, NULL, NULL, NULL))
@@ -28,7 +28,6 @@ test_that("update_page works with strange inputs", {
 
 context("paging / paging_row")
 
-session <- readRDS(file.path("data", "shinySession.RData"))
 test_that("update_page works with NULL inputs", {
   expect_true(grepl("paging-row", paging_row(NULL, NULL, NULL)))
   expect_true(grepl("num_test_page", paging_row("test", NULL, NULL)))

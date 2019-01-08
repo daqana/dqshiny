@@ -60,3 +60,21 @@ jqueryui_dep <- htmltools::htmlDependency(
 not_null <- function(vec) {
   vec[!vapply(vec, is.null, TRUE)]
 }
+
+create_test_session <- function(id, ...) {
+  session <- as.environment(list(
+    ns = shiny::NS(id),
+    sendInputMessage = function(inputId, message) {
+      session$lastInputMessages = append(
+        session$lastInputMessages, list(list(id = inputId, message = message))
+      )
+    },
+    sendCustomMessage = function(type, message) {
+      session$lastCustomMessages = append(
+        session$lastCustomMessages, list(list(type = type, message = message))
+      )
+    },
+    input = list(...)
+  ))
+  session
+}

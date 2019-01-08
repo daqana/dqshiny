@@ -6,17 +6,14 @@ test_that("get_filters works with NULL inputs", {
   expect_silent(get_filters(NULL, "context"))
 })
 
-input <- readRDS(file.path("data", "shinySession.RData"))$input
-test_that("get_filters doesn't work outside shiny reactive expressions", {
-  expect_error(get_filters(input, NULL), "reactive expression")
-})
-
 test_that("get_filters works with correct input element", {
-  shiny::isolate({
-    expect_length(get_filters(input, NULL), 4)
-    expect_length(get_filters(input, "rand"), 4)
-    expect_silent(get_filters(input, "context"))
-  })
+  input <- list(
+    filter_rand_A = "test1", filter_rand_B = "test2",
+    filter_rand_C = "test3", filter_rand_D = "test4"
+  )
+  expect_length(get_filters(input, NULL), 4)
+  expect_length(get_filters(input, "rand"), 4)
+  expect_silent(get_filters(input, "context"))
 })
 
 context("filtering / text_filter")
@@ -29,7 +26,7 @@ test_that("text_filter works with null inputs", {
 })
 
 test_that("text_filter works properly and ignores cases", {
-  df <- data.frame(letters, LETTERS, stringsAsFactors = F)
+  df <- data.frame(letters, LETTERS, stringsAsFactors = FALSE)
   expect_equal(text_filter(df, NULL), df)
   expect_equal(text_filter(df, ""), df)
   expect_equal(text_filter(df, c("a", "")), df[1, ])
@@ -37,7 +34,7 @@ test_that("text_filter works properly and ignores cases", {
 })
 
 test_that("text_filter works with named filter values", {
-  df <- data.frame(A = letters, B = sort(LETTERS, decreasing = TRUE), stringsAsFactors = F)
+  df <- data.frame(A = letters, B = sort(LETTERS, decreasing = TRUE), stringsAsFactors = FALSE)
   expect_equal(text_filter(df, c(A = "a")), df[1, ])
   expect_equal(text_filter(df, c(B = "a")), df[26, ])
   expect_equal(text_filter(df, c(A = "a", B = "h")), df[NULL, ])
@@ -45,11 +42,11 @@ test_that("text_filter works with named filter values", {
 })
 
 test_that("text_filter works with NAs in data.frame", {
-  inp <- data.frame(A = c("Value", NA), B = c("Empty", NA), stringsAsFactors = F)
-  res <- data.frame(A = "Value", B = "Empty", stringsAsFactors = F)
+  inp <- data.frame(A = c("Value", NA), B = c("Empty", NA), stringsAsFactors = FALSE)
+  res <- data.frame(A = "Value", B = "Empty", stringsAsFactors = FALSE)
   expect_equal(text_filter(inp, c("V", "")), res)
-  inp <- data.frame(A = c("Value", NA), B = c(NA, "Empty"), stringsAsFactors = F)
-  res <- data.frame(A = "Value", B = as.character(NA), stringsAsFactors = F)
+  inp <- data.frame(A = c("Value", NA), B = c(NA, "Empty"), stringsAsFactors = FALSE)
+  res <- data.frame(A = "Value", B = as.character(NA), stringsAsFactors = FALSE)
   expect_equal(text_filter(inp, c("V", "")), res)
 })
 
@@ -115,22 +112,4 @@ test_that("NA in data.frame works", {
   inp <- data.frame(A = c(7, NA), B = c(NA, 9))
   res <- data.frame(A = 7, B = NA_real_)
   expect_equal(range_filter(inp, c(1, 200)), res)
-})
-
-
-context("filtering / update_filters")
-
-session <- readRDS(file.path("data", "shinySession.RData"))
-test_that("update_page works with NULL inputs", {
-  expect_null(update_filters(mtcars, NULL, NULL, NULL))
-  expect_null(update_filters(NULL, "test", "context", session))
-  expect_null(update_filters(mtcars, "test", 1, NULL))
-})
-
-test_that("update_filters works with proper inputs", {
-  df <- data.frame(A = character(0), B = logical(0),C = as.Date(character(0)),
-                   D = numeric(0), stringsAsFactors = F)
-  expect_null(update_filters(df, "T", "rand", session))
-  expect_null(update_filters(df, c("T", "S"), "rand", session))
-  expect_null(update_filters(df, c("T", "R", "S", "Test", "wrong"), "rand", session))
 })
