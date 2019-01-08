@@ -38,7 +38,7 @@
   cursor: not-allowed;
 }
 
-.disabled-date-input input {
+.disabled-date-input input[type="text"] {
   background: #eee;
 }
 
@@ -48,7 +48,7 @@
   background-color: #eee;
 }
 
-.form-group input[type = "time"].form-control {
+.form-group input[type="time"].form-control {
   line-height: 1;
 }
 
