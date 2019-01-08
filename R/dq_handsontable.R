@@ -43,6 +43,7 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #' values must be one of "Text", "Select", "Range", "Date", "Auto" or "" (can be
 #' abbreviated) to add a Text-, Select-, Range-, DateRange-, AutocompleteInput
 #' or none, vectors of length one will add a filter of this type for each column
+#' and NA (default) will try to guess proper filters
 #' @param reset optional logical, specify whether to add a button to reset
 #' filters and sort buttons to initial values or not
 #' @param page_size optional integer, number of items per page, can be one of
@@ -98,7 +99,7 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #'
 #' }
 dq_render_handsontable <- function(
-  id, data, context = NULL, filters = "T", page_size = 25L, reset = TRUE,
+  id, data, context = NULL, filters = NA, page_size = 25L, reset = TRUE,
   sorting = NULL, columns = NULL, width_align = FALSE, horizontal_scroll = FALSE,
   table_param = NULL, cols_param = NULL, col_param = NULL, cell_param = NULL
 ) {
@@ -119,7 +120,7 @@ dq_render_handsontable <- function(
   paged <- length(page_size) > 0L && page_size > 0L
   page_id <- context
 
-  dq_values <- shiny::reactiveValues()
+  dqv <- shiny::reactiveValues()
 
   page_select <- paste0("sel_", context, "_pageSize")
   page_num <- paste0("num_", context, "_page")
@@ -130,17 +131,17 @@ dq_render_handsontable <- function(
   update_page_if_necessary <- function() {
     if (paged) {
       sel <- as.integer(input[[page_select]])
-      dq_values[[page_id]] <- update_page(
-        dq_values[[context]], context, input[[page_num]], sel, session
+      dqv[[page_id]] <- update_page(
+        dqv[[context]], context, input[[page_num]], sel, session
       )
-      dq_values[[page_id]]
+      dqv[[page_id]]
     }
   }
 
   set_data <- function(df) {
     df <- as.data.frame(df)
-    dq_values$full <- dq_values[[context]] <- df
-    if (length(df) > 0L) dq_values[[context]] <- df[, columns, drop = FALSE]
+    dqv$full <- dqv[[context]] <- df
+    if (length(df) > 0L) dqv[[context]] <- df[, columns, drop = FALSE]
   }
 
   if (shiny::is.reactivevalues(table_data)) {
@@ -170,24 +171,27 @@ dq_render_handsontable <- function(
   # define page_id which is needed for table rendering and reduce data to first page
   if (paged) {
     page_id <- paste0(context, "Page")
-    df <- shiny::isolate(dq_values[[context]])
+    df <- shiny::isolate(dqv[[context]])
     n <- min(page_size[1L], nrow(df))
-    dq_values[[page_id]] <- df[1:n,]
+    dqv[[page_id]] <- df[1:n,]
   }
 
+  # fill filter values and detect proper values for NA
+  filters <- correct_filters(filters, shiny::isolate(dqv$full[, columns, drop = FALSE]))
+
   # render filter row and add observer for filters
-  if (!all(filters == "") && !is.null(output)) {
+  if (!is.null(filters) && !is.null(output)) {
     output[[paste0(id, "_filters")]] <- shiny::renderUI({
-      filter_row(context, dq_values, filters, reset, sorting)
+      filter_row(context, dqv, filters, columns, reset, sorting)
     })
     shiny::observeEvent(get_filters(input, context), {
       f_vals <- get_filters(input, context)
       if (length(f_vals) == 0) return()
-      df <- text_filter(dq_values$full[, columns, drop = FALSE], f_vals[sapply(f_vals, function(x) length(x) == 1L)])
-      dq_values[[context]] <- range_filter(df, f_vals[sapply(f_vals, function(x) length(x) == 2L)])
+      df <- text_filter(dqv$full[, columns, drop = FALSE], f_vals[sapply(f_vals, function(x) length(x) == 1L)])
+      dqv[[context]] <- range_filter(df, f_vals[sapply(f_vals, function(x) length(x) == 2L)])
       if (to_sort) {
-        dq_values[[context]] <- sort_data(
-          dq_values[[context]], dq_values$sort_dir, dq_values$sort_col
+        dqv[[context]] <- sort_data(
+          dqv[[context]], dqv$sort_dir, dqv$sort_col
         )
       }
       update_page_if_necessary()
@@ -211,14 +215,14 @@ dq_render_handsontable <- function(
   # render dq_handsontable
   if (!is.null(output)) {
     output[[id]] <- rhandsontable::renderRHandsontable({
-      params[[1L]]$data <- dq_values[[page_id]]
+      params[[1L]]$data <- dqv[[page_id]]
       params[[2L]]$hot <- do.call(rhandsontable::rhandsontable, params[[1L]])
       hot <- do.call(rhandsontable::hot_cols, params[[2L]])
       for (x in params[[3L]]) {
         hot <- do.call(rhandsontable::hot_col, append(list(hot), x))
       }
       for (x in params[[4L]]) {
-        x$row <- match(x$row, rownames(dq_values[[page_id]]))
+        x$row <- match(x$row, rownames(dqv[[page_id]]))
         x$row <- x$row[!is.na(x$row)]
         hot <- do.call(dq_hot_cell, append(list(hot), x))
       }
@@ -235,7 +239,7 @@ dq_render_handsontable <- function(
     })
     output[[paste0(context, "_maxPages")]] <- shiny::renderText({
       sel <- as.integer(input[[page_select]])
-      paste("of ", ceiling(max(length(dq_values[[context]][[1L]]) / sel, 1L)))
+      paste("of ", ceiling(max(length(dqv[[context]][[1L]]) / sel, 1L)))
     })
     shiny::observeEvent(c(input[[page_num]], input[[page_select]]), {
       if (!is.na(input[[page_select]])) update_page_if_necessary()
@@ -244,7 +248,7 @@ dq_render_handsontable <- function(
 
   # add sort buttons
   if (to_sort) {
-    sorts <- add_sorting_observer(input, session, dq_values, context, paged, page_id)
+    sorts <- add_sorting_observer(input, session, dqv, context, page_size, page_id)
   }
 
   # add reset button
@@ -255,7 +259,7 @@ dq_render_handsontable <- function(
         reset_slider_input(n)
       }
       if (to_sort) {
-        dq_values$sort_dir <- dq_values$sort_col <- ""
+        dqv$sort_dir <- dqv$sort_col <- ""
         lapply(sorts, function(n) update_icon_state_button(session, n, value = 1L))
       }
     })
@@ -265,27 +269,27 @@ dq_render_handsontable <- function(
   shiny::observeEvent(input[[id]], {
     if (!is.null(input[[id]]$changes$source)) {
       row_names <- as.character(rownames(rhandsontable::hot_to_r(input[[id]])))
-      col_names <- colnames(dq_values[[context]])
+      col_names <- colnames(dqv[[context]])
       lapply(input[[id]]$changes$changes, function(ch) {
         row <- ch[[1L]] + 1L
         col <- ch[[2L]] + 1L
-        dq_values[[context]][row_names[row], col] <- ch[[4L]]
-        dq_values$full[row_names[row], col_names[col]] <- ch[[4L]]
+        dqv[[context]][row_names[row], col] <- ch[[4L]]
+        dqv$full[row_names[row], col_names[col]] <- ch[[4L]]
       })
       if (shiny::is.reactivevalues(table_data)) {
         no_update <<- TRUE
-        table_data[[id]] <- dq_values$full
+        table_data[[id]] <- dqv$full
       } else if (inherits(table_data, "reactiveVal")) {
         no_update <<- TRUE
-        table_data(dq_values$full)
+        table_data(dqv$full)
       }
       if (!is.null(filters)) {
-        update_filters(dq_values$full, filters, context, session)
+        update_filters(dqv$full[, columns, drop = FALSE], filters, context, session)
       }
     }
   }, ignoreInit = TRUE)
 
-  shiny::isolate(dq_values$full)
+  shiny::isolate(dqv$full)
 }
 
 #' @author richard.kunze

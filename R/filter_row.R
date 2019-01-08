@@ -1,7 +1,6 @@
 #' @author richard.kunze
-filter_row <- function(context, dq_values, filters = "T", reset = TRUE, sorting = NULL) {
-  data <- shiny::isolate(dq_values[[context]])
-  filters <- correct_filters(filters, length(data))
+filter_row <- function(context, dq_values, filters, columns, reset = TRUE, sorting = NULL) {
+  data <- shiny::isolate(dq_values$full[, columns, drop = FALSE])
   to_sort <- length(sorting) > 0L && sorting != FALSE
   sort_dir <- sort_col <- ""
   if (to_sort && !is.logical(sorting) && !is.null(names(sorting))) {
@@ -10,51 +9,44 @@ filter_row <- function(context, dq_values, filters = "T", reset = TRUE, sorting 
   }
   class <- paste0("filter-row", if (to_sort) " sorting")
   res <- shiny::fluidRow(class = class)
-  if (all(filters == "")) return(res)
+  if (is.null(filters)) return(res)
   l <- lapply(seq(filters), function(i) {
+    d <- unlist(data[[i]])
+    n <- names(data)[i]
     f <- filters[i]
-    id <- paste("filter", context, names(data)[i], sep = "_")
+    id <- paste("filter", context, n, sep = "_")
     el <- shiny::div(class = "form-group")
     if (f == "T") {
-      el <- shiny::textInput(id, NULL, placeholder = names(data)[i])
+      el <- shiny::textInput(id, NULL, placeholder = n)
     } else if (f == "A") {
-      choices <- c("", sort(unique(as.character(data[[i]]))))
-      el <- autocomplete_input(id, NULL, choices, placeholder = names(data)[i])
+      choices <- c("", sort(unique(as.character(d))))
+      el <- autocomplete_input(id, NULL, choices, placeholder = n)
     } else if (f == "S") {
       choices <- c("")
-      names(choices) <- names(data)[i]
-      choices <- c(choices, sort(unique(as.character(data[[i]]))))
+      names(choices) <- n
+      choices <- c(choices, sort(unique(as.character(d))))
       el <- shiny::selectizeInput(id, NULL, choices, options = list(dropdownParent = "body"))
-    } else if (f %in% c("R", "D")) {
-      tryCatch({
-        d <- unlist(data[[i]])
-        if (f == "R") {
-          suppressWarnings({
-            min_val <- min(d, na.rm = TRUE)
-            max_val <- max(d, na.rm = TRUE)
-            mi <- as.numeric(min_val)
-            ma <- as.numeric(max_val)
-          })
-          if (!any(is.na(c(mi, ma)) | is.infinite(c(mi, ma))) ||
-              !any(is.na(as.Date.character(c(min_val, max_val), "%Y-%m-%d")))) {
-            el <- shiny::sliderInput(id, NULL, min_val, max_val, c(min_val, max_val))
-          }
-        } else if (f == "D") {
-          suppressWarnings({
-            min_d <- min(as.Date.character(d, "%Y-%m-%d"), na.rm = TRUE)
-            max_d <- max(as.Date.character(d, "%Y-%m-%d"), na.rm = TRUE)
-          })
-          el <- shiny::dateRangeInput(id, NULL, min_d, max_d, min_d, max_d)
-        }
-      }, error = function(e) print(e$message))
+    } else if (f == "R") {
+      suppressWarnings({
+        min_val <- min(d, na.rm = TRUE)
+        max_val <- max(d, na.rm = TRUE)
+      })
+      el <- shiny::sliderInput(id, NULL, min_val, max_val, c(min_val, max_val))
+    } else if (f == "D") {
+      suppressWarnings({
+        min_d <- min(as.Date.character(d, "%Y-%m-%d"), na.rm = TRUE)
+        max_d <- max(as.Date.character(d, "%Y-%m-%d"), na.rm = TRUE)
+      })
+      el <- shiny::dateRangeInput(id, NULL, min_d, max_d, min_d, max_d)
     }
+
     if (to_sort && f != "") {
       val <- NULL
-      if (length(sort_col) > 0L && sort_col == names(data)[i]) {
+      if (length(sort_col) == 1L && sort_col == n) {
         dq_values$sort_col <- i
         dq_values$sort_dir <- val <- sort_dir
       }
-      el <- shiny::tagAppendChild(el, sort_button(context, names(data)[i], val))
+      el <- shiny::tagAppendChild(el, sort_button(context, n, val))
     }
     el
   })
@@ -69,7 +61,6 @@ filter_row <- function(context, dq_values, filters = "T", reset = TRUE, sorting 
 #' @author richard.kunze
 update_filters <- function(data, filters, context, session) {
   if (length(data) == 0L || length(filters) == 0L) return()
-  filters <- correct_filters(filters, length(data))
   els <- grep(paste0("^filter_", context),
               shiny::isolate(names(session$input)), value = TRUE)
   names(els) <- gsub(paste0("^filter_", context, "_"), "", els)
@@ -89,15 +80,39 @@ update_filters <- function(data, filters, context, session) {
         shiny::updateSliderInput(
           session, unname(els[n]), min = min_val, max = max_val
         )
+      } else if (filter == "D") {
+        suppressWarnings({
+          d <- as.Date.character(data[[n]], "%Y-%m-%d")
+          min_val <- min(d, na.rm = TRUE)
+          max_val <- max(d, na.rm = TRUE)
+        })
+        shiny::updateDateRangeInput(
+          session, unname(els[n]), min = min_val, max = max_val
+        )
       }
     }
   }
 }
 
 #' @author richard.kunze
-correct_filters <- function(filters, len) {
-  if (length(filters) != len) filters <- rep_len(filters, len)
-  filters <- toupper(substr(unlist(filters), 1L, 1L))
-  filters[!filters %in% c("T", "S", "R", "A", "D", "")] <- "T"
-  filters
+correct_filters <- function(vals, data) {
+  if (isTRUE(all(vals == ""))) return(NULL)
+  len <- length(data)
+  if (length(vals) != len) vals <- rep_len(vals, len)
+  vals <- toupper(substr(unlist(vals), 1L, 1L))
+  vals[!vals %in% c("T", "S", "R", "A", "D", "", NA)] <- NA
+  vapply(seq(vals), function(i) correct_type(vals[i], data[[i]]), "")
+}
+
+#' @author richard.kunze
+correct_type <- function(type, vec) {
+  if (length(type) != 1L || type %in% c("T", "A", "S")) return(type)
+  suppressWarnings({
+    num_vec <- as.numeric(vec)
+    date_vec <- as.Date.character(vec, "%Y-%m-%d")
+  })
+  if (type %in% c("D", NA) && !all(is.na(date_vec))) return("D")
+  if (!all(is.na(num_vec)) || !all(is.na(date_vec))) return("R")
+  if (length(unique(vec)) <= sqrt(length(vec))) return("S")
+  return("T")
 }

@@ -7,7 +7,7 @@
 \usage{
 dq_handsontable_output(id, width = 12L, offset = 0L)
 
-dq_render_handsontable(id, data, context = NULL, filters = "T",
+dq_render_handsontable(id, data, context = NULL, filters = NA,
   page_size = 25L, reset = TRUE, sorting = NULL, columns = NULL,
   width_align = FALSE, horizontal_scroll = FALSE, table_param = NULL,
   cols_param = NULL, col_param = NULL, cell_param = NULL)
@@ -30,7 +30,8 @@ table, can be omitted which ends up in a randomly generated context}
 \item{filters}{optional character vector, adds filters for each column,
 values must be one of "Text", "Select", "Range", "Date", "Auto" or "" (can be
 abbreviated) to add a Text-, Select-, Range-, DateRange-, AutocompleteInput
-or none, vectors of length one will add a filter of this type for each column}
+or none, vectors of length one will add a filter of this type for each column
+and NA (default) will try to guess proper filters}
 
 \item{page_size}{optional integer, number of items per page, can be one of
 10, 25, 50, 100 or any other value(s) which will be added to this list, first
