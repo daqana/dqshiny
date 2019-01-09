@@ -2,9 +2,7 @@ var autocompleteBinding = new Shiny.InputBinding();
 
 $.extend(autocompleteBinding, {
   find: function (scope) {
-    return $(scope)
-      .find(".autocomplete")
-      .find("input");
+    return $(scope).find(".autocomplete").find("input");
   },
 
   // return the ID of the DOM element
@@ -46,10 +44,12 @@ $.extend(autocompleteBinding, {
     $(el).on("change.autocompleteBinding", function (event) {
       callback(false);
     });
-    $(el).parent().on("click.autocompleteBinding", ".auto_selector", function (event) {
-      var val = this.getElementsByTagName("input")[0].value;
-      setVal(el, val);
-      callback(false);
+    $("body").on("click.autocompleteBinding", ".auto_selector", function (event) {
+      if (this.parentNode.id.startsWith(el.id)) {
+        var val = this.getElementsByTagName("input")[0].value;
+        setVal(el, val);
+        callback(false);
+      }
     });
   },
 
@@ -62,10 +62,7 @@ $.extend(autocompleteBinding, {
     if (data.hasOwnProperty("value")) el.value = data.value;
 
     if (data.hasOwnProperty("label"))
-      $(el)
-        .parent()
-        .find('label[for="' + el.id + '"]')
-        .text(data.label);
+      $(el).parent().find('label[for="' + el.id + '"]').text(data.label);
 
     if (data.hasOwnProperty("options")) $(el).data("options", data.options);
     if (data.hasOwnProperty("maxOptions")) $(el).data("max", data.maxOptions);
@@ -99,10 +96,11 @@ function autocomplete(inp) {
   var currentFocus;
 
   $(inp).on("input.autocompleteBinding", function (e) {
+    $el = $(this);
     var a, b, i;
-    var arr = $(this).data("options"),
-      maxCount = $(this).data("max"),
-      hideValues = $(this).data("hide"),
+    var arr = $el.data("options"),
+      maxCount = $el.data("max"),
+      hideValues = $el.data("hide"),
       val = this.value;
 
     closeAllLists();
@@ -114,8 +112,11 @@ function autocomplete(inp) {
     a = document.createElement("DIV");
     a.setAttribute("id", this.id + "autocomplete-list");
     a.setAttribute("class", "autocomplete-items");
+    $(a).css("top", $el.offset().top + $el.outerHeight());
+    $(a).css("left", $el.offset().left);
+    $(a).width($el.innerWidth());
+    document.body.appendChild(a);
 
-    this.parentNode.appendChild(a);
     var valLen = val.length,
       valUC = val.toUpperCase(),
       keys = Object.keys(arr),

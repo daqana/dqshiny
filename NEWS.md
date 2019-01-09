@@ -5,6 +5,7 @@
 * Add 'base-features' demo.
 * Support reactiveVal as dq_hot data.
 * Support NA filter to detect proper filter values.
+* Fix autocomplete dropdown display for filtering.
 
 # dqshiny 0.0.1
 
