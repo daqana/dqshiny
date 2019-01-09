@@ -1,5 +1,5 @@
 #' @author richard.kunze
-filter_row <- function(context, dq_values, filters, columns, reset = TRUE, sorting = NULL) {
+filter_row <- function(ns, dq_values, filters, columns, reset = TRUE, sorting = NULL) {
   data <- shiny::isolate(dq_values$full[, columns, drop = FALSE])
   to_sort <- length(sorting) > 0L && sorting != FALSE
   sort_dir <- sort_col <- ""
@@ -14,7 +14,7 @@ filter_row <- function(context, dq_values, filters, columns, reset = TRUE, sorti
     d <- unlist(data[[i]])
     n <- names(data)[i]
     f <- filters[i]
-    id <- paste("filter", context, n, sep = "_")
+    id <- ns("filter", n)
     el <- shiny::div(class = "form-group")
     if (f == "T") {
       el <- shiny::textInput(id, NULL, placeholder = n)
@@ -46,25 +46,25 @@ filter_row <- function(context, dq_values, filters, columns, reset = TRUE, sorti
         dq_values$sort_col <- i
         dq_values$sort_dir <- val <- sort_dir
       }
-      el <- shiny::tagAppendChild(el, sort_button(context, n, val))
+      el <- shiny::tagAppendChild(el, sort_button(ns, n, val))
     }
     el
   })
   if (reset) {
     res <- shiny::tagAppendChild(res, shiny::div(class = "reset-wrapper", shiny::actionButton(
-      paste("reset", context, "filter", sep = "_"), "X", class = "dq-btn-sm", title = "Reset filters")))
+      ns("filter-reset"), "X", class = "dq-btn-sm", title = "Reset filters")))
   }
   if (length(l) > 0) res <- shiny::tagAppendChildren(res, l)
   res
 }
 
 #' @author richard.kunze
-update_filters <- function(data, filters, context, session) {
+update_filters <- function(data, filters, session) {
   if (length(data) == 0L || length(filters) == 0L) return()
-  els <- grep(paste0("^filter_", context),
-              shiny::isolate(names(session$input)), value = TRUE)
-  names(els) <- gsub(paste0("^filter_", context, "_"), "", els)
+  els <- grep("filter", shiny::isolate(names(session$input)), value = TRUE)
+  names(els) <- gsub("filter-", "", els)
   for (n in names(els)) {
+    if (n == "reset") next()
     filter <- filters[names(data) == n]
     if (length(filter) == 1L) {
       if (filter == "S") {
@@ -106,13 +106,14 @@ correct_filters <- function(vals, data) {
 
 #' @author richard.kunze
 correct_type <- function(type, vec) {
-  if (length(type) != 1L || type %in% c("T", "A", "S")) return(type)
+  if (length(type) != 1L || type %in% c("T", "A", "S", "")) return(type)
   suppressWarnings({
+    log_vec <- as.logical(vec)
     num_vec <- as.numeric(vec)
     date_vec <- as.Date.character(vec, "%Y-%m-%d")
   })
   if (type %in% c("D", NA) && !all(is.na(date_vec))) return("D")
   if (!all(is.na(num_vec)) || !all(is.na(date_vec))) return("R")
-  if (length(unique(vec)) <= sqrt(length(vec))) return("S")
+  if (length(vec) > 0L && length(unique(vec)) <= sqrt(length(vec))) return("S")
   return("T")
 }

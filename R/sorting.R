@@ -1,7 +1,7 @@
 #' @author richard.kunze
-add_sorting_observer <- function(input, session, dq_values, context, page_size, page_id) {
+add_sorting_observer <- function(input, session, dqv, page_size, page_id) {
   dirs <- c("", "up", "down")
-  sorts <- paste("sort", context, shiny::isolate(names(dq_values[[context]])), sep = "_")
+  sorts <- paste("sort", shiny::isolate(names(dqv$reduced)), sep = shiny::ns.sep)
   ignore <- structure(rep(TRUE, length(sorts)), names = sorts)
   lapply(seq(sorts), function(i) {
     s <- sorts[i]
@@ -9,16 +9,16 @@ add_sorting_observer <- function(input, session, dq_values, context, page_size, 
       if (ignore[s]) {
         ignore[s] <<- FALSE
       } else {
-      dq_values$sort_col <- i
-      dq_values$sort_dir <- dirs[input[[s]]]
+      dqv$sort_col <- i
+      dqv$sort_dir <- dirs[input[[s]]]
       }
     }, ignoreInit = TRUE)
   })
 
-  shiny::observeEvent(list(dq_values$sort_col, dq_values$sort_dir), {
-    s <- sorts[dq_values$sort_col]
+  shiny::observeEvent(list(dqv$sort_col, dqv$sort_dir), {
+    s <- sorts[dqv$sort_col]
     if (length(s) == 1L && !is.na(s)) {
-      dq_values[[context]] <- sort_data(dq_values[[context]], dq_values$sort_dir, dq_values$sort_col)
+      dqv$reduced <- sort_data(dqv$reduced, dqv$sort_dir, dqv$sort_col)
       lapply(sorts[sorts != s], function(n) {
         if (length(input[[n]]) == 1L && input[[n]] != 1L) {
           ignore[n] <<- TRUE
@@ -27,10 +27,10 @@ add_sorting_observer <- function(input, session, dq_values, context, page_size, 
       })
     }
     if (length(page_size) > 0L && page_size > 0L) {
-      size <- as.integer(input[[paste0("sel_", context, "_pageSize")]])
+      size <- as.integer(input$pageSize)
       if (length(size) == 0L) size <- page_size
-      num <- input[[paste0("num_", context, "_page")]]
-      dq_values[[page_id]] <- update_page(dq_values[[context]], context, num, size, session)
+      num <- input$pageNum
+      dqv[[page_id]] <- update_page(dqv$reduced, num, size, session)
     }
   })
   sorts
@@ -48,8 +48,8 @@ sort_data <- function(df, sort_dir, sort_col) {
 }
 
 #' @author richard.kunze
-sort_button <- function(context, name, value = NULL) {
-  id <- paste("sort", context, name, sep = "_")
+sort_button <- function(ns, name, value = NULL) {
+  id <- ns("sort", name)
   if (length(value) > 0L) value <- paste0("sort-", value)
   icon_state_button(id, c("sort", "sort-up", "sort-down"), value, class = "sort-button")
 }

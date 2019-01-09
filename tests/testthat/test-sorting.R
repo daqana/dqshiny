@@ -1,12 +1,12 @@
 context("sorting / sort_button")
 
 test_that("bad inputs works", {
-  expect_silent(sort_button(NULL, NULL, NULL))
+  expect_silent(sort_button(paste0, NULL, NULL))
 })
 
 test_that("all parameters work", {
-  expect_true(grepl("sort_cont_", sort_button("cont", NULL, NULL)))
-  expect_true(grepl("cont_name", sort_button("cont", "name", NULL)))
+  expect_true(grepl("\"sort\"", sort_button(paste0, NULL, NULL)))
+  expect_true(grepl("\"sortname\"", sort_button(paste0, "name", NULL)))
 })
 
 context("sorting / sort_data")

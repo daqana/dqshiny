@@ -1,19 +1,16 @@
 context("filtering / get_filters")
 
 test_that("get_filters works with NULL inputs", {
-  expect_silent(get_filters(NULL, NULL))
-  expect_silent(get_filters(list("input1", "input2"), NULL))
-  expect_silent(get_filters(NULL, "context"))
+  expect_silent(get_filters(NULL))
+  expect_silent(get_filters(list("input1", "input2")))
 })
 
 test_that("get_filters works with correct input element", {
   input <- list(
-    filter_rand_A = "test1", filter_rand_B = "test2",
-    filter_rand_C = "test3", filter_rand_D = "test4"
+    "filter-A" = "test1", "filter-B" = "test2",
+    "filter-C" = "test3", "filter-D" = "test4"
   )
-  expect_length(get_filters(input, NULL), 4)
-  expect_length(get_filters(input, "rand"), 4)
-  expect_silent(get_filters(input, "context"))
+  expect_length(get_filters(input), 4)
 })
 
 context("filtering / text_filter")

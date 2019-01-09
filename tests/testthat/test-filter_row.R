@@ -10,33 +10,33 @@ test_that("all filters work for empty data", {
   df <- data.frame(A = character(), B = logical(), C = as.Date(character()),
                    D = numeric(), stringsAsFactors = FALSE)
   l <- length(df)
-  expect_silent(filter_row("con", list(full = df), rep("T", l), reset = FALSE))
-  expect_silent(filter_row("con", list(full = df), rep("T", l)))
-  expect_silent(filter_row("con", list(full = df), rep("", l)))
+  expect_silent(filter_row(paste0, list(full = df), rep("T", l), reset = FALSE))
+  expect_silent(filter_row(paste0, list(full = df), rep("T", l)))
+  expect_silent(filter_row(paste0, list(full = df), rep("", l)))
 })
 
 test_that("all filters work for proper data", {
   df <- data.frame(A = rep("hello", 20), B = rep(c("huhu", "haha"), 10),
                    C = 1:20, D = Sys.Date() - 0:19, stringsAsFactors = FALSE)
   filts <- c("A", "S", "R", "D")
-  expect_silent(filter_row("con", list(full = df), filts, reset = FALSE))
-  expect_silent(filter_row("con", list(full = df), "T", sorting = TRUE))
-  expect_silent(filter_row("con", list(full = df), ""))
+  expect_silent(filter_row(paste0, list(full = df), filts, reset = FALSE))
+  expect_silent(filter_row(paste0, list(full = df), "T", sorting = TRUE))
+  expect_silent(filter_row(paste0, list(full = df), ""))
 })
 
 test_that("all filters work for proper data with non bootstrap width", {
   df <- mtcars
-  expect_silent(filter_row("con", list(full = df), "T"))
-  expect_silent(filter_row("con", list(full = df), "T", reset = FALSE))
-  expect_silent(filter_row("con", list(full = df), "T", sorting = TRUE))
-  expect_silent(filter_row("con", list(full = df), ""))
+  expect_silent(filter_row(paste0, list(full = df), "T"))
+  expect_silent(filter_row(paste0, list(full = df), "T", reset = FALSE))
+  expect_silent(filter_row(paste0, list(full = df), "T", sorting = TRUE))
+  expect_silent(filter_row(paste0, list(full = df), ""))
 })
 
 test_that("all sorting options work", {
   df <- mtcars
-  expect_silent(filter_row("con", list(full = df), "T"))
-  expect_silent(filter_row("con", list(full = df), "T", sorting = TRUE))
-  expect_silent(filter_row("con", list(full = df), "T", sorting = c(dir = "down", col = "mpg")))
+  expect_silent(filter_row(paste0, list(full = df), "T"))
+  expect_silent(filter_row(paste0, list(full = df), "T", sorting = TRUE))
+  expect_silent(filter_row(paste0, list(full = df), "T", sorting = c(dir = "down", col = "mpg")))
 })
 
 context("filter_row / correct_type")
@@ -90,8 +90,8 @@ test_that("inputs with NAs still return expected type", {
 
 context("filter_row / update_filters")
 
-test_that("update_page works with NULL inputs", {
-  expect_null(update_filters(mtcars, NULL, NULL, NULL))
+test_that("update_filters works with NULL inputs", {
+  expect_null(update_filters(mtcars, NULL, NULL))
 })
 
 test_that("update_filters works with proper inputs", {
@@ -101,23 +101,27 @@ test_that("update_filters works with proper inputs", {
   )
 
   session <- create_test_session(
-    id = "", filter_rand_A = "g", filter_rand_B = "TRUE",
-    filter_rand_C = c(Sys.Date() - 20, Sys.Date() - 10), filter_rand_D = c(12, 24)
+    id = "",
+    list(
+      "filter-A" = "g", "filter-B" = "TRUE", "filter-reset" = "test",
+      "filter-C" = c(Sys.Date() - 20, Sys.Date() - 10), "filter-D" = c(12, 24)
+    ),
+    NULL
   )
 
-  expect_null(dqshiny:::update_filters(df, c("S", "S", "D", "R"), "rand", session))
+  expect_null(dqshiny:::update_filters(df, c("S", "S", "D", "R"), session))
   res <- session$lastInputMessages
 
-  expect_equal(res[[1]]$id, "filter_rand_A")
+  expect_equal(res[[1]]$id, "filter-A")
   expect_equal(res[[1]]$message$value, "g")
   expect_length(strsplit(res[[1]]$message$options, "</option>", fixed = TRUE)[[1]], 26)
-  expect_equal(res[[2]]$id, "filter_rand_B")
+  expect_equal(res[[2]]$id, "filter-B")
   expect_equal(res[[2]]$message$value, "TRUE")
   expect_length(strsplit(res[[2]]$message$options, "</option>", fixed = TRUE)[[1]], 2)
-  expect_equal(res[[3]]$id, "filter_rand_C")
+  expect_equal(res[[3]]$id, "filter-C")
   expect_equal(res[[3]]$message$min, as.character(Sys.Date() - 25))
   expect_equal(res[[3]]$message$max, as.character(Sys.Date()))
-  expect_equal(res[[4]]$id, "filter_rand_D")
+  expect_equal(res[[4]]$id, "filter-D")
   expect_equal(res[[4]]$message$min, "1")
   expect_equal(res[[4]]$message$max, "26")
 })

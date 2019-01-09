@@ -1,8 +1,8 @@
 #' @author richard.kunze
-get_filters <- function(input, context) {
-  els <- grep(paste0("^filter_", context), names(input), value = TRUE)
+get_filters <- function(input) {
+  els <- grep("^filter", names(input), value = TRUE)
   vals <- lapply(els, function(x) input[[x]])
-  names(vals) <- gsub(paste0("^filter_", context, "_"), "", els)
+  names(vals) <- gsub("^filter-", "", els)
   vals
 }
 

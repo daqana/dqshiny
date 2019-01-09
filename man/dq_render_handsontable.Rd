@@ -7,10 +7,11 @@
 \usage{
 dq_handsontable_output(id, width = 12L, offset = 0L)
 
-dq_render_handsontable(id, data, context = NULL, filters = NA,
+dq_render_handsontable(id, data, context = NULL, filters = "T",
   page_size = 25L, reset = TRUE, sorting = NULL, columns = NULL,
   width_align = FALSE, horizontal_scroll = FALSE, table_param = NULL,
-  cols_param = NULL, col_param = NULL, cell_param = NULL)
+  cols_param = NULL, col_param = NULL, cell_param = NULL,
+  session = shiny::getDefaultReactiveDomain())
 }
 \arguments{
 \item{id}{id of the element}
@@ -25,13 +26,14 @@ given id (e.g. myReactiveValues[[id]] <- data). In case of reactiveVal(ues)
 data will always be in sync with user inputs.}
 
 \item{context}{the context used to specify all ui elements used for this
-table, can be omitted which ends up in a randomly generated context}
+table, can be omitted which ends up in a randomly generated context
+NOTE: this parameter is deprecated and will be removed soon}
 
 \item{filters}{optional character vector, adds filters for each column,
 values must be one of "Text", "Select", "Range", "Date", "Auto" or "" (can be
 abbreviated) to add a Text-, Select-, Range-, DateRange-, AutocompleteInput
 or none, vectors of length one will add a filter of this type for each column
-and NA (default) will try to guess proper filters}
+and NA will try to guess proper filters}
 
 \item{page_size}{optional integer, number of items per page, can be one of
 10, 25, 50, 100 or any other value(s) which will be added to this list, first
@@ -66,6 +68,8 @@ rhandsontable col elements}
 
 \item{cell_param}{optional list of lists to specify parameters to hand to
 rhandsontable cells}
+
+\item{session}{shiny session object}
 }
 \value{
 dq_handsontable_output: fluidRow containing the output fields
@@ -98,7 +102,7 @@ shinyApp(
     data <- data.frame(A = rep(hw, 500), B = hw[c(2,3,4,1)],
       C = 1:500, D = Sys.Date() - 0:499, stringsAsFactors = FALSE)
     dq_render_handsontable("randomTable", data,
-      filters = c("S", "T", "R", "D"), sorting = c(dir = "up", col = "B"),
+      filters = c("A", NA, NA, NA), sorting = c(dir = "up", col = "B"),
       page_size = c(17L, 5L, 500L, 1000L), width_align = TRUE,
       col_param = list(list(col = 1L, type = "dropdown", source = letters)),
       cell_param = list(list(row = 2:9, col = 1:2, readOnly = TRUE))
