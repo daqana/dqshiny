@@ -1,40 +1,58 @@
 context("state / enable")
 
+ids <- list(NULL, "string", 2, TRUE, c("my", "id", "is"), list("my", "id", "is"))
+
 test_that("enable works with any input", {
-  expect_null(enable(NULL))
-  expect_null(enable("string"))
-  expect_null(enable(2))
-  expect_null(enable(TRUE))
-  expect_null(enable(c("my", "id", "is")))
-  expect_null(enable(list("my", "id", "is")))
+  session <- dqshiny:::create_test_session("", NULL, NULL)
+  shiny::withReactiveDomain(session, {
+    lapply(ids, function(id) expect_silent(enable(id)))
+  })
+  lapply(session$lastCustomMessages, function(x) {
+    expect_equal(x$type, "toggleState")
+    expect_equal(x$message$state, FALSE)
+    expect_true(x$message$id %in% unlist(ids))
+  })
 })
 
 context("state / disable")
 
 test_that("disable works with any input", {
-  expect_null(disable(NULL))
-  expect_null(disable("string"))
-  expect_null(disable(2))
-  expect_null(disable(TRUE))
-  expect_null(disable(c("my", "id", "is")))
-  expect_null(disable(list("my", "id", "is")))
+  session <- dqshiny:::create_test_session("", NULL, NULL)
+  shiny::withReactiveDomain(session, {
+    lapply(ids, function(id) expect_silent(disable(id)))
+  })
+  lapply(session$lastCustomMessages, function(x) {
+    expect_equal(x$type, "toggleState")
+    expect_equal(x$message$state, TRUE)
+    expect_true(x$message$id %in% unlist(ids))
+  })
 })
 
 context("state / toggle_state")
 
 test_that("toggle_state works with any input", {
-  expect_null(toggle_state(NULL))
-  expect_null(toggle_state("string"))
-  expect_null(toggle_state(2))
-  expect_null(toggle_state(TRUE))
-  expect_null(toggle_state(c("my", "id", "is")))
-  expect_null(toggle_state(list("my", "id", "is")))
+  session <- dqshiny:::create_test_session("", NULL, NULL)
+  shiny::withReactiveDomain(session, {
+    lapply(ids, function(id) expect_silent(toggle_state(id)))
+  })
+  lapply(session$lastCustomMessages, function(x) {
+    expect_equal(x$type, "toggleState")
+    expect_null(x$message$state)
+    expect_true(x$message$id %in% unlist(ids))
+  })
 })
 
 test_that("toggle_state works with conditions", {
-  expect_null(toggle_state("id", NULL))
-  expect_null(toggle_state("id", TRUE))
-  expect_null(toggle_state("id", FALSE))
+  session <- dqshiny:::create_test_session("", NULL, NULL)
+  shiny::withReactiveDomain(session, {
+    expect_silent(toggle_state("id", NULL))
+    expect_silent(toggle_state("id", TRUE))
+    expect_silent(toggle_state("id", FALSE))
+  })
+  m <- session$lastCustomMessages
+  expect_null(m[[1]]$message$state)
+  expect_true(m[[2]]$message$state)
+  expect_false(m[[3]]$message$state)
 })
 
 context("state / shinytest")

@@ -1,48 +1,77 @@
 context("css_class / add_class")
 
+ids <- list(NULL, "string", 2, TRUE, c("my", "id", "is"), list("my", "id", "is"))
+classes <- list(2, NULL, "string", FALSE, "string", TRUE)
+
 test_that("add_class works with any input", {
-  expect_null(add_class(NULL, NULL))
-  expect_null(add_class("string", "string"))
-  expect_null(add_class(2, 2))
-  expect_null(add_class(TRUE, FALSE))
-  expect_null(add_class(c("my", "id", "is"), "string"))
-  expect_null(add_class(list("my", "id", "is"), "string"))
+  session <- dqshiny:::create_test_session("", NULL, NULL)
+  shiny::withReactiveDomain(session, {
+    lapply(seq(ids), function(i) expect_silent(add_class(ids[[i]], classes[[i]])))
+  })
+  lapply(session$lastCustomMessages, function(x) {
+    expect_equal(x$type, "toggleClass")
+    expect_true(is.null(x$message$className) || x$message$className %in% classes)
+    expect_true(x$message$state)
+    expect_true(x$message$id %in% unlist(ids))
+  })
 })
 
 context("css_class / remove_class")
 
 test_that("remove_class works with any input", {
-  expect_null(remove_class(NULL, "string"))
-  expect_null(remove_class("string", 2))
-  expect_null(remove_class(2, FALSE))
-  expect_null(remove_class(TRUE, NULL))
-  expect_null(remove_class(c("my", "id", "is"), "string"))
-  expect_null(remove_class(list("my", "id", "is"), "string"))
+  session <- dqshiny:::create_test_session("", NULL, NULL)
+  shiny::withReactiveDomain(session, {
+    lapply(seq(ids), function(i) expect_silent(remove_class(ids[[i]], classes[[i]])))
+  })
+  lapply(session$lastCustomMessages, function(x) {
+    expect_equal(x$type, "toggleClass")
+    expect_true(is.null(x$message$className) || x$message$className %in% classes)
+    expect_false(x$message$state)
+    expect_true(x$message$id %in% unlist(ids))
+  })
 })
 
 context("css_class / toggle_class")
 
 test_that("toggle_class works with any input", {
-  expect_null(toggle_class(NULL, 2))
-  expect_null(toggle_class("string", FALSE))
-  expect_null(toggle_class(2, NULL))
-  expect_null(toggle_class(TRUE, "string"))
-  expect_null(toggle_class(c("my", "id", "is"), "string"))
-  expect_null(toggle_class(list("my", "id", "is"), "string"))
+  session <- dqshiny:::create_test_session("", NULL, NULL)
+  shiny::withReactiveDomain(session, {
+    lapply(seq(ids), function(i) expect_silent(toggle_class(ids[[i]], classes[[i]])))
+  })
+  lapply(session$lastCustomMessages, function(x) {
+    expect_equal(x$type, "toggleClass")
+    expect_true(is.null(x$message$className) || x$message$className %in% classes)
+    expect_null(x$message$state)
+    expect_true(x$message$id %in% unlist(ids))
+  })
 })
 
 test_that("toggle_class works with conditions", {
-  expect_null(toggle_class("id", "class", NULL))
-  expect_null(toggle_class("id", "class", TRUE))
-  expect_null(toggle_class("id", "class", FALSE))
-
+  session <- dqshiny:::create_test_session("", NULL, NULL)
+  shiny::withReactiveDomain(session, {
+    expect_silent(toggle_class("id", "class", NULL))
+    expect_silent(toggle_class("id", "class", TRUE))
+    expect_silent(toggle_class("id", "class", FALSE))
+  })
+  m <- session$lastCustomMessages
+  expect_null(m[[1]]$message$state)
+  expect_true(m[[2]]$message$state)
+  expect_false(m[[3]]$message$state)
 })
 
 test_that("toggle_class works with different class inputs", {
-  expect_null(toggle_class("id", NULL, TRUE))
-  expect_null(toggle_class("id", "class", TRUE))
-  expect_null(toggle_class("id", 2, TRUE))
-  expect_null(toggle_class("id", FALSE, TRUE))
+  session <- dqshiny:::create_test_session("", NULL, NULL)
+  shiny::withReactiveDomain(session, {
+    expect_silent(toggle_class("id", NULL, TRUE))
+    expect_silent(toggle_class("id", "class", TRUE))
+    expect_silent(toggle_class("id", 2, TRUE))
+    expect_silent(toggle_class("id", FALSE, TRUE))
+  })
+  m <- session$lastCustomMessages
+  expect_null(m[[1]]$message$className)
+  expect_equal(m[[2]]$message$className, "class")
+  expect_equal(m[[3]]$message$className, 2)
+  expect_false(m[[4]]$message$className)
 })
 
 context("css_class / shinytest")
