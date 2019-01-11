@@ -24,15 +24,22 @@ and much more.
 
 ## Installation
 
-You can install the development version of dqshiny using:
+`dqshiny` is on CRAN so it can be installed with:
 
 ``` r
-devtools::install_github("daqana/dqshiny")
+install.packages("dqshiny")
+```
+
+You can install the latest development version of `dqshiny` using:
+
+``` r
+remotes::install_github("daqana/dqshiny")
 ```
 
 ## Example
 
-You can start with this short example to see some simple boxes in action:
+There's a package demo `dqshiny-base-features` demonstrating some functionalities.
+Or you can start with this short example to see some simple boxes in action:
 
 ``` r
 library(shiny)
@@ -93,7 +100,7 @@ shinyApp(
     hw <- c("Hello", "my", "funny", "world!")
     data <- data.frame(A = rep(hw, 500L), B = hw[c(2:4, 1L)], C = 1:500, D = 500:1)
     dq_render_handsontable("myTable", data,
-      filters = c("Sel", "Text", "Range", "Auto"), sorting = TRUE,
+      filters = c("Sel", "Text", NA, "Auto"), sorting = TRUE,
       page_size = c(17L, 5L, 500L, 1000L),
       col_param = list(list(col = 3L, format = "0.00")),
       cell_param = list(list(row = 2:9, col = 2L, readOnly = TRUE))

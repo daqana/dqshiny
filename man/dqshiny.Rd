@@ -11,8 +11,9 @@ Includes layout independent collapsible boxes and value boxes, a very fast
 autocomplete input, rhandsontable extensions for filtering and paging and
 much more.
 }
-\section{Section}{
- some more info
-  TO DO document the package!!
+\details{
+There is a demo 'dqshiny-base-features' showing some of the
+functionalities provided in this package. Furthermore you can have a look at
+the \href{https://github.com/daqana/dqshiny}{github page} for examples and
+additional information.
 }
-

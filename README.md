@@ -1,25 +1,37 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Travis build status](https://api.travis-ci.org/daqana/dqshiny.svg?branch=master)](https://travis-ci.org/daqana/dqshiny) [![Codecov test coverage](https://codecov.io/gh/daqana/dqshiny/branch/master/graph/badge.svg)](https://codecov.io/gh/daqana/dqshiny?branch=master)
 
-dqshiny
-=======
+[![Travis build
+status](https://api.travis-ci.org/daqana/dqshiny.svg?branch=master)](https://travis-ci.org/daqana/dqshiny)
+[![Codecov test
+coverage](https://codecov.io/gh/daqana/dqshiny/branch/master/graph/badge.svg)](https://codecov.io/gh/daqana/dqshiny?branch=master)
 
-The goal of dqshiny is to provide highly customizable modules to enhance your shiny apps. Includes layout independent collapsable boxes and value boxes, a very fast autocomplete input, rhandsontable extensions for filtering and paging and much more.
+# dqshiny
 
-Installation
-------------
+The goal of dqshiny is to provide highly customizable modules to enhance
+your shiny apps. Includes layout independent collapsable boxes and value
+boxes, a very fast autocomplete input, rhandsontable extensions for
+filtering and paging and much more.
 
-You can install the development version of dqshiny using:
+## Installation
+
+`dqshiny` is on CRAN so it can be installed with:
 
 ``` r
-devtools::install_github("daqana/dqshiny")
+install.packages("dqshiny")
 ```
 
-Example
--------
+You can install the latest development version of `dqshiny` using:
 
-You can start with this short example to see some simple boxes in action:
+``` r
+remotes::install_github("daqana/dqshiny")
+```
+
+## Example
+
+There’s a package demo `dqshiny-base-features` demonstrating some
+functionalities. Or you can start with this short example to see some
+simple boxes in action:
 
 ``` r
 library(shiny)
@@ -38,7 +50,8 @@ shinyApp(
 )
 ```
 
-If you have a bigger amount of selectable choices and still don't want to use textInputs you may have a look at this:
+If you have a bigger amount of selectable choices and still don’t want
+to use textInputs you may have a look at this:
 
 ``` r
 library(shiny)
@@ -67,7 +80,8 @@ shinyApp(
 )
 ```
 
-If you ever encountered the wish to have a paged or filtered rHandsontable, this example could be quite interesting:
+If you ever encountered the wish to have a paged or filtered
+rHandsontable, this example could be quite interesting:
 
 ``` r
 library(shiny)
@@ -78,7 +92,7 @@ shinyApp(
     hw <- c("Hello", "my", "funny", "world!")
     data <- data.frame(A = rep(hw, 500L), B = hw[c(2:4, 1L)], C = 1:500, D = 500:1)
     dq_render_handsontable("myTable", data,
-      filters = c("Sel", "Text", "Range", "Auto"), sorting = TRUE,
+      filters = c("Sel", "Text", NA, "Auto"), sorting = TRUE,
       page_size = c(17L, 5L, 500L, 1000L),
       col_param = list(list(col = 3L, format = "0.00")),
       cell_param = list(list(row = 2:9, col = 2L, readOnly = TRUE))
