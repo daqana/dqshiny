@@ -1,6 +1,7 @@
 # Define UI for application
 library(shiny)
 library(dqshiny)
+library(rhandsontable)
 
 shinyUI(
   fluidPage(

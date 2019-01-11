@@ -1,6 +1,7 @@
 # Define server logic
 library(shiny)
 library(dqshiny)
+library(rhandsontable)
 
 shinyServer(
   function(input, output, session) {
