@@ -82,7 +82,7 @@ create_test_session <- function(id, input, output) {
   session
 }
 
-dq_NS <- function (namespace, ...) {
+dq_NS <- function(namespace, ...) {
   if (length(namespace) == 0) ns_prefix <- character(0)
   else ns_prefix <- paste(namespace, collapse = shiny::ns.sep)
   f <- function(...) {
