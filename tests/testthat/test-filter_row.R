@@ -2,41 +2,41 @@ context("filter_row / filter_row")
 
 test_that("null works", {
   expect_silent(res <- shiny::fluidRow(class = "filter-row"))
-  expect_equal(filter_row(NULL, NULL, NULL), res)
-  expect_equal(filter_row(NULL, NULL, NULL, reset = FALSE), res)
+  expect_equal(filter_row(NULL, NULL, NULL, NULL, NULL), res)
+  expect_equal(filter_row(NULL, NULL, NULL, NULL, NULL, reset = FALSE), res)
 })
 
 test_that("all filters work for empty data", {
   df <- data.frame(A = character(), B = logical(), C = as.Date(character()),
                    D = numeric(), stringsAsFactors = FALSE)
   l <- length(df)
-  expect_silent(filter_row(paste0, list(full = df), rep("T", l), reset = FALSE))
-  expect_silent(filter_row(paste0, list(full = df), rep("T", l)))
-  expect_silent(filter_row(paste0, list(full = df), rep("", l)))
+  expect_silent(filter_row(paste0, list(full = df), rep("T", l), TRUE, NULL, reset = FALSE))
+  expect_silent(filter_row(paste0, list(full = df), rep("T", l), TRUE, NULL))
+  expect_silent(filter_row(paste0, list(full = df), rep("", l), TRUE, NULL))
 })
 
 test_that("all filters work for proper data", {
   df <- data.frame(A = rep("hello", 20), B = rep(c("huhu", "haha"), 10),
                    C = 1:20, D = Sys.Date() - 0:19, stringsAsFactors = FALSE)
   filts <- c("A", "S", "R", "D")
-  expect_silent(filter_row(paste0, list(full = df), filts, reset = FALSE))
-  expect_silent(filter_row(paste0, list(full = df), "T", sorting = TRUE))
-  expect_silent(filter_row(paste0, list(full = df), ""))
+  expect_silent(filter_row(paste0, list(full = df), filts, TRUE, NULL, reset = FALSE))
+  expect_silent(filter_row(paste0, list(full = df), "T", TRUE, list(dir = "", col = "")))
+  expect_silent(filter_row(paste0, list(full = df), "", TRUE, NULL))
 })
 
 test_that("all filters work for proper data with non bootstrap width", {
   df <- mtcars
-  expect_silent(filter_row(paste0, list(full = df), "T"))
-  expect_silent(filter_row(paste0, list(full = df), "T", reset = FALSE))
-  expect_silent(filter_row(paste0, list(full = df), "T", sorting = TRUE))
-  expect_silent(filter_row(paste0, list(full = df), ""))
+  expect_silent(filter_row(paste0, list(full = df), "T", TRUE, NULL))
+  expect_silent(filter_row(paste0, list(full = df), "T", TRUE, list(dir = "", col = ""), reset = FALSE))
+  expect_silent(filter_row(paste0, list(full = df), "T", TRUE, list(dir = "up", col = 1)))
+  expect_silent(filter_row(paste0, list(full = df), "", 1, list(dir = "down", col = "mpg")))
 })
 
 test_that("all sorting options work", {
   df <- mtcars
-  expect_silent(filter_row(paste0, list(full = df), "T"))
-  expect_silent(filter_row(paste0, list(full = df), "T", sorting = TRUE))
-  expect_silent(filter_row(paste0, list(full = df), "T", sorting = c(dir = "down", col = "mpg")))
+  expect_silent(filter_row(paste0, list(full = df), "T", 2, NULL))
+  expect_silent(filter_row(paste0, list(full = df), "T", "cyl", list(dir = "down", col = "mpg")))
+  expect_silent(filter_row(paste0, list(full = df), "T", TRUE, list(dir = "down", col = "mpg")))
 })
 
 context("filter_row / correct_type")
@@ -109,7 +109,7 @@ test_that("update_filters works with proper inputs", {
     NULL
   )
 
-  expect_null(dqshiny:::update_filters(df, c("S", "S", "D", "R"), session))
+  expect_null(update_filters(df, c("S", "S", "D", "R"), session))
   res <- session$lastInputMessages
 
   expect_equal(res[[1]]$id, "filter-A")

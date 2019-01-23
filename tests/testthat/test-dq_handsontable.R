@@ -20,7 +20,7 @@ test_that("dq_render_handsontable works properly with different parameters", {
   df <- data.frame(A = character(0), B = logical(0), C = as.Date(character(0)),
                    D = numeric(0), stringsAsFactors = FALSE)
 
-  session <- dqshiny:::create_test_session(
+  session <- create_test_session(
     "id",
     list("id" = "myTest"),
     list("id-filters" = "test", "id-pages" = "test"))

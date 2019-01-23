@@ -1,12 +1,7 @@
 #' @author richard.kunze
-filter_row <- function(ns, dq_values, filters, columns, reset = TRUE, sorting = NULL) {
-  data <- shiny::isolate(dq_values$full[, columns, drop = FALSE])
-  to_sort <- length(sorting) > 0L && sorting != FALSE
-  sort_dir <- sort_col <- ""
-  if (to_sort && !is.logical(sorting) && !is.null(names(sorting))) {
-    sort_dir <- sorting[["dir"]]
-    sort_col <- sorting[["col"]]
-  }
+filter_row <- function(ns, dqv, filters, columns, sorting, reset = TRUE) {
+  data <- shiny::isolate(dqv$full[, columns, drop = FALSE])
+  to_sort <- length(sorting) > 0L
   class <- paste0("filter-row", if (to_sort) " sorting")
   res <- shiny::fluidRow(class = class)
   if (is.null(filters)) return(res)
@@ -42,9 +37,9 @@ filter_row <- function(ns, dq_values, filters, columns, reset = TRUE, sorting = 
 
     if (to_sort && f != "") {
       val <- NULL
-      if (length(sort_col) == 1L && sort_col == n) {
-        dq_values$sort_col <- i
-        dq_values$sort_dir <- val <- sort_dir
+      if (length(sorting$col) == 1L && sorting$col == n) {
+        dqv$sorting <- list(col = i, dir = sorting$dir)
+        val <- sorting$dir
       }
       el <- shiny::tagAppendChild(el, sort_button(ns, n, val))
     }

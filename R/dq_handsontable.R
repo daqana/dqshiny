@@ -14,11 +14,12 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
   requireNamespace("rhandsontable")
   requireNamespace("shiny")
   if (is.null(id)) return(NULL)
+  ns <- dq_NS(id)
   shiny::fluidRow(shiny::column(
     width, offset = offset,
-    shiny::uiOutput(paste0(id, "-filters")),
+    shiny::uiOutput(ns("filters")),
     rhandsontable::rHandsontableOutput(id),
-    shiny::uiOutput(paste0(id, "-pages")),
+    shiny::uiOutput(ns("pages")),
     init()
   ))
 }
@@ -137,6 +138,7 @@ dq_render_handsontable <- function(
   update_page_if_necessary <- function() {
     if (paged) {
       sel <- as.integer(input$pageSize)
+      print(paste("update page", sel))
       dqv[[page_id]] <- update_page(dqv$reduced, input$pageNum, sel, session)
     }
   }
@@ -172,9 +174,11 @@ dq_render_handsontable <- function(
   }
 
   # define page_id which is needed for table rendering and reduce data to first page
+  sorting <- check_sorting(sorting, to_sort, shiny::isolate(names(dqv$full)))
   if (paged) {
     page_id <- "page"
     df <- shiny::isolate(dqv$reduced)
+    if (to_sort) df <- sort_data(df, sorting)
     n <- min(page_size[1L], nrow(df))
     dqv[[page_id]] <- df[1:n,]
   }
@@ -185,7 +189,7 @@ dq_render_handsontable <- function(
   # render filter row and add observer for filters
   if (!is.null(filters)) {
     output$filters <- shiny::renderUI({
-      filter_row(ns, dqv, filters, columns, reset, sorting)
+      filter_row(ns, dqv, filters, columns, sorting, reset)
     })
     shiny::observeEvent(get_filters(input), {
       f_vals <- get_filters(input)
@@ -193,7 +197,7 @@ dq_render_handsontable <- function(
       df <- text_filter(dqv$full[, columns, drop = FALSE], f_vals[sapply(f_vals, function(x) length(x) == 1L)])
       dqv$reduced <- range_filter(df, f_vals[sapply(f_vals, function(x) length(x) == 2L)])
       if (to_sort) {
-        dqv$reduced <- sort_data(dqv$reduced, dqv$sort_dir, dqv$sort_col)
+        dqv$reduced <- sort_data(dqv$reduced, dqv$sorting)
       }
       update_page_if_necessary()
     }, ignoreInit = TRUE)
@@ -215,6 +219,7 @@ dq_render_handsontable <- function(
 
   # render dq_handsontable
   app_output[[id]] <- rhandsontable::renderRHandsontable({
+    print(paste("render", page_id, NROW(dqv[[page_id]])))
     params[[1L]]$data <- dqv[[page_id]]
     params[[2L]]$hot <- do.call(rhandsontable::rhandsontable, params[[1L]])
     hot <- do.call(rhandsontable::hot_cols, params[[2L]])
@@ -258,7 +263,7 @@ dq_render_handsontable <- function(
         reset_slider_input(n)
       }
       if (to_sort) {
-        dqv$sort_dir <- dqv$sort_col <- ""
+        dqv$sorting <- list(dir = "", col = "")
         lapply(sorts, function(n) update_icon_state_button(session, n, value = 1L))
       }
     })
@@ -294,7 +299,7 @@ dq_render_handsontable <- function(
 #' @author richard.kunze
 add_scripts <- function(params, width, scroll) {
   if (width || scroll) {
-    params$afterRender <- htmlwidgets::JS(paste0(
+    params$afterRender <- htmlwidgets::JS(
       "function() {
         var hider = $(this.rootElement).find('.wtHider');
         var $filter = $(document.getElementById(this.rootElement.id + '-filters'));
@@ -318,14 +323,16 @@ add_scripts <- function(params, width, scroll) {
            els[i].style.width = (sum ? w / sum * that.getColWidth(i) : that.getColWidth(i)) + 'px';
          }
        });",
-      "}"))
+      "}"
+    )
   }
   if (scroll) {
     params$afterScrollHorizontally <- htmlwidgets::JS(
       "function() {
         var filter = document.getElementById(this.rootElement.id + '-filters');
         filter.scrollLeft = $(this.rootElement).find('.wtHolder')[0].scrollLeft;
-      }")
+      }"
+    )
   }
   params
 }
