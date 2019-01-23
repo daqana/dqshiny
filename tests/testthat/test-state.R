@@ -3,7 +3,7 @@ context("state / enable")
 ids <- list(NULL, "string", 2, TRUE, c("my", "id", "is"), list("my", "id", "is"))
 
 test_that("enable works with any input", {
-  session <- dqshiny:::create_test_session("", NULL, NULL)
+  session <- create_test_session("", NULL, NULL)
   shiny::withReactiveDomain(session, {
     lapply(ids, function(id) expect_silent(enable(id)))
   })
@@ -17,7 +17,7 @@ test_that("enable works with any input", {
 context("state / disable")
 
 test_that("disable works with any input", {
-  session <- dqshiny:::create_test_session("", NULL, NULL)
+  session <- create_test_session("", NULL, NULL)
   shiny::withReactiveDomain(session, {
     lapply(ids, function(id) expect_silent(disable(id)))
   })
@@ -31,7 +31,7 @@ test_that("disable works with any input", {
 context("state / toggle_state")
 
 test_that("toggle_state works with any input", {
-  session <- dqshiny:::create_test_session("", NULL, NULL)
+  session <- create_test_session("", NULL, NULL)
   shiny::withReactiveDomain(session, {
     lapply(ids, function(id) expect_silent(toggle_state(id)))
   })
@@ -43,7 +43,7 @@ test_that("toggle_state works with any input", {
 })
 
 test_that("toggle_state works with conditions", {
-  session <- dqshiny:::create_test_session("", NULL, NULL)
+  session <- create_test_session("", NULL, NULL)
   shiny::withReactiveDomain(session, {
     expect_silent(toggle_state("id", NULL))
     expect_silent(toggle_state("id", TRUE))

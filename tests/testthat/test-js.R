@@ -21,7 +21,7 @@ test_that("add_js works with any input", {
 context("js / run_js")
 
 test_that("run_js works with any input", {
-  session <- dqshiny:::create_test_session("", NULL, NULL)
+  session <- create_test_session("", NULL, NULL)
   shiny::withReactiveDomain(session, {
     expect_silent(run_js(NULL, NULL))
     expect_silent(run_js(NULL, "params"))

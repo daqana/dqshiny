@@ -3,7 +3,7 @@ context("display / hide")
 ids <- list(NULL, "string", 2, TRUE, c("my", "id", "is"), list("my", "id", "is"))
 
 test_that("hide works with any input", {
-  session <- dqshiny:::create_test_session("", NULL, NULL)
+  session <- create_test_session("", NULL, NULL)
   shiny::withReactiveDomain(session, {
     lapply(ids, function(id) expect_silent(hide(id)))
   })
@@ -18,7 +18,7 @@ test_that("hide works with any input", {
 context("display / show")
 
 test_that("show works with any input", {
-  session <- dqshiny:::create_test_session("", NULL, NULL)
+  session <- create_test_session("", NULL, NULL)
   shiny::withReactiveDomain(session, {
     lapply(ids, function(id) expect_silent(show(id)))
   })
@@ -33,7 +33,7 @@ test_that("show works with any input", {
 context("display / toggle")
 
 test_that("toggle works with any input", {
-  session <- dqshiny:::create_test_session("", NULL, NULL)
+  session <- create_test_session("", NULL, NULL)
   shiny::withReactiveDomain(session, {
     lapply(ids, function(id) expect_silent(toggle(id)))
   })
@@ -46,7 +46,7 @@ test_that("toggle works with any input", {
 })
 
 test_that("toggle works with conditions", {
-  session <- dqshiny:::create_test_session("", NULL, NULL)
+  session <- create_test_session("", NULL, NULL)
   shiny::withReactiveDomain(session, {
     expect_silent(toggle("id", NULL))
     expect_silent(toggle("id", TRUE))

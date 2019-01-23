@@ -4,7 +4,7 @@ ids <- list(NULL, "string", 2, TRUE, c("my", "id", "is"), list("my", "id", "is")
 classes <- list(2, NULL, "string", FALSE, "string", TRUE)
 
 test_that("add_class works with any input", {
-  session <- dqshiny:::create_test_session("", NULL, NULL)
+  session <- create_test_session("", NULL, NULL)
   shiny::withReactiveDomain(session, {
     lapply(seq(ids), function(i) expect_silent(add_class(ids[[i]], classes[[i]])))
   })
@@ -19,7 +19,7 @@ test_that("add_class works with any input", {
 context("css_class / remove_class")
 
 test_that("remove_class works with any input", {
-  session <- dqshiny:::create_test_session("", NULL, NULL)
+  session <- create_test_session("", NULL, NULL)
   shiny::withReactiveDomain(session, {
     lapply(seq(ids), function(i) expect_silent(remove_class(ids[[i]], classes[[i]])))
   })
@@ -34,7 +34,7 @@ test_that("remove_class works with any input", {
 context("css_class / toggle_class")
 
 test_that("toggle_class works with any input", {
-  session <- dqshiny:::create_test_session("", NULL, NULL)
+  session <- create_test_session("", NULL, NULL)
   shiny::withReactiveDomain(session, {
     lapply(seq(ids), function(i) expect_silent(toggle_class(ids[[i]], classes[[i]])))
   })
@@ -47,7 +47,7 @@ test_that("toggle_class works with any input", {
 })
 
 test_that("toggle_class works with conditions", {
-  session <- dqshiny:::create_test_session("", NULL, NULL)
+  session <- create_test_session("", NULL, NULL)
   shiny::withReactiveDomain(session, {
     expect_silent(toggle_class("id", "class", NULL))
     expect_silent(toggle_class("id", "class", TRUE))
@@ -60,7 +60,7 @@ test_that("toggle_class works with conditions", {
 })
 
 test_that("toggle_class works with different class inputs", {
-  session <- dqshiny:::create_test_session("", NULL, NULL)
+  session <- create_test_session("", NULL, NULL)
   shiny::withReactiveDomain(session, {
     expect_silent(toggle_class("id", NULL, TRUE))
     expect_silent(toggle_class("id", "class", TRUE))
