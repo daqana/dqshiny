@@ -9,16 +9,15 @@ add_sorting_observer <- function(input, session, dqv, page_size, page_id) {
       if (ignore[s]) {
         ignore[s] <<- FALSE
       } else {
-      dqv$sort_col <- i
-      dqv$sort_dir <- dirs[input[[s]]]
+        dqv$sorting <- list(col = i, dir = dirs[input[[s]]])
       }
     }, ignoreInit = TRUE)
   })
 
-  shiny::observeEvent(list(dqv$sort_col, dqv$sort_dir), {
-    s <- sorts[dqv$sort_col]
+  shiny::observeEvent(dqv$sorting, {
+    s <- sorts[dqv$sorting$col]
     if (length(s) == 1L && !is.na(s)) {
-      dqv$reduced <- sort_data(dqv$reduced, dqv$sort_dir, dqv$sort_col)
+      dqv$reduced <- sort_data(dqv$reduced, dqv$sorting)
       lapply(sorts[sorts != s], function(n) {
         if (length(input[[n]]) == 1L && input[[n]] != 1L) {
           ignore[n] <<- TRUE
@@ -32,19 +31,37 @@ add_sorting_observer <- function(input, session, dqv, page_size, page_id) {
       num <- input$pageNum
       dqv[[page_id]] <- update_page(dqv$reduced, num, size, session)
     }
-  })
+  }, ignoreInit = TRUE)
   sorts
 }
 
 #' @author richard.kunze
-sort_data <- function(df, sort_dir, sort_col) {
-  if (length(sort_dir) == 0 || sort_dir == "") {
-    row_names <- suppressWarnings(as.numeric(rownames(df)))
-    if (any(is.na(row_names))) df[order(rownames(df)), , drop = FALSE]
-    else df[order(row_names), , drop = FALSE]
-  } else {
-    df[order(df[, sort_col], decreasing = (sort_dir == "down")), , drop = FALSE]
+check_sorting <- function(sorting, to_sort, columns) {
+  if (!isTRUE(to_sort)) return(NULL)
+  if (length(sorting) != 2L || is.null(names(sorting)))
+    return(list(dir = "", col = ""))
+  dir <- sorting[["dir"]]
+  if (!is.character(dir) || !(dir %in% c("", "up", "down"))) {
+    sorting[["dir"]] <- ""
   }
+  col <- sorting[["col"]]
+  if (is.numeric(col) && col %in% seq(columns)) {
+    sorting[["col"]] <- columns[[col]]
+  } else if (!(is.character(col) && col %in% columns)) {
+    sorting[["col"]] <- ""
+  }
+  as.list(sorting)
+}
+
+#' @author richard.kunze
+sort_data <- function(df, sorting) {
+  if (is.atomic(sorting) || length(sorting$dir) == 0L || sorting$dir == "") {
+    row_names <- suppressWarnings(as.numeric(rownames(df)))
+    ord <- if (any(is.na(row_names))) order(rownames(df)) else order(row_names)
+  } else {
+    ord <- order(df[, sorting$col], decreasing = (sorting$dir == "down"))
+  }
+  df[ord, , drop = FALSE]
 }
 
 #' @author richard.kunze
