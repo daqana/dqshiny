@@ -138,7 +138,6 @@ dq_render_handsontable <- function(
   update_page_if_necessary <- function() {
     if (paged) {
       sel <- as.integer(input$pageSize)
-      print(paste("update page", sel))
       dqv[[page_id]] <- update_page(dqv$reduced, input$pageNum, sel, session)
     }
   }
@@ -219,7 +218,6 @@ dq_render_handsontable <- function(
 
   # render dq_handsontable
   app_output[[id]] <- rhandsontable::renderRHandsontable({
-    print(paste("render", page_id, NROW(dqv[[page_id]])))
     params[[1L]]$data <- dqv[[page_id]]
     params[[2L]]$hot <- do.call(rhandsontable::rhandsontable, params[[1L]])
     hot <- do.call(rhandsontable::hot_cols, params[[2L]])
@@ -309,18 +307,9 @@ add_scripts <- function(params, width, scroll) {
           var row = $filter.find('.row');
           row.width(hider.width());",
       if (width)
-        "var els = $filter.find('.form-group'), sum = 0, w, cW;
-         if (that.params) {
-           cW = that.params.colWidths;
-           const reset = $filter.find('.reset-wrapper');
-           w = hider.width() - (reset.length ? reset.width() : 0);
-           if (cW) {
-             if (cW.length) for (var i = 0; i < cW.length; i++) sum += cW[i];
-             else sum = els.length * cW;
-           }
-         }
+        "var els = $filter.find('.form-group');
          for (var i = 0; i < els.length; i++) {
-           els[i].style.width = (sum ? w / sum * that.getColWidth(i) : that.getColWidth(i)) + 'px';
+           $(els[i]).outerWidth($(that.getCell(0, i)).outerWidth());
          }
        });",
       "}"
