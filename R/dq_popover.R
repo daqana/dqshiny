@@ -1,4 +1,5 @@
 dq_pop <- function(x, title, content, trigger = NULL, direction = NULL, options = NULL) {
+  if (length(x) == 0L) return()
   arg_list <- not_null(list(
     tag = x, title = title, "data-trigger" = trigger, "data-toggle" = "popover",
     "data-placement" = direction, "data-content" = content
