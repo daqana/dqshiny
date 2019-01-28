@@ -6,6 +6,7 @@
 * Support reactiveVal as dq_hot data.
 * Support NA filter to detect proper filter values.
 * Fix autocomplete dropdown display for filtering.
+* Automatically update filter values when dq_hot data changes.
 
 # dqshiny 0.0.1
 
