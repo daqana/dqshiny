@@ -56,33 +56,32 @@ filter_row <- function(ns, dqv, filters, columns, sorting, reset = TRUE) {
 #' @author richard.kunze
 update_filters <- function(data, filters, session) {
   if (length(data) == 0L || length(filters) == 0L) return()
-  els <- grep("filter", shiny::isolate(names(session$input)), value = TRUE)
-  names(els) <- gsub("filter-", "", els)
-  for (n in names(els)) {
-    if (n == "reset") next()
-    filter <- filters[names(data) == n]
+  els <- paste0("filter-", names(data))
+  for (i in seq(els)) {
+    filter <- filters[i]
     if (length(filter) == 1L) {
       if (filter == "S") {
+        ch <- c()
+        ch[names(data)[i]] <- ""
         shiny::updateSelectInput(
-          session, unname(els[n]), choices = sort(unique(data[[n]])),
-          selected = shiny::isolate(session$input[[els[n]]])
+          session, els[i], choices = c(ch, sort(unique(data[[i]])))
         )
       } else if (filter == "R") {
         suppressWarnings({
-          min_val <- min(data[[n]], na.rm = TRUE)
-          max_val <- max(data[[n]], na.rm = TRUE)
+          min_val <- min(data[[i]], na.rm = TRUE)
+          max_val <- max(data[[i]], na.rm = TRUE)
         })
         shiny::updateSliderInput(
-          session, unname(els[n]), min = min_val, max = max_val
+          session, els[i], min = min_val, max = max_val
         )
       } else if (filter == "D") {
         suppressWarnings({
-          d <- as.Date.character(data[[n]], "%Y-%m-%d")
+          d <- as.Date.character(data[[i]], "%Y-%m-%d")
           min_val <- min(d, na.rm = TRUE)
           max_val <- max(d, na.rm = TRUE)
         })
         shiny::updateDateRangeInput(
-          session, unname(els[n]), min = min_val, max = max_val
+          session, els[i], min = min_val, max = max_val
         )
       }
     }

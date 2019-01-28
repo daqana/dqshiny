@@ -155,6 +155,9 @@ dq_render_handsontable <- function(
       } else {
         set_data(table_data[[id]])
         update_page_if_necessary()
+        if (!is.null(filters)) {
+          update_filters(dqv$full[, columns, drop = FALSE], filters, session)
+        }
       }
     }, ignoreInit = TRUE)
     set_data(shiny::isolate(table_data[[id]]))
@@ -165,6 +168,9 @@ dq_render_handsontable <- function(
       } else {
         set_data(table_data())
         update_page_if_necessary()
+        if (!is.null(filters)) {
+          update_filters(dqv$full[, columns, drop = FALSE], filters, session)
+        }
       }
     }, ignoreInit = TRUE)
     set_data(shiny::isolate(table_data()))

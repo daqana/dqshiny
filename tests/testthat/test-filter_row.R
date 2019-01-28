@@ -113,11 +113,11 @@ test_that("update_filters works with proper inputs", {
   res <- session$lastInputMessages
 
   expect_equal(res[[1]]$id, "filter-A")
-  expect_equal(res[[1]]$message$value, "g")
-  expect_length(strsplit(res[[1]]$message$options, "</option>", fixed = TRUE)[[1]], 26)
+  expect_null(res[[1]]$message$value)
+  expect_length(strsplit(res[[1]]$message$options, "</option>", fixed = TRUE)[[1]], 27) # letters + empty
   expect_equal(res[[2]]$id, "filter-B")
-  expect_equal(res[[2]]$message$value, "TRUE")
-  expect_length(strsplit(res[[2]]$message$options, "</option>", fixed = TRUE)[[1]], 2)
+  expect_null(res[[2]]$message$value)
+  expect_length(strsplit(res[[2]]$message$options, "</option>", fixed = TRUE)[[1]], 3) # true, false + empty
   expect_equal(res[[3]]$id, "filter-C")
   expect_equal(res[[3]]$message$min, as.character(Sys.Date() - 25))
   expect_equal(res[[3]]$message$max, as.character(Sys.Date()))
