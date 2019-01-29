@@ -18,7 +18,7 @@
 #' if (interactive()) {
 #'
 #' library(shiny)
-#' addResourcePath("images", system.file("www", "img", package = "dqutils"))
+#' addResourcePath("images", system.file("www", "img", package = "dqshiny"))
 #' shinyApp(
 #'   ui = fluidPage(
 #'     dq_icon("table", size = "4x"),
