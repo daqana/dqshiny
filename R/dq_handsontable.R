@@ -129,9 +129,9 @@ dq_render_handsontable <- function(
 
   dqv <- shiny::reactiveValues()
 
-  paged <- length(page_size) > 0L && page_size > 0L
+  paged <- length(page_size) > 0L && any(page_size > 0L)
   page_id <- "reduced"
-  to_sort <- (length(sorting) > 0L && sorting != FALSE)
+  to_sort <- (length(sorting) > 0L && !identical(sorting, FALSE))
   no_update <- FALSE
 
   # used functions
