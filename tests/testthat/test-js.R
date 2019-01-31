@@ -2,9 +2,9 @@ context("js / add_js")
 
 test_that("add_js works with any input", {
   if (requireNamespace("V8", quietly = TRUE)) {
-    expect_error(add_js(NULL, NULL), "Error")
+    expect_error(add_js(NULL, "}"), "Error")
     expect_error(add_js(NULL, "function_text"), "ReferenceError")
-    expect_error(add_js("type", NULL), "Error")
+    expect_error(add_js("type", "}"), "Error")
     expect_silent(add_js("type", "function(params) {
        alert('Result is: ' + (parseInt(params[0]) + parseInt(params[1])));
      }"))
