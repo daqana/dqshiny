@@ -5,6 +5,9 @@
 status](https://api.travis-ci.org/daqana/dqshiny.svg?branch=master)](https://travis-ci.org/daqana/dqshiny)
 [![Codecov test
 coverage](https://codecov.io/gh/daqana/dqshiny/branch/master/graph/badge.svg)](https://codecov.io/gh/daqana/dqshiny?branch=master)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/dqshiny)](https://cran.r-project.org/package=dqshiny)
+[![Downloads](http://cranlogs.r-pkg.org/badges/dqshiny?color=brightgreen)](http://www.r-pkg.org/pkg/dqshiny)
 
 # dqshiny
 
