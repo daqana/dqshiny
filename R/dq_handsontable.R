@@ -41,11 +41,12 @@ dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
 #' @param context the context used to specify all ui elements used for this
 #' table, can be omitted which ends up in a randomly generated context
 #' NOTE: this parameter is deprecated and will be removed soon
-#' @param filters optional character vector, adds filters for each column,
-#' values must be one of "Text", "Select", "Range", "Date", "Auto" or "" (can be
-#' abbreviated) to add a Text-, Select-, Range-, DateRange-, AutocompleteInput
-#' or none, vectors of length one will add a filter of this type for each column
-#' and NA will try to guess proper filters
+#' @param filters optional, adds filters for each column, types must be one of
+#' "Text", "Select", "Range", "Date", "Auto" or "" (can be abbreviated) to add a
+#' Text-, Select-, Range-, DateRange-, AutocompleteInput or none, vectors of
+#' length one will add a filter of this type for each column and NA will try to
+#' guess proper filters, can also contain nested lists specifying type and
+#' initial value (e.g. list(list(type = "T", value = "init"), NA, "T", ...))
 #' @param reset optional logical, specify whether to add a button to reset
 #' filters and sort buttons to initial values or not
 #' @param page_size optional integer, number of items per page, can be one of

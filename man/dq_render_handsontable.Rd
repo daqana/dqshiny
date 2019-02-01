@@ -29,11 +29,12 @@ data will always be in sync with user inputs.}
 table, can be omitted which ends up in a randomly generated context
 NOTE: this parameter is deprecated and will be removed soon}
 
-\item{filters}{optional character vector, adds filters for each column,
-values must be one of "Text", "Select", "Range", "Date", "Auto" or "" (can be
-abbreviated) to add a Text-, Select-, Range-, DateRange-, AutocompleteInput
-or none, vectors of length one will add a filter of this type for each column
-and NA will try to guess proper filters}
+\item{filters}{optional, adds filters for each column, types must be one of
+"Text", "Select", "Range", "Date", "Auto" or "" (can be abbreviated) to add a
+Text-, Select-, Range-, DateRange-, AutocompleteInput or none, vectors of
+length one will add a filter of this type for each column and NA will try to
+guess proper filters, can also contain nested lists specifying type and
+initial value (e.g. list(list(type = "T", value = "init"), NA, "T", ...))}
 
 \item{page_size}{optional integer, number of items per page, can be one of
 10, 25, 50, 100 or any other value(s) which will be added to this list, first

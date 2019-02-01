@@ -63,6 +63,7 @@ autocomplete_input <- function(
   value <- shiny::restoreInput(id = id, default = value)
   js_opts <- jsonlite::toJSON(as.list(options), auto_unbox = TRUE)
   width <- shiny::validateCssUnit(width)
+  if (length(value) == 0L) value <- ""
   shiny::div(
     class = "form-group shiny-input-container autocomplete",
     style = if (!is.null(width)) paste0("width: ", width, ";"),

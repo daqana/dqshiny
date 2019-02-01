@@ -10,33 +10,36 @@ test_that("all filters work for empty data", {
   df <- data.frame(A = character(), B = logical(), C = as.Date(character()),
                    D = numeric(), stringsAsFactors = FALSE)
   l <- length(df)
-  expect_silent(filter_row(paste0, list(full = df), rep("T", l), TRUE, NULL, reset = FALSE))
-  expect_silent(filter_row(paste0, list(full = df), rep("T", l), TRUE, NULL))
-  expect_silent(filter_row(paste0, list(full = df), rep("", l), TRUE, NULL))
+
+  expect_silent(filter_row(paste0, list(full = df), correct_filters("T", df), TRUE, NULL, reset = FALSE))
+  expect_silent(filter_row(paste0, list(full = df), correct_filters("T", df), TRUE, NULL))
+  expect_silent(filter_row(paste0, list(full = df), correct_filters("", df), TRUE, NULL))
 })
 
 test_that("all filters work for proper data", {
   df <- data.frame(A = rep("hello", 20), B = rep(c("huhu", "haha"), 10),
                    C = 1:20, D = Sys.Date() - 0:19, stringsAsFactors = FALSE)
-  filts <- c("A", "S", "R", "D")
+  filts <- correct_filters(c("A", "S", "R", "D"), df)
   expect_silent(filter_row(paste0, list(full = df), filts, TRUE, NULL, reset = FALSE))
-  expect_silent(filter_row(paste0, list(full = df), "T", TRUE, list(dir = "", col = "")))
-  expect_silent(filter_row(paste0, list(full = df), "", TRUE, NULL))
+  expect_silent(filter_row(paste0, list(full = df), correct_filters("T", df), TRUE, list(dir = "", col = "")))
+  expect_silent(filter_row(paste0, list(full = df), correct_filters("", df), TRUE, NULL))
 })
 
 test_that("all filters work for proper data with non bootstrap width", {
   df <- mtcars
-  expect_silent(filter_row(paste0, list(full = df), "T", TRUE, NULL))
-  expect_silent(filter_row(paste0, list(full = df), "T", TRUE, list(dir = "", col = ""), reset = FALSE))
-  expect_silent(filter_row(paste0, list(full = df), "T", TRUE, list(dir = "up", col = 1)))
-  expect_silent(filter_row(paste0, list(full = df), "", 1, list(dir = "down", col = "mpg")))
+  expect_silent(filter_row(paste0, list(full = df), correct_filters("T", df), TRUE, NULL))
+  expect_silent(filter_row(paste0, list(full = df), correct_filters("T", df), TRUE, list(dir = "", col = ""), reset = FALSE))
+  expect_silent(filter_row(paste0, list(full = df), correct_filters("T", df), TRUE, list(dir = "up", col = 1)))
+  expect_silent(filter_row(paste0, list(full = df), correct_filters("", df), 1, list(dir = "down", col = "mpg")))
 })
 
 test_that("all sorting options work", {
   df <- mtcars
-  expect_silent(filter_row(paste0, list(full = df), "T", 2, NULL))
-  expect_silent(filter_row(paste0, list(full = df), "T", "cyl", list(dir = "down", col = "mpg")))
-  expect_silent(filter_row(paste0, list(full = df), "T", TRUE, list(dir = "down", col = "mpg")))
+  expect_silent(filter_row(paste0, list(full = df), correct_filters("T", df[, 2, drop = F]), 2, NULL))
+  expect_silent(filter_row(
+    paste0, list(full = df), correct_filters("T", df[, "cyl", drop = F]), "cyl", list(dir = "down", col = "mpg")
+  ))
+  expect_silent(filter_row(paste0, list(full = df), correct_filters("T", df), TRUE, list(dir = "down", col = "mpg")))
 })
 
 context("filter_row / correct_type")
@@ -62,12 +65,16 @@ test_that("all inputs return expected type", {
     F = rep_len(letters[1:4], 26), stringsAsFactors = FALSE
   )
   expect_silent(res <- correct_filters(NA, df))
+  res <- vapply(res, function(r) r$type, "")
   expect_equal(res, c("D", "D", "R", "R", "T", "S"))
   expect_silent(res <- correct_filters("R", df))
+  res <- vapply(res, function(r) r$type, "")
   expect_equal(res, c("R", "R", "R", "R", "T", "S"))
   expect_silent(res <- correct_filters("D", df))
+  res <- vapply(res, function(r) r$type, "")
   expect_equal(res, c("D", "D", "R", "R", "T", "S"))
   expect_silent(res <- correct_filters("S", df))
+  res <- vapply(res, function(r) r$type, "")
   expect_equal(res, c("S", "S", "S", "S", "S", "S"))
 })
 
@@ -79,13 +86,31 @@ test_that("inputs with NAs still return expected type", {
   )
   df[c(TRUE, FALSE),] <- NA
   expect_silent(res <- correct_filters(NA, df))
+  res <- vapply(res, function(r) r$type, "")
   expect_equal(res, c("D", "D", "R", "R", "T", "S"))
   expect_silent(res <- correct_filters("R", df))
+  res <- vapply(res, function(r) r$type, "")
   expect_equal(res, c("R", "R", "R", "R", "T", "S"))
   expect_silent(res <- correct_filters("D", df))
+  res <- vapply(res, function(r) r$type, "")
   expect_equal(res, c("D", "D", "R", "R", "T", "S"))
   expect_silent(res <- correct_filters("S", df))
+  res <- vapply(res, function(r) r$type, "")
   expect_equal(res, c("S", "S", "S", "S", "S", "S"))
+})
+
+test_that("list of different types/values work properly", {
+  f <- list(NA_character_, "T", c(value = "test", type = "T"),
+            list(value = "test2", type = "T"), list(NA_character_))
+  expected <- list(
+    list(type = "R", value = NULL),
+    list(type = "T", value = NULL),
+    list(type = "T", value = "test"),
+    list(type = "T", value = "test2"),
+    list(type = "R", value = NULL)
+  )
+  expect_silent(res <- correct_filters(f, mtcars[, 1:5]))
+  expect_equal(res, expected)
 })
 
 context("filter_row / update_filters")
@@ -109,7 +134,9 @@ test_that("update_filters works with proper inputs", {
     NULL
   )
 
-  expect_null(update_filters(df, c("S", "S", "D", "R"), session))
+  expect_null(update_filters(df, list(
+    list(type = "S"), list(type = "S"), list(type = "D"), list(type = "R")
+  ), session))
   res <- session$lastInputMessages
 
   expect_equal(res[[1]]$id, "filter-A")

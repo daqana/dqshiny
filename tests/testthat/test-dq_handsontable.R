@@ -23,7 +23,8 @@ test_that("dq_render_handsontable works properly with different parameters", {
   session <- create_test_session(
     "id",
     list("id" = "myTest"),
-    list("id-filters" = "test", "id-pages" = "test"))
+    list("id-filters" = "test", "id-pages" = "test")
+  )
 
   session$makeScope <- function(id) {
     s <- session
