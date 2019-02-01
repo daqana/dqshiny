@@ -11,8 +11,8 @@
 #' @rdname dq_render_handsontable
 #' @export
 dq_handsontable_output <- function(id, width = 12L, offset = 0L) {
-  requireNamespace("rhandsontable")
-  requireNamespace("shiny")
+  requireNamespace("rhandsontable", quietly = TRUE)
+  requireNamespace("shiny", quietly = TRUE)
   if (is.null(id)) return(NULL)
   ns <- dq_NS(id)
   shiny::fluidRow(shiny::column(
@@ -188,12 +188,14 @@ dq_render_handsontable <- function(
     dqv[[page_id]] <- df[1:n,]
   }
 
-  # fill filter values and detect proper values for NA
-  filters <- correct_filters(filters, shiny::isolate(dqv$full[, columns, drop = FALSE]))
-
   # render filter row and add observer for filters
   if (!is.null(filters)) {
     output$filters <- shiny::renderUI({
+      # add names(dq$full) dependency
+      if (TRUE || is.null(names(dqv$full))) {
+        # correct filters according to (new?) dataset
+        filters <<- correct_filters(filters, shiny::isolate(dqv$full[, columns, drop = FALSE]))
+      }
       filter_row(ns, dqv, filters, columns, sorting, reset)
     })
     shiny::observeEvent(get_filters(input), {

@@ -23,8 +23,8 @@ filter_row <- function(ns, dqv, filters, columns, sorting, reset = TRUE) {
       el <- shiny::selectizeInput(id, NULL, choices, options = list(dropdownParent = "body"))
     } else if (f == "R") {
       suppressWarnings({
-        min_val <- min(d, na.rm = TRUE)
-        max_val <- max(d, na.rm = TRUE)
+        min_val <- min(as.numeric(d), na.rm = TRUE)
+        max_val <- max(as.numeric(d), na.rm = TRUE)
       })
       el <- shiny::sliderInput(id, NULL, min_val, max_val, c(min_val, max_val))
     } else if (f == "D") {
@@ -59,7 +59,7 @@ update_filters <- function(data, filters, session) {
   els <- paste0("filter-", names(data))
   for (i in seq(els)) {
     filter <- filters[i]
-    if (length(filter) == 1L) {
+    if (length(filter) == 1L && !is.na(filter)) {
       if (filter == "S") {
         ch <- c()
         ch[names(data)[i]] <- ""
@@ -68,8 +68,8 @@ update_filters <- function(data, filters, session) {
         )
       } else if (filter == "R") {
         suppressWarnings({
-          min_val <- min(data[[i]], na.rm = TRUE)
-          max_val <- max(data[[i]], na.rm = TRUE)
+          min_val <- min(as.numeric(data[[i]]), na.rm = TRUE)
+          max_val <- max(as.numeric(data[[i]]), na.rm = TRUE)
         })
         shiny::updateSliderInput(
           session, els[i], min = min_val, max = max_val
@@ -92,7 +92,8 @@ update_filters <- function(data, filters, session) {
 correct_filters <- function(vals, data) {
   if (isTRUE(all(vals == ""))) return(NULL)
   len <- length(data)
-  if (length(vals) != len) vals <- rep_len(vals, len)
+  if (length(vals) == 1L) vals <- rep(vals, len)
+  if (length(vals) != len) vals <- rep(NA, len)
   vals <- toupper(substr(unlist(vals), 1L, 1L))
   vals[!vals %in% c("T", "S", "R", "A", "D", "", NA)] <- NA
   vapply(seq(vals), function(i) correct_type(vals[i], data[[i]]), "")
@@ -101,6 +102,7 @@ correct_filters <- function(vals, data) {
 #' @author richard.kunze
 correct_type <- function(type, vec) {
   if (length(type) != 1L || type %in% c("T", "A", "S", "")) return(type)
+  if (type %in% c("S", NA) && is.factor(vec)) return("S")
   suppressWarnings({
     log_vec <- as.logical(vec)
     num_vec <- as.numeric(vec)
