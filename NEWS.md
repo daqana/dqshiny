@@ -1,3 +1,10 @@
+# dqshiny 0.0.3
+
+* Fix unit test for new V8 (PR #1).
+* Support dqhot dataset changes and reconsider proper filters.
+* Change default filter for factors.
+* Support lists for filters specifying type and value.
+
 # dqshiny 0.0.2
 
 * Fix text filter to properly skip empty filters.
