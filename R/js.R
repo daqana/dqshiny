@@ -1,6 +1,6 @@
-#' Adds a custom js function
+#' Adds a custom JS function
 #'
-#' @description Adds the given js function definition to the current shiny web
+#' @description Adds the given JS function definition to the current shiny web
 #' app.
 #'
 #' Before adding anything the code will be parsed with V8 if the package is
@@ -10,7 +10,7 @@
 #' After successfully adding a function it can be used with run_js.
 #'
 #' @param type name of the function
-#' @param function_text js function definition, this should be an anonymous
+#' @param function_text JS function definition, this should be an anonymous
 #' function accepting exactly one argument
 #'
 #' @export
@@ -46,7 +46,7 @@ add_js <- function(type, function_text) {
 }
 
 #' @param ... arguments to pass to the function, those will be combined to a
-#' list and end up as an array in js, unnamed parameters will be available via
+#' list and end up as an array in JS, unnamed parameters will be available via
 #' params[0..], named parameters can also be used with params.name
 #'
 #' @export
@@ -61,7 +61,7 @@ run_js <- function(type, ...) {
 #' @author richard.kunze
 parse_code <- function(code) {
   if (!requireNamespace("V8", quietly = TRUE)) {
-    warning("Package 'V8' not installed, so custom js code can't be checked!")
+    warning("Package 'V8' not installed, so custom JS code can't be checked!")
   } else {
     ct <- V8::new_context("Shiny", FALSE, FALSE)
     ct$eval("Shiny.addCustomMessageHandler=function(a,b){};")
@@ -72,7 +72,7 @@ parse_code <- function(code) {
         warning("Nothing to parse here!")
       }
     }, error = function(e) {
-      stop(paste("Error found while parsing your js code:", e$message))
+      stop(paste("Error found while parsing your JS code:", e$message))
     })
   }
 }
