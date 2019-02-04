@@ -3,7 +3,7 @@
 \name{add_js}
 \alias{add_js}
 \alias{run_js}
-\title{Adds a custom js function}
+\title{Adds a custom JS function}
 \usage{
 add_js(type, function_text)
 
@@ -12,15 +12,15 @@ run_js(type, ...)
 \arguments{
 \item{type}{name of the function}
 
-\item{function_text}{js function definition, this should be an anonymous
+\item{function_text}{JS function definition, this should be an anonymous
 function accepting exactly one argument}
 
 \item{...}{arguments to pass to the function, those will be combined to a
-list and end up as an array in js, unnamed parameters will be available via
+list and end up as an array in JS, unnamed parameters will be available via
 params[0..], named parameters can also be used with params.name}
 }
 \description{
-Adds the given js function definition to the current shiny web
+Adds the given JS function definition to the current shiny web
 app.
 
 Before adding anything the code will be parsed with V8 if the package is
