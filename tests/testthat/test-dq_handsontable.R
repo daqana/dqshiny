@@ -62,6 +62,23 @@ test_that("dq_render_handsontable works properly with different parameters", {
   expect_silent(dq_render_handsontable("id", rV, session = session))
 })
 
+context("dq_handsontable / add_scripts")
+
+test_that("all results can be run", {
+  if (requireNamespace("V8", quietly = TRUE)) {
+    ct <- V8::new_context("test")
+    expect_silent(add_scripts(NULL, FALSE, FALSE))
+    res <- add_scripts(NULL, TRUE, FALSE)
+    expect_silent(ct$eval(paste("test = ", res$afterRender)))
+    res <- add_scripts(NULL, FALSE, TRUE)
+    expect_silent(ct$eval(paste("test = ", res$afterRender)))
+    expect_silent(ct$eval(paste("test = ", res$afterScrollHorizontally)))
+    res <- add_scripts(NULL, TRUE, TRUE)
+    expect_silent(ct$eval(paste("test = ", res$afterRender)))
+    expect_silent(ct$eval(paste("test = ", res$afterScrollHorizontally)))
+  }
+})
+
 context("dq_handsontable / shinytest")
 
 skip_on_cran()

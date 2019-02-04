@@ -307,20 +307,21 @@ dq_render_handsontable <- function(
 add_scripts <- function(params, width, scroll) {
   if (width || scroll) {
     params$afterRender <- htmlwidgets::JS(
-      "function() {
-        var hider = $(this.rootElement).find('.wtHider');
-        var $filter = $(document.getElementById(this.rootElement.id + '-filters'));
-        var that = this;
-        $filter.ready(function() {
-          $filter.css('overflow', 'hidden');
-          var row = $filter.find('.row');
-          row.width(hider.width());",
-      if (width)
-        "var els = $filter.find('.form-group');
-         for (var i = 0; i < els.length; i++) {
-           $(els[i]).outerWidth($(that.getCell(0, i)).outerWidth());
-         }
-       });",
+      "function() {",
+      "  var hider = $(this.rootElement).find('.wtHider');",
+      "  var $filter = $(document.getElementById(this.rootElement.id + '-filters'));",
+      "  var that = this;",
+      "  $filter.ready(function() {",
+      "    $filter.css('overflow', 'hidden');",
+      "    var row = $filter.find('.row');",
+      "    row.width(hider.width());",
+      if (width) paste(
+        "    var els = $filter.find('.form-group');",
+        "    for (var i = 0; i < els.length; i++) {",
+        "      $(els[i]).outerWidth($(that.getCell(0, i)).outerWidth());",
+        "    }", sep = "\n"
+      ),
+      "  });",
       "}"
     )
   }
