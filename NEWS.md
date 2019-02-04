@@ -4,6 +4,8 @@
 * Support dqhot dataset changes and reconsider proper filters.
 * Change default filter for factors.
 * Support lists for filters specifying type and value.
+* Fix horizontal scroll only.
+* Fix initial column width alignment.
 
 # dqshiny 0.0.2
 
