@@ -1,8 +1,9 @@
 ## Test environments
 
 * local Ubuntu 18.04 install, R release
-* ubuntu 14.04 (on travis-ci), R devel, release, oldrel
+* Ubuntu 14.04 (on travis-ci), R devel, release, oldrel
 * win-builder (devel and release)
+* r-hub (Fedora devel, Ubuntu 16.04 release, Windows devel)
 
 ## R CMD check results
 
