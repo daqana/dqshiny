@@ -127,7 +127,6 @@ dq_render_handsontable <- function(
   output <- session$output
 
   table_data <- data
-
   dqv <- shiny::reactiveValues()
 
   paged <- length(page_size) > 0L && any(page_size > 0L)
@@ -202,8 +201,9 @@ dq_render_handsontable <- function(
     shiny::observeEvent(get_filters(input), {
       f_vals <- get_filters(input)
       if (length(f_vals) == 0) return()
-      df <- text_filter(dqv$full[, columns, drop = FALSE], f_vals[sapply(f_vals, function(x) length(x) == 1L)])
-      dqv$reduced <- range_filter(df, f_vals[sapply(f_vals, function(x) length(x) == 2L)])
+      l <- vapply(f_vals, length, 0L)
+      df <- text_filter(dqv$full[, columns, drop = FALSE], f_vals[l == 1L])
+      dqv$reduced <- range_filter(df, f_vals[l == 2L])
       if (to_sort) {
         dqv$reduced <- sort_data(dqv$reduced, dqv$sorting)
       }

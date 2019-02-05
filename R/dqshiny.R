@@ -100,3 +100,14 @@ dq_NS <- function(namespace, ...) {
     f(...)
   }
 }
+
+as_date <- function(vec) {
+  tryCatch({
+    suppressWarnings(return(as.Date(vec)))
+  }, error = function(e) NULL)
+  rep_len(NA_character_, length(vec))
+}
+
+as_numeric <- function(vec) {
+  suppressWarnings(as.numeric(vec))
+}

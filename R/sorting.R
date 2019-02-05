@@ -56,7 +56,7 @@ check_sorting <- function(sorting, to_sort, columns) {
 #' @author richard.kunze
 sort_data <- function(df, sorting) {
   if (is.atomic(sorting) || length(sorting$dir) == 0L || sorting$dir == "") {
-    row_names <- suppressWarnings(as.numeric(rownames(df)))
+    row_names <- as_numeric(rownames(df))
     ord <- if (any(is.na(row_names))) order(rownames(df)) else order(row_names)
   } else {
     ord <- order(df[, sorting$col], decreasing = (sorting$dir == "down"))

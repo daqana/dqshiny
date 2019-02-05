@@ -59,7 +59,7 @@ text_filter_rec <- function(df, values, valid, depth = 1L) {
 range_filter <- function(df, ranges) {
   if (is.atomic(ranges) && length(ranges) == 2L) ranges <- list(ranges)
   newRanges <- lapply(ranges, function(x) {
-    vals <- suppressWarnings(as.numeric(x))
+    vals <- as_numeric(x)
     if (length(x) == 2 && all(!is.na(vals))) vals
     else NA
   })
@@ -76,7 +76,7 @@ range_filter <- function(df, ranges) {
 range_filter_rec <- function(df, ranges, valid, depth = 1L) {
   if (depth > length(ranges) || length(valid) == 0) return(df[valid,])
   if (all(!is.na(ranges[depth]))) {
-    tmp <- suppressWarnings(as.numeric(df[valid, depth]))
+    tmp <- as_numeric(df[valid, depth])
     valid <- valid[!is.na(tmp) & tmp >= ranges[[depth]][1L] & tmp <= ranges[[depth]][2L]]
   }
   return(range_filter_rec(df, ranges, valid, depth + 1L))
