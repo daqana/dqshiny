@@ -39,13 +39,11 @@ function toggleClass(params) {
     } else {
       $obj.toggleClass(params.className);
     }
-  } else {
-    if (params.retry) {
-      params.retry = false;
-      setTimeout(function() {
-        toggleClass(params);
-      }, 1000);
-    }
+  } else if (params.retry) {
+    params.retry = false;
+    setTimeout(function() {
+      toggleClass(params);
+    }, 1000);
   }
 }
 Shiny.addCustomMessageHandler("toggleClass", toggleClass);
@@ -124,6 +122,11 @@ function updateBox(params) {
         $obj.find(".collapser").click();
       }
     }
+  } else if (params.retry) {
+    params.retry = false;
+    setTimeout(function() {
+      updateBox(params);
+    }, 500);
   }
 }
 Shiny.addCustomMessageHandler("updateBox", updateBox);
