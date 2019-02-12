@@ -189,15 +189,16 @@ dq_render_handsontable <- function(
   }
 
   # render filter row and add observer for filters
+  output$filters <- shiny::renderUI({
+    if (is.null(filters)) return()
+    # add names(dq$full) dependency
+    if (TRUE || is.null(names(dqv$full))) {
+      # correct filters according to (new?) dataset
+      filters <<- correct_filters(filters, shiny::isolate(dqv$full[, columns, drop = FALSE]))
+    }
+    filter_row(ns, dqv, filters, columns, sorting, reset)
+  })
   if (!is.null(filters)) {
-    output$filters <- shiny::renderUI({
-      # add names(dq$full) dependency
-      if (TRUE || is.null(names(dqv$full))) {
-        # correct filters according to (new?) dataset
-        filters <<- correct_filters(filters, shiny::isolate(dqv$full[, columns, drop = FALSE]))
-      }
-      filter_row(ns, dqv, filters, columns, sorting, reset)
-    })
     shiny::observeEvent(get_filters(input), {
       f_vals <- get_filters(input)
       if (length(f_vals) == 0) return()
@@ -243,15 +244,15 @@ dq_render_handsontable <- function(
   })
 
   # render paging row and add observer for inputs
+  page_sizes <- sort(unique(c(page_size, 10L, 25L, 50L, 100L)))
+  output$pages <- shiny::renderUI({
+    if (paged) paging_row(ns, page_size[1L], page_sizes)
+  })
+  output$maxPages <- shiny::renderText({
+    sel <- as.integer(input$pageSize)
+    paste("of ", ceiling(max(length(dqv$reduced[[1L]]) / sel, 1L)))
+  })
   if (paged) {
-    page_sizes <- sort(unique(c(page_size, 10L, 25L, 50L, 100L)))
-    output$pages <- shiny::renderUI({
-      paging_row(ns, page_size[1L], page_sizes)
-    })
-    output$maxPages <- shiny::renderText({
-      sel <- as.integer(input$pageSize)
-      paste("of ", ceiling(max(length(dqv$reduced[[1L]]) / sel, 1L)))
-    })
     shiny::observeEvent(c(input$pageNum, input$pageSize), {
       if (!is.na(input$pageSize)) update_page_if_necessary()
     })
