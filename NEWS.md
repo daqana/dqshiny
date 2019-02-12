@@ -1,3 +1,7 @@
+# dqshiny 0.0.4
+
+* Fix dqhot to remove filter and paging row if no longer needed.
+
 # dqshiny 0.0.3
 
 * Fix unit test for new V8 (PR #1).
