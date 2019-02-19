@@ -188,6 +188,9 @@ dq_render_handsontable <- function(
     dqv[[page_id]] <- df[1:n,]
   }
 
+  # correct filters for the first time (in case data will be updated before rendering)
+  filters <- correct_filters(filters, shiny::isolate(dqv$full[, columns, drop = FALSE]))
+
   # render filter row and add observer for filters
   output$filters <- shiny::renderUI({
     if (is.null(filters)) return()

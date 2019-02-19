@@ -1,6 +1,7 @@
 # dqshiny 0.0.4
 
 * Fix dqhot to remove filter and paging row if no longer needed.
+* Fix dqhot to correct filters before rendering.
 
 # dqshiny 0.0.3
 
