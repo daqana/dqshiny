@@ -23,6 +23,8 @@
     this.$body = $(document.body);
 
     this.TEXTAREA = document.createElement("select");
+    // fix for handsontable >=5.0.0
+    this.TEXTAREA.select = function() {};
     this.$select = $(this.TEXTAREA);
 
     Handsontable.dom.addClass(this.TEXTAREA, "handsontableInput");
@@ -42,6 +44,16 @@
     this.TEXTAREA_PARENT.appendChild(this.TEXTAREA);
 
     this.instance.rootElement.appendChild(this.TEXTAREA_PARENT);
+
+    // possible fix for copy/paste
+    /*this.TEXTAREA = document.createElement("TEXTAREA");
+    var select = document.createElement("SELECT");
+    this.TEXTAREA_PARENT.appendChild(select);
+    this.$select = $(select);
+
+    this.TEXTAREA.select = function() {
+      this.focus();
+    };*/
 
     var that = this;
     this.instance._registerTimeout(
@@ -70,7 +82,8 @@
     var ctrlDown = (event.ctrlKey || event.metaKey) && !event.altKey;
     var sel = editor.selectize;
     var multiple = editor && sel.settings.mode == "multi";
-
+console.log(ctrlDown);
+console.log( event.keyCode);
     // Process only events that have been fired in the editor
     if (event.target.tagName !== "INPUT") {
       // except BACKSPACEs for deleting the last item since there won't be an INPUT if selectize is full
