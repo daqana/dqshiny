@@ -2,6 +2,7 @@
 
 * Fix dqhot to remove filter and paging row if no longer needed.
 * Fix dqhot to correct filters before rendering.
+* Fix selectize editor copy&paste feature.
 
 # dqshiny 0.0.3
 

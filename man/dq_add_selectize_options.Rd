@@ -5,7 +5,8 @@
 \alias{dq_as_selectize_options}
 \title{Adds selectizeOptions to a column of rhandsontable}
 \usage{
-dq_add_selectize_options(hot, rows, col, options, ...)
+dq_add_selectize_options(hot, rows, col, options, allowInvalid = FALSE,
+  ...)
 
 dq_as_selectize_options(options, ...)
 }
@@ -20,6 +21,8 @@ dq_as_selectize_options(options, ...)
 names will be used as labels for the options, dq_add_selectize_options can
 also handle lists of vectors, where each vector will be used to specify the
 options of one cell}
+
+\item{allowInvalid}{logical specifying whether invalid data will be accepted}
 
 \item{...}{additional parameters to be passed to selectize}
 }

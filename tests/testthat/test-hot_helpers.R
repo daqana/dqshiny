@@ -54,7 +54,7 @@ test_that("bad inputs work and always returns hot element", {
 
 test_that("proper inputs work", {
   expect_silent(res <- dq_add_selectize_options(hot, 1, 2, 1:5))
-  expect_equal(names(res$x$cell[[1]]), c("row", "col", "type", "editor", "selectizeOptions"))
+  expect_equal(names(res$x$cell[[1]]), c("row", "col", "type", "editor", "allowInvalid", "selectizeOptions"))
   expect_silent(
     res <- dq_add_selectize_options(hot, 1:7, "disp", list(1:5, numeric(), 1:3, 1, numeric(), 1:5, 2:8))
   )

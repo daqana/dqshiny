@@ -12,6 +12,7 @@
 #' names will be used as labels for the options, dq_add_selectize_options can
 #' also handle lists of vectors, where each vector will be used to specify the
 #' options of one cell
+#' @param allowInvalid logical specifying whether invalid data will be accepted
 #' @param ... additional parameters to be passed to selectize
 #'
 #' @export
@@ -51,7 +52,7 @@
 #' )
 #'
 #' }
-dq_add_selectize_options <- function(hot, rows, col, options, ...) {
+dq_add_selectize_options <- function(hot, rows, col, options, allowInvalid = FALSE, ...) {
   if (!inherits(hot, "rhandsontable")) return(hot)
   hot$dependencies <- append(hot$dependencies, selectize_dep)
   if (length(options) == 0) return(hot)
@@ -70,11 +71,31 @@ dq_add_selectize_options <- function(hot, rows, col, options, ...) {
       if (length(options[[x]]) < 2 && all(options[[x]] == "")) return(NULL)
       hot <<- dq_hot_cell(
         hot, x, col, type = "dropdown", editor = "selectize",
+        allowInvalid = allowInvalid,
         selectizeOptions = dq_as_selectize_options(options[[x]], ...)
       )
     })
   }
+  hot$x$beforePaste <- handle_beforePaste()
   hot
+}
+
+handle_beforePaste <- function() {
+  htmlwidgets::JS(
+    "function(data, coords) {",
+    "  var cm, opts, d, rs = data.length, cs = data[0].length;",
+    "  for (var r = coords[0].startRow; r <= coords[0].endRow; r++) {",
+    "    for (var c = coords[0].startCol; c <= coords[0].endCol; c++) {",
+    "      cm = this.getCellMeta(r, c);",
+    "      if (cm.editor === 'selectize' && cm.allowInvalid === false) {",
+    "        d = data[(r - coords[0].startRow) % rs][(c - coords[0].startCol) % cs];",
+    "        opts = cm.selectizeOptions.options.map(function(o) {return o.value});",
+    "        if (opts.indexOf(d) < 0) return false;",
+    "      }",
+    "    }",
+    "  }",
+    "}"
+  )
 }
 
 #' @description dq_as_selectize_options converts the given vector of options
