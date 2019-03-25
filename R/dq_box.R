@@ -172,6 +172,6 @@ create_box_title <- function(title, color) {
 #' @rdname dq_box
 update_dq_box <- function(id, collapsed = NULL, silent = FALSE) {
   send_message(
-    type = "updateBox", ids = id, collapsed = collapsed, silent = silent
+    type = "dqUpdateBox", ids = id, collapsed = collapsed, silent = silent
   )
 }

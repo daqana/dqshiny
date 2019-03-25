@@ -1,10 +1,10 @@
-function toggleState(params) {
-  var $obj = _getElement(params.id);
+function dqToggleState(params) {
+  var $obj = dqGetElement(params.id);
   if ($obj !== null) {
     if ($obj.hasClass("selectized")) {
-      toggleSelectizeState(params, $obj[0]);
+      dqToggleSelectizeState(params, $obj[0]);
     } else if ($obj.hasClass("js-range-slider")) {
-      toggleSliderState(params, $obj.data("ionRangeSlider"));
+      dqToggleSliderState(params, $obj.data("ionRangeSlider"));
     } else {
       if ($obj.hasClass("shiny-date-input")) {
         $obj = $obj.find("input");
@@ -21,15 +21,15 @@ function toggleState(params) {
     if (params.retry) {
       params.retry = false;
       setTimeout(function() {
-        toggleState(params);
+        dqToggleState(params);
       }, 1000);
     }
   }
 }
-Shiny.addCustomMessageHandler("toggleState", toggleState);
+Shiny.addCustomMessageHandler("dqToggleState", dqToggleState);
 
-function toggleClass(params) {
-  var $obj = _getElement(params.id);
+function dqToggleClass(params) {
+  var $obj = dqGetElement(params.id);
   if ($obj !== null) {
     if ($obj.hasClass("selectized") || $obj.hasClass("js-range-slider")) {
       $obj = $obj.closest(".form-group");
@@ -42,20 +42,20 @@ function toggleClass(params) {
   } else if (params.retry) {
     params.retry = false;
     setTimeout(function() {
-      toggleClass(params);
+      dqToggleClass(params);
     }, 1000);
   }
 }
-Shiny.addCustomMessageHandler("toggleClass", toggleClass);
+Shiny.addCustomMessageHandler("dqToggleClass", dqToggleClass);
 
-function scrollToElement(params) {
+function dqScrollToElement(params) {
   var element = params,
     highlight = false;
   if (typeof params != "string") {
     element = params.id;
     highlight = params.highlight;
   }
-  var $el = _getElement(element),
+  var $el = dqGetElement(element),
     pos,
     $parentEl = $el;
   while ($parentEl !== null && (pos = $parentEl.offset().top) === 0) {
@@ -64,54 +64,54 @@ function scrollToElement(params) {
   $("html, body").animate({ scrollTop: pos - $(window).height() / 3 }, 500);
   if (highlight) {
     setTimeout(function() {
-      _highlight($el);
+      dqHighlight($el);
     }, 500);
   }
 }
-Shiny.addCustomMessageHandler("scrollToElement", scrollToElement);
+Shiny.addCustomMessageHandler("dqScrollToElement", dqScrollToElement);
 
-function highlightElement(params) {
+function dqHighlightElement(params) {
   var element = params;
   if (typeof params != "string") {
     element = params.id;
   }
-  var $el = _getElement(element);
-  _highlight($el);
+  var $el = dqGetElement(element);
+  dqHighlight($el);
 }
-Shiny.addCustomMessageHandler("highlightElement", highlightElement);
+Shiny.addCustomMessageHandler("dqHighlightElement", dqHighlightElement);
 
-function clickElement(params) {
+function dqClickElement(params) {
   var element = params;
   if (typeof params != "string") {
     element = params.id;
   }
-  var $el = _getElement(element);
+  var $el = dqGetElement(element);
   $el[0].click();
 }
-Shiny.addCustomMessageHandler("clickElement", clickElement);
+Shiny.addCustomMessageHandler("dqClickElement", dqClickElement);
 
-function selectTableCell(params) {
-  scrollToElement("#" + params[0]);
+function dqSelectTableCell(params) {
+  dqScrollToElement("#" + params[0]);
   var $table = HTMLWidgets.getInstance(document.getElementById(params[0])).hot;
   $table.selectCell(parseInt(params[1]), parseInt(params[2]));
 }
-Shiny.addCustomMessageHandler("selectTableCell", selectTableCell);
+Shiny.addCustomMessageHandler("dqSelectTableCell", dqSelectTableCell);
 
-function resetSlider(params) {
-  var $obj = _getElement(params.id);
+function dqResetSlider(params) {
+  var $obj = dqGetElement(params.id);
   if ($obj !== null && $obj.data("ionRangeSlider") !== null) {
     $obj.data("ionRangeSlider").reset();
   }
 }
-Shiny.addCustomMessageHandler("resetSlider", resetSlider);
+Shiny.addCustomMessageHandler("dqResetSlider", dqResetSlider);
 
-function renderHot(params) {
+function dqRenderHot(params) {
   HTMLWidgets.getInstance(document.getElementById(params.id)).hot.render();
 }
-Shiny.addCustomMessageHandler("renderHot", renderHot);
+Shiny.addCustomMessageHandler("dqRenderHot", dqRenderHot);
 
-function updateBox(params) {
-  var $obj = _getElement(params.id);
+function dqUpdateBox(params) {
+  var $obj = dqGetElement(params.id);
   if ($obj !== null) {
     var open = $obj.find(".collapse").hasClass("in");
     var coll = params.collapsed;
@@ -125,15 +125,15 @@ function updateBox(params) {
   } else if (params.retry) {
     params.retry = false;
     setTimeout(function() {
-      updateBox(params);
+      dqUpdateBox(params);
     }, 500);
   }
 }
-Shiny.addCustomMessageHandler("updateBox", updateBox);
+Shiny.addCustomMessageHandler("dqUpdateBox", dqUpdateBox);
 
 //######################## Helper ################################
 
-function _getElement(id) {
+function dqGetElement(id) {
   var obj = document.getElementById(id);
   if (obj === null) {
     if (!id.startsWith("#")) {
@@ -149,7 +149,7 @@ function _getElement(id) {
   return $obj;
 }
 
-function toggleSelectizeState(params, $obj) {
+function dqToggleSelectizeState(params, $obj) {
   if (params.state !== null && typeof params.state != "undefined") {
     if (params.state) {
       $obj.selectize.disable();
@@ -165,7 +165,7 @@ function toggleSelectizeState(params, $obj) {
   }
 }
 
-function toggleSliderState(params, $slider) {
+function dqToggleSliderState(params, $slider) {
   if (params.state !== null && typeof params.state != "undefined") {
     $slider.update({ disable: params.state });
   } else {
@@ -173,7 +173,7 @@ function toggleSliderState(params, $slider) {
   }
 }
 
-function _highlight($el) {
+function dqHighlight($el) {
   if ($el.css("display") == "none" || $el.hasClass("js-range-slider")) {
     var $parEl = $el.closest(".form-group");
     if ($parEl.length) $el = $parEl;

@@ -9,7 +9,7 @@ test_that("add_class works with any input", {
     lapply(seq(ids), function(i) expect_silent(add_class(ids[[i]], classes[[i]])))
   })
   lapply(session$lastCustomMessages, function(x) {
-    expect_equal(x$type, "toggleClass")
+    expect_equal(x$type, "dqToggleClass")
     expect_true(is.null(x$message$className) || x$message$className %in% classes)
     expect_true(x$message$state)
     expect_true(x$message$id %in% unlist(ids))
@@ -24,7 +24,7 @@ test_that("remove_class works with any input", {
     lapply(seq(ids), function(i) expect_silent(remove_class(ids[[i]], classes[[i]])))
   })
   lapply(session$lastCustomMessages, function(x) {
-    expect_equal(x$type, "toggleClass")
+    expect_equal(x$type, "dqToggleClass")
     expect_true(is.null(x$message$className) || x$message$className %in% classes)
     expect_false(x$message$state)
     expect_true(x$message$id %in% unlist(ids))
@@ -39,7 +39,7 @@ test_that("toggle_class works with any input", {
     lapply(seq(ids), function(i) expect_silent(toggle_class(ids[[i]], classes[[i]])))
   })
   lapply(session$lastCustomMessages, function(x) {
-    expect_equal(x$type, "toggleClass")
+    expect_equal(x$type, "dqToggleClass")
     expect_true(is.null(x$message$className) || x$message$className %in% classes)
     expect_null(x$message$state)
     expect_true(x$message$id %in% unlist(ids))

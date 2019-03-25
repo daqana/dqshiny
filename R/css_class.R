@@ -44,7 +44,7 @@
 #' }
 add_class <- function(ids, class_name) {
   send_message(
-    type = "toggleClass",
+    type = "dqToggleClass",
     ids = unname(ids),
     className = class_name,
     state = TRUE
@@ -55,7 +55,7 @@ add_class <- function(ids, class_name) {
 #' @rdname add_class
 remove_class <- function(ids, class_name) {
   send_message(
-    type = "toggleClass",
+    type = "dqToggleClass",
     ids = unname(ids),
     className = class_name,
     state = FALSE
@@ -67,7 +67,7 @@ remove_class <- function(ids, class_name) {
 #' @rdname add_class
 toggle_class <- function(ids, class_name, condition = NULL) {
   send_message(
-    type = "toggleClass",
+    type = "dqToggleClass",
     ids = unname(ids),
     className = class_name,
     state = condition

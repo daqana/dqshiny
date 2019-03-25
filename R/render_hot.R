@@ -37,5 +37,5 @@
 #'
 #' }
 render_hot <- function(id) {
-  send_message(type = "renderHot", ids = id)
+  send_message(type = "dqRenderHot", ids = id)
 }

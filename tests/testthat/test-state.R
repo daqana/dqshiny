@@ -8,7 +8,7 @@ test_that("enable works with any input", {
     lapply(ids, function(id) expect_silent(enable(id)))
   })
   lapply(session$lastCustomMessages, function(x) {
-    expect_equal(x$type, "toggleState")
+    expect_equal(x$type, "dqToggleState")
     expect_equal(x$message$state, FALSE)
     expect_true(x$message$id %in% unlist(ids))
   })
@@ -22,7 +22,7 @@ test_that("disable works with any input", {
     lapply(ids, function(id) expect_silent(disable(id)))
   })
   lapply(session$lastCustomMessages, function(x) {
-    expect_equal(x$type, "toggleState")
+    expect_equal(x$type, "dqToggleState")
     expect_equal(x$message$state, TRUE)
     expect_true(x$message$id %in% unlist(ids))
   })
@@ -36,7 +36,7 @@ test_that("toggle_state works with any input", {
     lapply(ids, function(id) expect_silent(toggle_state(id)))
   })
   lapply(session$lastCustomMessages, function(x) {
-    expect_equal(x$type, "toggleState")
+    expect_equal(x$type, "dqToggleState")
     expect_null(x$message$state)
     expect_true(x$message$id %in% unlist(ids))
   })

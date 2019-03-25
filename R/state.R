@@ -44,13 +44,13 @@
 #'
 #' }
 enable <- function(ids) {
-  send_message(type = "toggleState", ids = ids, state = FALSE)
+  send_message(type = "dqToggleState", ids = ids, state = FALSE)
 }
 
 #' @export
 #' @rdname enable
 disable <- function(ids) {
-  send_message(type = "toggleState", ids = ids, state = TRUE)
+  send_message(type = "dqToggleState", ids = ids, state = TRUE)
 }
 
 #' @param condition Condition to be used for toggling the state (TRUE =
@@ -58,5 +58,5 @@ disable <- function(ids) {
 #' @export
 #' @rdname enable
 toggle_state <- function(ids, condition = NULL) {
-  send_message(type = "toggleState", ids = ids, state = condition)
+  send_message(type = "dqToggleState", ids = ids, state = condition)
 }

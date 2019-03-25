@@ -30,5 +30,5 @@
 #'
 #' }
 click <- function(ids) {
-  send_message("clickElement", ids = ids)
+  send_message("dqClickElement", ids = ids)
 }

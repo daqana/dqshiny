@@ -8,7 +8,7 @@ test_that("hide works with any input", {
     lapply(ids, function(id) expect_silent(hide(id)))
   })
   lapply(session$lastCustomMessages, function(x) {
-    expect_equal(x$type, "toggleClass")
+    expect_equal(x$type, "dqToggleClass")
     expect_equal(x$message$className, "hidden")
     expect_equal(x$message$state, TRUE)
     expect_true(x$message$id %in% unlist(ids))
@@ -23,7 +23,7 @@ test_that("show works with any input", {
     lapply(ids, function(id) expect_silent(show(id)))
   })
   lapply(session$lastCustomMessages, function(x) {
-    expect_equal(x$type, "toggleClass")
+    expect_equal(x$type, "dqToggleClass")
     expect_equal(x$message$className, "hidden")
     expect_equal(x$message$state, FALSE)
     expect_true(x$message$id %in% unlist(ids))
@@ -38,7 +38,7 @@ test_that("toggle works with any input", {
     lapply(ids, function(id) expect_silent(toggle(id)))
   })
   lapply(session$lastCustomMessages, function(x) {
-    expect_equal(x$type, "toggleClass")
+    expect_equal(x$type, "dqToggleClass")
     expect_equal(x$message$className, "hidden")
     expect_null(x$message$state)
     expect_true(x$message$id %in% unlist(ids))
