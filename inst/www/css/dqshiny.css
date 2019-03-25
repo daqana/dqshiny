@@ -496,3 +496,192 @@ img.dq-icon-10x {
   -webkit-animation: shadowPulse 1s ease-out 1;
   animation: shadowPulse 1s ease-out 1;
 }
+
+/* ################## drawer ################### */
+
+.dqdrawer-wrapper {
+	position: fixed;
+	z-index: 999999;
+}
+
+.dqdrawer-left {
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.dqdrawer-right {
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.dqdrawer-top {
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.dqdrawer-bottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.dqdrawer-open {
+	width: 100%;
+	height: 100%;
+}
+
+.dqdrawer-container {
+	position: absolute;
+	background-color: #fff;
+}
+
+.dqdrawer-left .dqdrawer-container, .dqdrawer-right .dqdrawer-container {
+  width: 400px;
+	height: 100%;
+  padding-top: 50px;
+}
+
+.dqdrawer-top .dqdrawer-container, .dqdrawer-bottom .dqdrawer-container {
+  height: 400px;
+	width: 100%;
+	padding-left: 50px;
+}
+
+.dqdrawer-left .dqdrawer-container {
+  left: -400px;
+  border-right: 1px solid #ff4f00;
+  transition: left .3s ease-out;
+}
+
+.dqdrawer-right .dqdrawer-container {
+  right: -400px;
+  border-left: 1px solid #ff4f00;
+  transition: right .3s ease-out;
+}
+
+.dqdrawer-top .dqdrawer-container {
+  top: -400px;
+  border-bottom: 1px solid #ff4f00;
+  transition: top .3s ease-out;
+}
+
+.dqdrawer-bottom .dqdrawer-container {
+  bottom: -400px;
+  border-top: 1px solid #ff4f00;
+  transition: bottom .3s ease-out;
+}
+
+.dqdrawer-open .dqdrawer-container {
+  box-shadow: 0 0 50px #999;
+}
+
+.dqdrawer-open.dqdrawer-left .dqdrawer-container {
+  left: 0;
+}
+
+.dqdrawer-open.dqdrawer-right .dqdrawer-container {
+  right: 0;
+}
+
+.dqdrawer-open.dqdrawer-top .dqdrawer-container {
+  top: 0;
+}
+
+.dqdrawer-open.dqdrawer-bottom .dqdrawer-container {
+  bottom: 0;
+}
+
+.dqdrawer-button {
+	border: 1px solid #ff4f00;
+	cursor: pointer;
+	transition: padding .1s linear;
+	font-weight: 500;
+	letter-spacing: 1px;
+	background-color: #ffad50;
+	margin: 0 2px;
+	padding: 2px 5px;
+}
+
+.dqdrawer-left .dqdrawer-button, .dqdrawer-right .dqdrawer-button {
+  writing-mode: sideways-lr;
+  margin: 5px 0;
+  padding: 5px 2px;
+}
+
+.dqdrawer-button-wrapper {
+  position: absolute;
+}
+
+.dqdrawer-left .dqdrawer-button-wrapper {
+  left: 400px;
+}
+
+.dqdrawer-left .dqdrawer-button {
+  border-left-width: 0;
+  border-radius: 0 10px 10px 0;
+}
+
+.dqdrawer-right .dqdrawer-button-wrapper {
+	right: 400px;
+}
+
+.dqdrawer-right .dqdrawer-button {
+	border-right-width: 0;
+	border-radius: 10px 0 0 10px;
+	float: right;
+	clear: right;
+}
+
+.dqdrawer-top .dqdrawer-button-wrapper {
+	top: 400px;
+}
+
+.dqdrawer-top .dqdrawer-button {
+	border-top-width: 0;
+	border-radius: 0 0 10px 10px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.dqdrawer-bottom .dqdrawer-button-wrapper {
+	bottom: 400px;
+}
+
+.dqdrawer-bottom .dqdrawer-button {
+	border-bottom-width: 0;
+	border-radius: 10px 10px 0 0;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+.dqdrawer-left .dqdrawer-button:hover {
+  padding-left: 10px;
+}
+
+.dqdrawer-right .dqdrawer-button:hover {
+  padding-right: 10px;
+}
+
+.dqdrawer-top .dqdrawer-button:hover {
+  padding-top: 10px;
+}
+
+.dqdrawer-bottom .dqdrawer-button:hover {
+  padding-bottom: 10px;
+}
+
+.dqdrawer-content {
+	display: none;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	bottom: 10px;
+	right: 10px;
+}
+
+.dqdrawer-in {
+  display: block;
+}
