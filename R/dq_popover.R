@@ -6,7 +6,7 @@ dq_pop <- function(x, title, content, trigger = NULL, direction = NULL, options 
   ))
   x <- do.call(shiny::tagAppendAttributes, arg_list)
   id <- x$attribs$id
-  if (is.null(id)) id <- paste0(sample(letters, 10), collapse = "")
+  if (is.null(id)) id <- paste0("pop-", random_id())
   shiny::tagList(
     x, tags$script(paste0("$('#", id, "').popover(", jsonlite::toJSON(
       options, auto_unbox = TRUE

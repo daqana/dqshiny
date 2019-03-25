@@ -65,13 +65,11 @@ dq_box <- function(
   collapsible = FALSE, collapsed = FALSE, open_callback = FALSE
 ) {
 
-  if (is.null(id)) {
-    id <- paste0(sample(letters, 5L), collapse = "")
-  }
+  if (is.null(id)) id <- paste0("box-", random_id())
 
   box_class <- "dq-box"
   box_on_click <- NULL
-  body_id <- paste0(sample(letters, 8L), collapse = "")
+  body_id <- paste0("body-", random_id())
   head_class <- "dq-box-header clearfix"
   box_styles <- ""
 
