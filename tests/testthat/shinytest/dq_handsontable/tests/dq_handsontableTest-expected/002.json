@@ -385,7 +385,7 @@
           },
           "meta": null,
           "script": "js/messageHandler.js",
-          "stylesheet": "css/dqshiny.css",
+          "stylesheet": "css/dqshiny.min.css",
           "head": null,
           "attachment": null,
           "package": null,
