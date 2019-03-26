@@ -7,6 +7,9 @@
 #' @param ... content elements, must be named since those will be used as button
 #' labels
 #' @param drawer_style,btn_style optional character specifying additional styles
+#' @param size optional size of the drawer (width or height depending on
+#' direction), can be any valid CSS unit (see
+#' \code{\link[shiny:validateCssUnit]{validateCssUnit}})
 #' @param direction optional, specifies the direction the drawer comes from, one
 #' of c("left", "right", "top", "bottom)
 #' @return drawer element tag
@@ -24,7 +27,7 @@
 #'       Config = div("Some inputs to configurate things ..."),
 #'       Red = div(style = "background: red;width: 100%;height: 100%;"),
 #'       "Green Color!" = div("RED!!!!", style = "background: green;"),
-#'       direction = "left"
+#'       direction = "left", size = 250
 #'     ),
 #'     fluidRow(column(3, "Current page:", textOutput("drawerVal"), offset = 5))
 #'   ),
@@ -35,7 +38,7 @@
 #'
 #' }
 dq_drawer <- function(
-  id = NULL, ..., drawer_style = NULL, btn_style = NULL,
+  id = NULL, ..., drawer_style = NULL, btn_style = NULL, size = NULL,
   direction = c("left", "right", "top", "bottom")
 ) {
   direction <- match.arg(direction)
@@ -50,6 +53,13 @@ dq_drawer <- function(
     "event.stopPropagation();"
   )
   c_ids <- structure(as_id(names(content), "dqdrawer"), names = names(content))
+  size <- tryCatch(shiny::validateCssUnit(size), error = function(e) NULL)
+  if (!is.null(size)) {
+    wh <- if (direction %in% c("left", "right")) "width:" else "height:"
+    drawer_style <- paste0(
+      wh, size, ";", direction, ":-", size, ";", drawer_style
+    )
+  }
   shiny::div(
     id = id,
     class = paste(ns("wrapper"), ns(direction)),

@@ -579,19 +579,19 @@ img.dq-icon-10x {
 }
 
 .dqdrawer-open.dqdrawer-left .dqdrawer-container {
-  left: 0;
+  left: 0 !important;
 }
 
 .dqdrawer-open.dqdrawer-right .dqdrawer-container {
-  right: 0;
+  right: 0 !important;
 }
 
 .dqdrawer-open.dqdrawer-top .dqdrawer-container {
-  top: 0;
+  top: 0 !important;
 }
 
 .dqdrawer-open.dqdrawer-bottom .dqdrawer-container {
-  bottom: 0;
+  bottom: 0 !important;
 }
 
 .dqdrawer-button {
@@ -616,7 +616,7 @@ img.dq-icon-10x {
 }
 
 .dqdrawer-left .dqdrawer-button-wrapper {
-  left: 400px;
+  left: 100%;
 }
 
 .dqdrawer-left .dqdrawer-button {
@@ -625,7 +625,7 @@ img.dq-icon-10x {
 }
 
 .dqdrawer-right .dqdrawer-button-wrapper {
-	right: 400px;
+	right: 100%;
 }
 
 .dqdrawer-right .dqdrawer-button {
@@ -636,7 +636,7 @@ img.dq-icon-10x {
 }
 
 .dqdrawer-top .dqdrawer-button-wrapper {
-	top: 400px;
+	top: 100%;
 }
 
 .dqdrawer-top .dqdrawer-button {
@@ -647,7 +647,7 @@ img.dq-icon-10x {
 }
 
 .dqdrawer-bottom .dqdrawer-button-wrapper {
-	bottom: 400px;
+	bottom: 100%;
 }
 
 .dqdrawer-bottom .dqdrawer-button {

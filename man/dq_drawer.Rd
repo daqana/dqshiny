@@ -5,7 +5,7 @@
 \title{Creates a drawer sidebar element}
 \usage{
 dq_drawer(id = NULL, ..., drawer_style = NULL, btn_style = NULL,
-  direction = c("left", "right", "top", "bottom"))
+  size = NULL, direction = c("left", "right", "top", "bottom"))
 }
 \arguments{
 \item{id}{optional element id, useful if current state is needed}
@@ -14,6 +14,10 @@ dq_drawer(id = NULL, ..., drawer_style = NULL, btn_style = NULL,
 labels}
 
 \item{drawer_style, btn_style}{optional character specifying additional styles}
+
+\item{size}{optional size of the drawer (width or height depending on
+direction), can be any valid CSS unit (see
+\code{\link[shiny:validateCssUnit]{validateCssUnit}})}
 
 \item{direction}{optional, specifies the direction the drawer comes from, one
 of c("left", "right", "top", "bottom)}
@@ -37,7 +41,7 @@ shinyApp(
       Config = div("Some inputs to configurate things ..."),
       Red = div(style = "background: red;width: 100\%;height: 100\%;"),
       "Green Color!" = div("RED!!!!", style = "background: green;"),
-      direction = "left"
+      direction = "left", size = 250
     ),
     fluidRow(column(3, "Current page:", textOutput("drawerVal"), offset = 5))
   ),
