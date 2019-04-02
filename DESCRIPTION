@@ -1,7 +1,7 @@
 Package: dqshiny
 Type: Package
 Title: Enhance Shiny Apps with Customizable Modules
-Version: 0.0.3
+Version: 0.0.3.9000
 Author: Richard Kunze, Mirjam Rehr
 Maintainer: Richard Kunze <richard.kunze@daqana.com>
 Description: Provides highly customizable modules to enhance your shiny apps.

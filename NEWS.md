@@ -4,6 +4,7 @@
 * Fix dqhot to correct filters before rendering.
 * Fix selectize editor copy&paste feature.
 * Add dq_drawer to easily build drawer elements.
+* Add dq_gallery to slide between contents.
 
 # dqshiny 0.0.3
 
