@@ -131,6 +131,45 @@ function dqUpdateBox(params) {
 }
 Shiny.addCustomMessageHandler("dqUpdateBox", dqUpdateBox);
 
+function dqUpdateDrawer(params) {
+  var $obj = dqGetElement(params.id);
+  if ($obj !== null) {
+    $obj.toggleClass('dqdrawer-open', !!params.open);
+    $obj.find('.dqdrawer-content').removeClass('dqdrawer-in');
+    if (params.open) $("#" + params.open).addClass('dqdrawer-in');
+    if (params.value) Shiny.setInputValue(params.id, params.value);
+  } else if (params.retry) {
+    params.retry = false;
+    setTimeout(function() {
+      dqUpdateDrawer(params);
+    }, 500);
+  }
+}
+Shiny.addCustomMessageHandler("dqUpdateDrawer", dqUpdateDrawer);
+
+function dqUpdateGallery(params) {
+  var $obj = dqGetElement(params.id);
+  if ($obj !== null) {
+    var $w = $obj.find('.dqgallery-wrapper'), r;
+    if (params.add) {
+      r = ($w.data('current') || 0) + params.add;
+      if (r >= $w.children().length) r = 0;
+      else if (r < 0) r = $w.children().length - 1;
+    } else {
+      r = params.set || 0;
+    }
+    $w.data('current', r);
+    $w.css('left', (r * -100) + '%');
+    Shiny.setInputValue(params.id, r + 1);
+  } else if (params.retry) {
+    params.retry = false;
+    setTimeout(function() {
+      dqUpdateGallery(params);
+    }, 500);
+  }
+}
+Shiny.addCustomMessageHandler("dqUpdateGallery", dqUpdateGallery);
+
 //######################## Helper ################################
 
 function dqGetElement(id) {

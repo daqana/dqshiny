@@ -24,15 +24,21 @@
 #'   ui = fluidPage(
 #'     dq_drawer(
 #'       id = "myDrawer",
-#'       Config = div("Some inputs to configurate things ..."),
+#'       Config = div(actionButton("hide", "Close drawer")),
 #'       Red = div(style = "background: red;width: 100%;height: 100%;"),
 #'       "Green Color!" = div("RED!!!!", style = "background: green;"),
 #'       direction = "left", size = 250
 #'     ),
-#'     fluidRow(column(3, "Current page:", textOutput("drawerVal"), offset = 5))
+#'     fluidRow(column(
+#'       3, offset = 5,
+#'       "Current page:", textOutput("drawerVal"),
+#'       actionButton("show", "Show Green")
+#'     ))
 #'   ),
 #'   server = function(input, output) {
 #'     output$drawerVal <- renderText(input$myDrawer)
+#'     observeEvent(input$show, update_dq_drawer("myDrawer", "Green Color!"))
+#'     observeEvent(input$hide, update_dq_drawer("myDrawer", NULL))
 #'   }
 #' )
 #'
@@ -46,12 +52,7 @@ dq_drawer <- function(
   if (!is.list(content) || !length(content) || is.null(names(content))) return()
   content <- content[nzchar(names(content))]
   ns <- shiny::NS("dqdrawer")
-  if (is.null(id)) id <- paste0("drawer-", random_id())
-  ev <- paste0(
-    "$('#", id, "').addClass('dqdrawer-open');",
-    "$('#", id, "').find('.dqdrawer-content').removeClass('dqdrawer-in');",
-    "event.stopPropagation();"
-  )
+  if (is.null(id)) id <- ns(random_id())
   c_ids <- structure(as_id(names(content), "dqdrawer"), names = names(content))
   size <- tryCatch(shiny::validateCssUnit(size), error = function(e) NULL)
   if (!is.null(size)) {
@@ -72,8 +73,8 @@ dq_drawer <- function(
         class = ns("button-wrapper"),
         lapply(names(content), function(n) {
           n_ev <- paste0(
-            ev, "$('#", c_ids[n], "').addClass('dqdrawer-in');",
-            "Shiny.setInputValue('", id, "', '", escape(n), "');"
+            "dqUpdateDrawer({id:'", id, "',open:'", c_ids[n], "',value:'",
+            escape(n), "'});event.stopPropagation();"
           )
           shiny::div(class = ns("button"), n, onclick = n_ev, style = btn_style)
         })
@@ -83,5 +84,16 @@ dq_drawer <- function(
       })
     ),
     init()
+  )
+}
+
+#' @param open name of the content element to show, NULL to close drawer
+#'
+#' @export
+#' @rdname dq_drawer
+update_dq_drawer <- function(id, open) {
+  send_message(
+    "dqUpdateDrawer", id, value = open,
+    open = if (is.null(open)) open else as_id(open, "dqdrawer")
   )
 }

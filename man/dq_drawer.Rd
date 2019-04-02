@@ -2,10 +2,13 @@
 % Please edit documentation in R/dq_drawer.R
 \name{dq_drawer}
 \alias{dq_drawer}
+\alias{update_dq_drawer}
 \title{Creates a drawer sidebar element}
 \usage{
 dq_drawer(id = NULL, ..., drawer_style = NULL, btn_style = NULL,
   size = NULL, direction = c("left", "right", "top", "bottom"))
+
+update_dq_drawer(id, open)
 }
 \arguments{
 \item{id}{optional element id, useful if current state is needed}
@@ -21,6 +24,8 @@ direction), can be any valid CSS unit (see
 
 \item{direction}{optional, specifies the direction the drawer comes from, one
 of c("left", "right", "top", "bottom)}
+
+\item{open}{name of the content element to show, NULL to close drawer}
 }
 \value{
 drawer element tag
@@ -38,15 +43,21 @@ shinyApp(
   ui = fluidPage(
     dq_drawer(
       id = "myDrawer",
-      Config = div("Some inputs to configurate things ..."),
+      Config = div(actionButton("hide", "Close drawer")),
       Red = div(style = "background: red;width: 100\%;height: 100\%;"),
       "Green Color!" = div("RED!!!!", style = "background: green;"),
       direction = "left", size = 250
     ),
-    fluidRow(column(3, "Current page:", textOutput("drawerVal"), offset = 5))
+    fluidRow(column(
+      3, offset = 5,
+      "Current page:", textOutput("drawerVal"),
+      actionButton("show", "Show Green")
+    ))
   ),
   server = function(input, output) {
     output$drawerVal <- renderText(input$myDrawer)
+    observeEvent(input$show, update_dq_drawer("myDrawer", "Green Color!"))
+    observeEvent(input$hide, update_dq_drawer("myDrawer", NULL))
   }
 )
 
