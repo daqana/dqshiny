@@ -1,0 +1,148 @@
+{
+  "input": {
+    "myGallery": 4,
+    "prev": 1,
+    "show3": 0
+  },
+  "output": {
+    "plot1": {
+      "src": "[image data sha1: afcc0bef056bc334e404b71153740ebb2b3949e8]",
+      "width": 446,
+      "height": 400,
+      "coordmap": {
+        "panels": [
+          {
+            "domain": {
+              "left": 9.46,
+              "right": 34.84,
+              "bottom": 3.84,
+              "top": 8.16
+            },
+            "range": {
+              "left": 59.04,
+              "right": 415.76,
+              "bottom": 325.56,
+              "top": 58.04
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "mapping": {
+
+            }
+          }
+        ],
+        "dims": {
+          "width": 446,
+          "height": 400
+        }
+      }
+    },
+    "plot2": {
+      "src": "[image data sha1: 9542a078b479b257dadb59c361723f0aa6d76767]",
+      "width": 446,
+      "height": 400,
+      "coordmap": {
+        "panels": [
+          {
+            "domain": {
+              "left": 55.064,
+              "right": 488.036,
+              "bottom": 40.68,
+              "top": 346.32
+            },
+            "range": {
+              "left": 59.04,
+              "right": 415.76,
+              "bottom": 325.56,
+              "top": 58.04
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "mapping": {
+
+            }
+          }
+        ],
+        "dims": {
+          "width": 446,
+          "height": 400
+        }
+      }
+    },
+    "plot3": {
+      "src": "[image data sha1: e2764ef8f1b583425896f78a3ec2726004dc7fbc]",
+      "width": 446,
+      "height": 400,
+      "coordmap": {
+        "panels": [
+          {
+            "domain": {
+              "left": 2.6732,
+              "right": 5.0168,
+              "bottom": 1.35656,
+              "top": 5.58044
+            },
+            "range": {
+              "left": 59.04,
+              "right": 415.76,
+              "bottom": 325.56,
+              "top": 58.04
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "mapping": {
+
+            }
+          }
+        ],
+        "dims": {
+          "width": 446,
+          "height": 400
+        }
+      }
+    },
+    "plot4": {
+      "src": "[image data sha1: f344af44c117e6eb24200d6f7b30789890b8af97]",
+      "width": 446,
+      "height": 400,
+      "coordmap": {
+        "panels": [
+          {
+            "domain": {
+              "left": 14.164,
+              "right": 23.236,
+              "bottom": -0.04,
+              "top": 1.04
+            },
+            "range": {
+              "left": 59.04,
+              "right": 415.76,
+              "bottom": 325.56,
+              "top": 58.04
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "mapping": {
+
+            }
+          }
+        ],
+        "dims": {
+          "width": 446,
+          "height": 400
+        }
+      }
+    }
+  },
+  "export": {
+
+  }
+}

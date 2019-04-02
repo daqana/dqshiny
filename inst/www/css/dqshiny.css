@@ -685,3 +685,60 @@ img.dq-icon-10x {
 .dqdrawer-in {
   display: block;
 }
+
+/* ############## dqgallery ################## */
+
+.dqgallery-arrow {
+  position: absolute;
+  top: 50%;
+  margin-top: -20px;
+  height: 40px;
+  width: 15px;
+	opacity: .5;
+  z-index: 1;
+  transition: opacity .3s linear;
+	background-size: 200%;
+  cursor: pointer;
+  background-image: -webkit-linear-gradient(30deg, transparent 47%, #000 50%, transparent 53%),
+                    -webkit-linear-gradient(-30deg, transparent 47%, #000 50%, transparent 53%);
+	background-image: -moz-linear-gradient(60deg, transparent 47%, #000 50%, transparent 53%),
+	                  -moz-linear-gradient(120deg, transparent 47%, #000 50%, transparent 53%);
+	background-image: linear-gradient(60deg, transparent 47%, #000 50%, transparent 53%),
+	                  linear-gradient(120deg, transparent 47%, #000 50%, transparent 53%);
+}
+
+.dqgallery-arrow:hover {
+	opacity: 1;
+}
+
+.dqgallery-prev {
+  left: 0;
+  background-position: -100% 50%;
+}
+
+.dqgallery-next {
+  right: 0;
+}
+
+.dqgallery {
+	position: relative;
+	width: 100%;
+	display: block;
+	overflow: hidden;
+}
+
+.dqgallery-wrapper {
+	white-space: nowrap;
+	position: relative;
+  transition: left .3s ease-out;
+}
+
+.dqgallery-scrollable {
+	overflow-x: auto;
+}
+
+.dqgallery-content {
+	display: inline-block;
+	padding: 10px;
+	width: 100%;
+}
