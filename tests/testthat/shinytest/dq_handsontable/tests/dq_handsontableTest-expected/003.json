@@ -277,7 +277,7 @@
             "href": "dqshinyRes"
           },
           "meta": null,
-          "script": "js/messageHandler.js",
+          "script": "js/dqshiny.min.js",
           "stylesheet": "css/dqshiny.min.css",
           "head": null,
           "attachment": null,
