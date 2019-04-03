@@ -6,9 +6,12 @@
 #' @param id optional element id, useful if current state is needed
 #' @param ... content elements, must be named since those will be used as button
 #' labels
-#' @param scrollable optional logical to specify if the gallery can be moved
-#' with a scrollbar
 #' @param style,content_style optional character specifying additional styles
+#' @param arrows optional list of arrows to use, by default defined as list(
+#' dq_icon("chevron-left"), dq_icon("chevron-right")), can be a list of other
+#' icons or freely designed html elements
+#' @param scrollable optional logical to specify if the gallery can be moved
+#' with a scrollbar (this option will hide arrows)
 #' @return gallery element tag
 #'
 #' @author richard.kunze
@@ -20,12 +23,12 @@
 #' shinyApp(
 #'   ui = fluidPage(
 #'     fluidRow(
-#'       column(6, dq_gallery(
-#'         id = "myGallery",
-#'         tags$div(class = "content", plotOutput("plot1")),
-#'         tags$div(class = "content", plotOutput("plot2")),
-#'         tags$div(class = "content", plotOutput("plot3")),
-#'         tags$div(class = "content", plotOutput("plot4"))
+#'       column(6, dq_gallery(id = "myGallery",
+#'         plotOutput("plot1"), plotOutput("plot2"),
+#'         plotOutput("plot3"), plotOutput("plot4"),
+#'         content_style = "padding: 10px 30px;", arrows = list(
+#'           dq_icon("chevron-circle-left"), dq_icon("chevron-circle-right")
+#'         )
 #'       )),
 #'       column(6,
 #'         actionButton("show3", "Show plot 3"),
@@ -48,26 +51,41 @@
 #'
 #' }
 dq_gallery <- function(
-  id = NULL, ..., scrollable = FALSE, style = NULL, content_style = NULL
+  id = NULL, ..., style = NULL, content_style = NULL, arrows = NULL,
+  scrollable = FALSE
 ) {
   ns <- shiny::NS("dqgallery")
   if (is.null(id)) id <- ns(random_id())
+  if (isTRUE(scrollable)) arrows <- NULL
+  else arrows <- dq_gallery_arrows(arrows, ns, id)
   div(
     id = id, style = style,
     class = paste(ns(NULL), if (isTRUE(scrollable)) ns("scrollable")),
-    if (!isTRUE(scrollable)) tags$span(
-      class = paste(ns("arrow"), ns("prev")),
-      onclick = paste0("dqUpdateGallery({id:'", id, "', add:", -1L, "})")
-    ),
+    arrows[[1L]],
     div(
       class = ns("wrapper"),
       lapply(list(...), div, class = ns("content"), style = content_style)
     ),
-    if (!isTRUE(scrollable)) tags$span(
+    arrows[[2L]],
+    init()
+  )
+}
+
+dq_gallery_arrows <- function(arrows, ns, id) {
+  if (is.null(arrows)) arrows <- list(
+    dq_icon("chevron-left"), dq_icon("chevron-right")
+  )
+  list(
+    shiny::tagAppendAttributes(
+      arrows[[1L]],
+      class = paste(ns("arrow"), ns("prev")),
+      onclick = paste0("dqUpdateGallery({id:'", id, "', add:", -1L, "})")
+    ),
+    shiny::tagAppendAttributes(
+      arrows[[2L]],
       class = paste(ns("arrow"), ns("next")),
       onclick = paste0("dqUpdateGallery({id:'", id, "', add:", 1L, "})")
-    ),
-    init()
+    )
   )
 }
 

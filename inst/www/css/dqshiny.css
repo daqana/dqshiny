@@ -691,20 +691,12 @@ img.dq-icon-10x {
 .dqgallery-arrow {
   position: absolute;
   top: 50%;
-  margin-top: -20px;
-  height: 40px;
-  width: 15px;
+  margin-top: -17px;
+  font-size: 35px;
 	opacity: .5;
   z-index: 1;
   transition: opacity .3s linear;
-	background-size: 200%;
   cursor: pointer;
-  background-image: -webkit-linear-gradient(30deg, transparent 47%, #000 50%, transparent 53%),
-                    -webkit-linear-gradient(-30deg, transparent 47%, #000 50%, transparent 53%);
-	background-image: -moz-linear-gradient(60deg, transparent 47%, #000 50%, transparent 53%),
-	                  -moz-linear-gradient(120deg, transparent 47%, #000 50%, transparent 53%);
-	background-image: linear-gradient(60deg, transparent 47%, #000 50%, transparent 53%),
-	                  linear-gradient(120deg, transparent 47%, #000 50%, transparent 53%);
 }
 
 .dqgallery-arrow:hover {
@@ -713,7 +705,6 @@ img.dq-icon-10x {
 
 .dqgallery-prev {
   left: 0;
-  background-position: -100% 50%;
 }
 
 .dqgallery-next {
@@ -730,6 +721,7 @@ img.dq-icon-10x {
 .dqgallery-wrapper {
 	white-space: nowrap;
 	position: relative;
+	left: 0;
   transition: left .3s ease-out;
 }
 

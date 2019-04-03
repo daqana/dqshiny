@@ -5,8 +5,8 @@
 \alias{update_dq_gallery}
 \title{Creates a content gallery element}
 \usage{
-dq_gallery(id = NULL, ..., scrollable = FALSE, style = NULL,
-  content_style = NULL)
+dq_gallery(id = NULL, ..., style = NULL, content_style = NULL,
+  arrows = NULL, scrollable = FALSE)
 
 update_dq_gallery(id, set = NULL, add = NULL)
 }
@@ -16,10 +16,14 @@ update_dq_gallery(id, set = NULL, add = NULL)
 \item{...}{content elements, must be named since those will be used as button
 labels}
 
-\item{scrollable}{optional logical to specify if the gallery can be moved
-with a scrollbar}
-
 \item{style, content_style}{optional character specifying additional styles}
+
+\item{arrows}{optional list of arrows to use, by default defined as list(
+dq_icon("chevron-left"), dq_icon("chevron-right")), can be a list of other
+icons or freely designed html elements}
+
+\item{scrollable}{optional logical to specify if the gallery can be moved
+with a scrollbar (this option will hide arrows)}
 
 \item{set}{index of the content element to show}
 
@@ -40,12 +44,12 @@ library(shiny)
 shinyApp(
   ui = fluidPage(
     fluidRow(
-      column(6, dq_gallery(
-        id = "myGallery",
-        tags$div(class = "content", plotOutput("plot1")),
-        tags$div(class = "content", plotOutput("plot2")),
-        tags$div(class = "content", plotOutput("plot3")),
-        tags$div(class = "content", plotOutput("plot4"))
+      column(6, dq_gallery(id = "myGallery",
+        plotOutput("plot1"), plotOutput("plot2"),
+        plotOutput("plot3"), plotOutput("plot4"),
+        content_style = "padding: 10px 30px;", arrows = list(
+          dq_icon("chevron-circle-left"), dq_icon("chevron-circle-right")
+        )
       )),
       column(6,
         actionButton("show3", "Show plot 3"),
