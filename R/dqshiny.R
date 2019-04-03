@@ -22,7 +22,7 @@ NULL
 
 dq_dep <- htmltools::htmlDependency(
   "dqshiny", "0.0.1", c(href = "dqshinyRes"),
-  script = "js/messageHandler.js",
+  script = "js/dqshiny.min.js",
   stylesheet = "css/dqshiny.min.css"
 )
 
