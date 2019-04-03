@@ -718,6 +718,11 @@ img.dq-icon-10x {
 	overflow: hidden;
 }
 
+.dqgallery-content > h3 {
+	margin-top: 0;
+	text-align: center;
+}
+
 .dqgallery-wrapper {
 	white-space: nowrap;
 	position: relative;

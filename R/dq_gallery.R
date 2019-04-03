@@ -4,8 +4,7 @@
 #' several content elements.
 #'
 #' @param id optional element id, useful if current state is needed
-#' @param ... content elements, must be named since those will be used as button
-#' labels
+#' @param ... content elements to show, names can be used to show titles
 #' @param style,content_style optional character specifying additional styles
 #' @param arrows optional list of arrows to use, by default defined as list(
 #' dq_icon("chevron-left"), dq_icon("chevron-right")), can be a list of other
@@ -24,7 +23,7 @@
 #'   ui = fluidPage(
 #'     fluidRow(
 #'       column(6, dq_gallery(id = "myGallery",
-#'         plotOutput("plot1"), plotOutput("plot2"),
+#'         Plot1 = plotOutput("plot1"), Plot2 = plotOutput("plot2"),
 #'         plotOutput("plot3"), plotOutput("plot4"),
 #'         content_style = "padding: 10px 30px;", arrows = list(
 #'           dq_icon("chevron-circle-left"), dq_icon("chevron-circle-right")
@@ -58,13 +57,20 @@ dq_gallery <- function(
   if (is.null(id)) id <- ns(random_id())
   if (isTRUE(scrollable)) arrows <- NULL
   else arrows <- dq_gallery_arrows(arrows, ns, id)
+  content <- list(...)
+  titles <- names(content)
   div(
     id = id, style = style,
     class = paste(ns(NULL), if (isTRUE(scrollable)) ns("scrollable")),
     arrows[[1L]],
     div(
       class = ns("wrapper"),
-      lapply(list(...), div, class = ns("content"), style = content_style)
+      lapply(seq(content), function(i) {
+        div(
+          if (!is.null(titles)) h3(titles[i]), content[[i]],
+          class = ns("content"), style = content_style
+        )
+      })
     ),
     arrows[[2L]],
     init()
@@ -75,18 +81,15 @@ dq_gallery_arrows <- function(arrows, ns, id) {
   if (is.null(arrows)) arrows <- list(
     dq_icon("chevron-left"), dq_icon("chevron-right")
   )
-  list(
+  dirs <- c("prev", "next")
+  adds <- c(-1L, 1L)
+  lapply(seq(arrows), function(i) {
     shiny::tagAppendAttributes(
-      arrows[[1L]],
-      class = paste(ns("arrow"), ns("prev")),
-      onclick = paste0("dqUpdateGallery({id:'", id, "', add:", -1L, "})")
-    ),
-    shiny::tagAppendAttributes(
-      arrows[[2L]],
-      class = paste(ns("arrow"), ns("next")),
-      onclick = paste0("dqUpdateGallery({id:'", id, "', add:", 1L, "})")
+      arrows[[i]],
+      class = paste(ns("arrow"), ns(dirs[i])),
+      onclick = paste0("dqUpdateGallery({id:'", id, "', add:", adds[i], "})")
     )
-  )
+  })
 }
 
 #' @param set index of the content element to show

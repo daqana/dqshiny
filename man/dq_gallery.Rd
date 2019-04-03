@@ -13,8 +13,7 @@ update_dq_gallery(id, set = NULL, add = NULL)
 \arguments{
 \item{id}{optional element id, useful if current state is needed}
 
-\item{...}{content elements, must be named since those will be used as button
-labels}
+\item{...}{content elements to show, names can be used to show titles}
 
 \item{style, content_style}{optional character specifying additional styles}
 
@@ -45,7 +44,7 @@ shinyApp(
   ui = fluidPage(
     fluidRow(
       column(6, dq_gallery(id = "myGallery",
-        plotOutput("plot1"), plotOutput("plot2"),
+        Plot1 = plotOutput("plot1"), Plot2 = plotOutput("plot2"),
         plotOutput("plot3"), plotOutput("plot4"),
         content_style = "padding: 10px 30px;", arrows = list(
           dq_icon("chevron-circle-left"), dq_icon("chevron-circle-right")
