@@ -62,14 +62,18 @@ remove_class <- function(ids, class_name) {
   )
 }
 
-#' @param condition Condition to use for toggling the class.
+#' @param condition Condition to use for toggling the class, can be of length
+#' one or length of ids.
 #' @export
 #' @rdname add_class
 toggle_class <- function(ids, class_name, condition = NULL) {
-  send_message(
-    type = "dqToggleClass",
-    ids = unname(ids),
-    className = class_name,
-    state = condition
-  )
+  if (length(condition) > 0L) condition <- rep_len(condition, length(ids))
+  lapply(seq_along(ids), function(i) {
+    send_message(
+      type = "dqToggleClass",
+      ids = unname(ids[i]),
+      className = class_name,
+      state = condition[i]
+    )
+  })
 }

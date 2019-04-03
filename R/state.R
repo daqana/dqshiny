@@ -54,9 +54,14 @@ disable <- function(ids) {
 }
 
 #' @param condition Condition to be used for toggling the state (TRUE =
-#' disabled).
+#' disabled), can be of length one or length of ids.
 #' @export
 #' @rdname enable
 toggle_state <- function(ids, condition = NULL) {
-  send_message(type = "dqToggleState", ids = ids, state = condition)
+  if (length(condition) > 0L) condition <- rep_len(condition, length(ids))
+  lapply(seq_along(ids), function(i) send_message(
+    type = "dqToggleState",
+    ids = unname(ids[i]),
+    state = condition[i]
+  ))
 }

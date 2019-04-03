@@ -54,12 +54,12 @@ show <- function(ids) {
 }
 
 #' @param condition Condition to be used for toggling the visibility (TRUE =
-#' visible).
+#' visible), can be of length one or length of ids.
 #' @export
 #' @rdname hide
 toggle <- function(ids, condition = NULL) {
-  if (!is.null(condition)) {
-    condition <- !condition
-  }
-  toggle_class(ids, "hidden", condition)
+  if (length(condition) > 0L) condition <- rep_len(!condition, length(ids))
+  lapply(seq_along(ids), function(i) toggle_class(
+    ids[i], "hidden", condition[i]
+  ))
 }

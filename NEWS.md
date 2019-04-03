@@ -5,6 +5,7 @@
 * Fix selectize editor copy&paste feature.
 * Add dq_drawer to easily build drawer elements.
 * Add dq_gallery to slide between contents.
+* Support vectorized conditions in toggle functions.
 
 # dqshiny 0.0.3
 

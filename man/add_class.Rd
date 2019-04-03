@@ -17,7 +17,8 @@ toggle_class(ids, class_name, condition = NULL)
 
 \item{class_name}{Name of the class to add/remove/toggle.}
 
-\item{condition}{Condition to use for toggling the class.}
+\item{condition}{Condition to use for toggling the class, can be of length
+one or length of ids.}
 }
 \description{
 Those functions can be used to change an elements classes.
