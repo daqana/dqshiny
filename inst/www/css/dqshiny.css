@@ -676,10 +676,12 @@ img.dq-icon-10x {
 .dqdrawer-content {
 	display: none;
 	position: absolute;
-	top: 10px;
-	left: 10px;
-	bottom: 10px;
-	right: 10px;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	padding: 10px;
+	overflow: auto;
 }
 
 .dqdrawer-in {
