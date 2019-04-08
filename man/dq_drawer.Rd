@@ -14,7 +14,7 @@ update_dq_drawer(id, open)
 \item{id}{optional element id, useful if current state is needed}
 
 \item{...}{content elements, must be named since those will be used as button
-labels}
+labels, can also be a named list}
 
 \item{drawer_style, btn_style}{optional character specifying additional styles}
 

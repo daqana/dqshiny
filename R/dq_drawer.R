@@ -5,7 +5,7 @@
 #'
 #' @param id optional element id, useful if current state is needed
 #' @param ... content elements, must be named since those will be used as button
-#' labels
+#' labels, can also be a named list
 #' @param drawer_style,btn_style optional character specifying additional styles
 #' @param size optional size of the drawer (width or height depending on
 #' direction), can be any valid CSS unit (see
@@ -49,7 +49,11 @@ dq_drawer <- function(
 ) {
   direction <- match.arg(direction)
   content <- list(...)
-  if (!is.list(content) || !length(content) || is.null(names(content))) return()
+  if (!length(content)) return()
+  if (!is.list(content) || is.null(names(content))) {
+    content <- content[[1L]]
+    if (!is.list(content) || is.null(names(content))) return()
+  }
   content <- content[nzchar(names(content))]
   ns <- shiny::NS("dqdrawer")
   if (is.null(id)) id <- ns(random_id())

@@ -15,6 +15,7 @@ test_that("dq_drawer works with any combination of names", {
   expect_true(grepl("dqdrawer-c", toString(dq_drawer("id", c = list("content")))))
   expect_true(grepl("dqdrawer-c", toString(dq_drawer("id", c = "content", "content2"))))
   expect_true(grepl("dqdrawer-c", toString(dq_drawer("id", "content", c = "content2"))))
+  expect_true(grepl("dqdrawer-c", toString(dq_drawer("id", list("content" = "content2")))))
 })
 
 context("dq_drawer shinytest")
