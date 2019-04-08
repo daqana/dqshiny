@@ -5,6 +5,8 @@
 #'
 #' @param icon name of the icon to show
 #' @param lib library used, needed to append the proper dependency
+#' @param fa_style fontawesome icon style to use, one of c("fas", "far", "fal")
+#' for "solid", "regular" or "light" (PRO only)
 #' @param color icon color, can be any valid CSS color code
 #' @param bg_color icon background color, can be any valid CSS color code
 #' @param size character specifying the size of the icon, can be one of "xs",
@@ -31,29 +33,31 @@
 #'
 #' }
 dq_icon <- function(
-  icon, lib = "font-awesome",
+  icon, lib = "font-awesome", fa_style = c("fas", "far", "fal"),
   color = "#ff8f00", bg_color = NULL, size = NULL, ...
 ) {
   if (length(size) > 0 && !(size %in% c("xs", "sm", "lg", paste0(2:10, "x")))) {
     size <- NULL
   }
-  style <- paste0("color:", color, ";background-color:", bg_color, ";")
+  fa_style <- match.arg(fa_style)
+  i_style <- paste0("color:", color, ";background-color:", bg_color, ";")
   dep <- init()
-  if (length(icon) > 0 && endsWith(icon, ".svg")) {
-    class <- paste0("dq-icon", if (length(size) > 0) paste0(" dq-icon-", size))
-    el <- shiny::tags$img(src = icon, class = class, style = style, ...)
+  if (length(icon) && endsWith(icon, ".svg")) {
+    class <- paste0("dq-icon", if (length(size)) paste0(" dq-icon-", size))
+    el <- shiny::tags$img(src = icon, class = class, style = i_style, ...)
   } else {
-    dep <- NULL
-    pre <- "glyphicon"
-    sPre <- "dq-icon"
+    dep <- i_c <- NULL
     if (lib == "font-awesome") {
-      pre <- sPre <- "fa"
+      i_c <- paste0(fa_style, " fa-", icon)
+      if (length(size)) i_c <- paste0(i_c, " fa-", size)
       dep <- append(dep, fontawesome_dep)
-    } else if (lib != "glyphicon") {
+    } else if (lib == "glyphicon") {
+      i_c <- paste0("glyphicon glyphicon-", icon)
+      if (length(size)) i_c <- paste0(i_c, " dq-icon-", size)
+    } else {
       warning(paste("Unknown library", lib, "for dq_icon specified!"))
     }
-    class <- paste0(pre, " ", pre, "-", icon, if (length(size) > 0) paste0(" ", sPre, "-", size))
-    el <- shiny::tags$i(class = class, style = style, ...)
+    el <- shiny::tags$i(class = i_c, style = i_style, ...)
   }
   htmltools::attachDependencies(el, dep)
 }

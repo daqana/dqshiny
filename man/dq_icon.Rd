@@ -4,13 +4,16 @@
 \alias{dq_icon}
 \title{Creates an icon element}
 \usage{
-dq_icon(icon, lib = "font-awesome", color = "#ff8f00",
-  bg_color = NULL, size = NULL, ...)
+dq_icon(icon, lib = "font-awesome", fa_style = c("fas", "far", "fal"),
+  color = "#ff8f00", bg_color = NULL, size = NULL, ...)
 }
 \arguments{
 \item{icon}{name of the icon to show}
 
 \item{lib}{library used, needed to append the proper dependency}
+
+\item{fa_style}{fontawesome icon style to use, one of c("fas", "far", "fal")
+for "solid", "regular" or "light" (PRO only)}
 
 \item{color}{icon color, can be any valid CSS color code}
 
