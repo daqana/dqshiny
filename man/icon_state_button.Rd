@@ -39,19 +39,21 @@ on the client side.
 if (interactive()) {
 
 library(shiny)
-hands <- paste0("hand-o-", c("up", "right", "down", "left"))
+hands <- paste0("hand-point-", c("up", "right", "down", "left"))
 shinyApp(
   ui = fluidPage(
     fluidRow(column(12,
       icon_state_button("sort", c("sort", "sort-up", "sort-down")),
       icon_state_button("hands", hands, 1),
-      icon_state_button("mood", c("smile-o", "meh-o", "frown-o"), "smile-o"),
+      icon_state_button("mood", c("smile", "meh", "frown"), "smile"),
       br(), actionButton("makeStars", "I like stars")
     ))
   ),
   server = function(input, output, session) {
     observeEvent(input$makeStars, update_icon_state_button(
-      session, "mood", c("star", "star-half-o", "star-o"), "star"
+      session, "mood", list(star = dq_icon("star"), dq_icon("star-half"),
+        dq_icon("star-half", style = "far"), dq_icon("star", style = "far")
+      ), value = "star"
     ))
   }
 )

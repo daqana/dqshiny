@@ -14,6 +14,11 @@ test_that("all parameters work", {
   expect_true(grepl("style=\"col", icon_state_button("id", hands, style = "color:red;")))
 })
 
+test_that("list of dq_icons also work", {
+  icons <- list(dq_icon("star", fa_style = "far"), dq_icon("star"))
+  expect_true(grepl("far fa-star", icon_state_button("id", icons)))
+})
+
 context("icon_state_button / update_icon_state_button")
 
 test_that("function works like shiny functions", {

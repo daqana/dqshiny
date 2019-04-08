@@ -17,7 +17,7 @@ $.extend(stateButtonBinding, {
   },
 
   setValue: function(el, value) {
-    $(el).find("i")[0].className = "fa fa-" + $(el).data("states")[value];
+    el.innerHTML = $(el).data("states")[value];
   },
 
   subscribe: function(el, callback) {
