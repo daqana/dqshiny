@@ -60,7 +60,7 @@ jqueryui_dep <- htmltools::htmlDependency(
 )
 
 not_null <- function(vec) {
-  vec[!vapply(vec, is.null, TRUE)]
+  vec[vapply(vec, length, 0L) > 0L]
 }
 
 create_test_session <- function(id, input, output) {
