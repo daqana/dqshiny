@@ -6,6 +6,7 @@
 * Add dq_drawer to easily build drawer elements.
 * Add dq_gallery to slide between contents.
 * Support vectorized conditions in toggle functions.
+* Fix filtering after table data update.
 
 # dqshiny 0.0.3
 

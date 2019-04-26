@@ -2,14 +2,14 @@ app <- ShinyDriver$new("../", cleanLogs = FALSE)
 app$snapshotInit("dq_handsontableTest")
 
 app$snapshot(screenshot = FALSE)
-app$setInputs("randomTable-filter-B" = "f")
-app$setInputs("randomTable-pageSize" = "5")
+app$setInputs("randomTable-filter-B" = "f",
+              "randomTable-pageSize" = "5")
 app$snapshot(screenshot = FALSE)
 app$setInputs("randomTable-filter-D" = "564")
 app$snapshot(screenshot = FALSE)
-app$setInputs("randomTable-filter-B" = "")
-app$setInputs("randomTable-filter-D" = "")
-app$setInputs("randomTable-pageSize" = "25")
-app$setInputs("randomTable-pageNum" = 3)
-app$setInputs("randomTable-filter-A" = "world!")
+app$setInputs("randomTable-filter-B" = "",
+              "randomTable-filter-D" = "",
+              "randomTable-pageSize" = "25",
+              "randomTable-pageNum" = 3,
+              "randomTable-filter-A" = "world!")
 app$snapshot(screenshot = FALSE)

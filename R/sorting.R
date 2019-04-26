@@ -1,7 +1,7 @@
 #' @author richard.kunze
-add_sorting_observer <- function(input, session, dqv, page_size, page_id) {
+add_sorting_observer <- function(input, session, dqv, page_size, col_names) {
   dirs <- c("", "up", "down")
-  sorts <- paste("sort", shiny::isolate(names(dqv$reduced)), sep = shiny::ns.sep)
+  sorts <- paste("sort", col_names, sep = shiny::ns.sep)
   ignore <- structure(rep(TRUE, length(sorts)), names = sorts)
   lapply(seq(sorts), function(i) {
     s <- sorts[i]
@@ -17,19 +17,12 @@ add_sorting_observer <- function(input, session, dqv, page_size, page_id) {
   shiny::observeEvent(dqv$sorting, {
     s <- sorts[dqv$sorting$col]
     if (length(s) == 1L && !is.na(s)) {
-      dqv$reduced <- sort_data(dqv$reduced, dqv$sorting)
       lapply(sorts[sorts != s], function(n) {
         if (length(input[[n]]) == 1L && input[[n]] != 1L) {
           ignore[n] <<- TRUE
           update_icon_state_button(session, n, value = 1L)
         }
       })
-    }
-    if (length(page_size) > 0L && page_size > 0L) {
-      size <- as.integer(input$pageSize)
-      if (length(size) == 0L) size <- page_size
-      num <- input$pageNum
-      dqv[[page_id]] <- update_page(dqv$reduced, num, size, session)
     }
   }, ignoreInit = TRUE)
   sorts
