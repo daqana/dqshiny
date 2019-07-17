@@ -5,7 +5,7 @@
   },
   "output": {
     "plot1": {
-      "src": "[image data sha1: afcc0bef056bc334e404b71153740ebb2b3949e8]",
+      "src": "[image data sha1: d7f13844723e8cbe8770e73bc89b0d90ff8b1d2c]",
       "width": 446,
       "height": 400,
       "coordmap": {
@@ -18,10 +18,10 @@
               "top": 8.16
             },
             "range": {
-              "left": 59.04,
-              "right": 415.76,
-              "bottom": 325.56,
-              "top": 58.04
+              "left": 59.0400132376711,
+              "right": 415.759993219729,
+              "bottom": 325.559981639995,
+              "top": 58.0400147600037
             },
             "log": {
               "x": null,
@@ -39,7 +39,7 @@
       }
     },
     "plot2": {
-      "src": "[image data sha1: 9542a078b479b257dadb59c361723f0aa6d76767]",
+      "src": "[image data sha1: 015713a80a1a1b6e1fcdafed0dcf08bcb765b443]",
       "width": 446,
       "height": 400,
       "coordmap": {
@@ -52,10 +52,10 @@
               "top": 346.32
             },
             "range": {
-              "left": 59.04,
-              "right": 415.76,
-              "bottom": 325.56,
-              "top": 58.04
+              "left": 59.0400132376711,
+              "right": 415.759993219729,
+              "bottom": 325.559981639995,
+              "top": 58.0400147600037
             },
             "log": {
               "x": null,
@@ -73,7 +73,7 @@
       }
     },
     "plot3": {
-      "src": "[image data sha1: e2764ef8f1b583425896f78a3ec2726004dc7fbc]",
+      "src": "[image data sha1: 7687f8a48cc7c7ea8e5d1f936eae5773ef5684f6]",
       "width": 446,
       "height": 400,
       "coordmap": {
@@ -86,10 +86,10 @@
               "top": 5.58044
             },
             "range": {
-              "left": 59.04,
-              "right": 415.76,
-              "bottom": 325.56,
-              "top": 58.04
+              "left": 59.0400132376711,
+              "right": 415.759993219729,
+              "bottom": 325.559981639995,
+              "top": 58.0400147600037
             },
             "log": {
               "x": null,
@@ -107,7 +107,7 @@
       }
     },
     "plot4": {
-      "src": "[image data sha1: f344af44c117e6eb24200d6f7b30789890b8af97]",
+      "src": "[image data sha1: 3422aafba93c2740429c1661a130b2ef0efc5068]",
       "width": 446,
       "height": 400,
       "coordmap": {
@@ -120,10 +120,10 @@
               "top": 1.04
             },
             "range": {
-              "left": 59.04,
-              "right": 415.76,
-              "bottom": 325.56,
-              "top": 58.04
+              "left": 59.0400132376711,
+              "right": 415.759993219729,
+              "bottom": 325.559981639995,
+              "top": 58.0400147600037
             },
             "log": {
               "x": null,

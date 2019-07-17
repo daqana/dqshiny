@@ -1,6 +1,7 @@
 app <- ShinyDriver$new("../", cleanLogs = FALSE)
 app$snapshotInit("dq_handsontableTest")
 
+app$waitFor("FALSE", timeout = 300)
 app$snapshot(screenshot = FALSE)
 app$setInputs("randomTable-filter-B" = "f",
               "randomTable-pageSize" = "5")
