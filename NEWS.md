@@ -7,6 +7,7 @@
 * Add dq_gallery to slide between contents.
 * Support vectorized conditions in toggle functions.
 * Fix filtering after table data update.
+* Fix autocomplete update issue #3
 
 # dqshiny 0.0.3
 
