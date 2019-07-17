@@ -59,7 +59,7 @@ $.extend(autocompleteBinding, {
 
   // Receive messages from the server.
   receiveMessage: function (el, data) {
-    if (data.hasOwnProperty("value")) el.value = data.value;
+    if (data.hasOwnProperty("value")) this.setValue(el, data.value);
 
     if (data.hasOwnProperty("label"))
       $(el).parent().find('label[for="' + el.id + '"]').text(data.label);
