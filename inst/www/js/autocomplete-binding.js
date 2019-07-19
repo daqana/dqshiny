@@ -23,8 +23,7 @@ $.extend(autocompleteBinding, {
     var arr = $(el).data("options"),
       keys = Object.keys(arr),
       labeled = !arr.length,
-      upd = $(el).data("update");
-      console.log(upd);
+      upd = $(el).data("create");
     if (upd || (!labeled && arr.indexOf(value) > -1)) {
       $(el).attr("result", value);
       el.value = value;
@@ -70,7 +69,7 @@ $.extend(autocompleteBinding, {
     if (data.hasOwnProperty("maxOptions")) $(el).data("max", data.maxOptions);
     if (data.hasOwnProperty("hideValues")) $(el).data("hide", data.hideValues);
     if (data.hasOwnProperty("placeholder")) el.placeholder = data.placeholder;
-    if (data.hasOwnProperty("update")) $(el).data("update", data.update);
+    if (data.hasOwnProperty("create")) $(el).data("create", data.create);
 
     $(el).trigger("change");
   },

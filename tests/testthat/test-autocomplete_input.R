@@ -14,7 +14,7 @@ test_that("all parameters work", {
   expect_true(grepl("holder=\"pl", aI("id", NULL, NULL, placeholder = "pl")))
   expect_true(grepl("max=\"300", aI("id", NULL, NULL, max_options = 300)))
   expect_true(grepl("hide=\"true", aI("id", NULL, NULL, hide_values = TRUE)))
-  expect_true(grepl("date=\"true", aI("id", NULL, NULL, always_update = TRUE)))
+  expect_true(grepl("eate=\"true", aI("id", NULL, NULL, create = TRUE)))
 })
 
 context("autocomplete_input / update_autocomplete_input")
@@ -40,8 +40,8 @@ test_that("all parameters work", {
   expect_equal(session$lastInputMessages[[6]]$message$placeholder, "pl")
   update_autocomplete_input(session, "id", hide_values = TRUE)
   expect_equal(session$lastInputMessages[[7]]$message$hideValues, TRUE)
-  update_autocomplete_input(session, "id", always_update = TRUE)
-  expect_equal(session$lastInputMessages[[8]]$message$update, TRUE)
+  update_autocomplete_input(session, "id", create = TRUE)
+  expect_equal(session$lastInputMessages[[8]]$message$create, TRUE)
 })
 
 context("autocomplete_input / shinytest")

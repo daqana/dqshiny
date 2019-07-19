@@ -15,8 +15,7 @@
 #' options to show (for performance reasons)
 #' @param hide_values optional boolean indicating whether to show values
 #' under labels or not
-#' @param always_update optional boolean, whether to update shiny input value
-#' after every typing or only after selecting a valid value
+#' @param create optional boolean to enable entering values not in the list
 #'
 #' @return autocomplete_input: shiny input element
 #'
@@ -32,7 +31,7 @@
 #'     fluidRow(
 #'       column(3,
 #'         autocomplete_input("auto1", "Unnamed:", opts, max_options = 1000,
-#'           always_update = TRUE), actionButton("t", "Toggle Update"),
+#'           create = TRUE),
 #'         autocomplete_input("auto2", "Named:", max_options = 1000,
 #'           structure(opts, names = opts[order(opts)])),
 #'         autocomplete_input("auto3", "Big data:", NULL, max_options = 1000,
@@ -61,7 +60,7 @@
 #' }
 autocomplete_input <- function(
   id, label, options, value = "", width = NULL, placeholder = NULL,
-  max_options = 0, hide_values = FALSE, always_update = FALSE
+  max_options = 0, hide_values = FALSE, create = FALSE
 ) {
   if (!requireNamespace("jsonlite", quietly = TRUE)) {
     stop("jsonlite is needed to convert list of options into json!")
@@ -78,7 +77,7 @@ autocomplete_input <- function(
       id = id, type = "text", class = "form-control", result = value,
       value = value, placeholder = placeholder, "data-options" = js_opts,
       "data-max" = max_options, "data-hide" = tolower(isTRUE(hide_values)),
-      "data-update" = tolower(isTRUE(always_update))
+      "data-create" = tolower(isTRUE(create))
     ),
     htmltools::htmlDependency(
       "autocomplete", "0.0.1", c(href = "dqshinyRes"),
@@ -97,11 +96,11 @@ autocomplete_input <- function(
 #' @rdname autocomplete_input
 update_autocomplete_input <- function(
   session, id, label = NULL, options = NULL, max_options = NULL,
-  value = NULL, placeholder = NULL, hide_values = NULL, always_update = NULL
+  value = NULL, placeholder = NULL, hide_values = NULL, create = NULL
 ) {
   message <- not_null(list(
     label = label, options = options, value = value, maxOptions = max_options,
-    placeholder = placeholder, hideValues = hide_values, update = always_update
+    placeholder = placeholder, hideValues = hide_values, create = create
   ))
   session$sendInputMessage(id, message)
 }
