@@ -6,11 +6,12 @@
 \title{Creates an autocomplete text input field}
 \usage{
 autocomplete_input(id, label, options, value = "", width = NULL,
-  placeholder = NULL, max_options = 0, hide_values = FALSE)
+  placeholder = NULL, max_options = 0, hide_values = FALSE,
+  always_update = FALSE)
 
 update_autocomplete_input(session, id, label = NULL, options = NULL,
   max_options = NULL, value = NULL, placeholder = NULL,
-  hide_values = NULL)
+  hide_values = NULL, always_update = NULL)
 }
 \arguments{
 \item{id}{id of the element}
@@ -31,6 +32,9 @@ options to show (for performance reasons)}
 
 \item{hide_values}{optional boolean indicating whether to show values
 under labels or not}
+
+\item{always_update}{optional boolean, whether to update shiny input value
+after every typing or only after selecting a valid value}
 
 \item{session}{the shiny session object}
 }
@@ -57,7 +61,8 @@ shinyApp(
   ui = fluidPage(
     fluidRow(
       column(3,
-        autocomplete_input("auto1", "Unnamed:", opts, max_options = 1000),
+        autocomplete_input("auto1", "Unnamed:", opts, max_options = 1000,
+          always_update = TRUE), actionButton("t", "Toggle Update"),
         autocomplete_input("auto2", "Named:", max_options = 1000,
           structure(opts, names = opts[order(opts)])),
         autocomplete_input("auto3", "Big data:", NULL, max_options = 1000,
@@ -76,6 +81,9 @@ shinyApp(
       Sys.sleep(3)
       update_autocomplete_input(session, "auto3", placeholder = "Loaded!",
         options = rownames(mtcars))
+    })
+    observeEvent(input$t, {
+      update_autocomplete_input(session, "auto1", always_update = c(F, T)[(input$t \%\% 2) + 1])
     })
   }
 )

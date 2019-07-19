@@ -15,6 +15,8 @@
 #' options to show (for performance reasons)
 #' @param hide_values optional boolean indicating whether to show values
 #' under labels or not
+#' @param always_update optional boolean, whether to update shiny input value
+#' after every typing or only after selecting a valid value
 #'
 #' @return autocomplete_input: shiny input element
 #'
@@ -29,7 +31,8 @@
 #'   ui = fluidPage(
 #'     fluidRow(
 #'       column(3,
-#'         autocomplete_input("auto1", "Unnamed:", opts, max_options = 1000),
+#'         autocomplete_input("auto1", "Unnamed:", opts, max_options = 1000,
+#'           always_update = TRUE), actionButton("t", "Toggle Update"),
 #'         autocomplete_input("auto2", "Named:", max_options = 1000,
 #'           structure(opts, names = opts[order(opts)])),
 #'         autocomplete_input("auto3", "Big data:", NULL, max_options = 1000,
@@ -49,13 +52,16 @@
 #'       update_autocomplete_input(session, "auto3", placeholder = "Loaded!",
 #'         options = rownames(mtcars))
 #'     })
+#'     observeEvent(input$t, {
+#'       update_autocomplete_input(session, "auto1", always_update = c(F, T)[(input$t %% 2) + 1])
+#'     })
 #'   }
 #' )
 #'
 #' }
 autocomplete_input <- function(
-  id, label, options, value = "", width = NULL,
-  placeholder = NULL, max_options = 0, hide_values = FALSE
+  id, label, options, value = "", width = NULL, placeholder = NULL,
+  max_options = 0, hide_values = FALSE, always_update = FALSE
 ) {
   if (!requireNamespace("jsonlite", quietly = TRUE)) {
     stop("jsonlite is needed to convert list of options into json!")
@@ -71,7 +77,8 @@ autocomplete_input <- function(
     shiny::tags$input(
       id = id, type = "text", class = "form-control", result = value,
       value = value, placeholder = placeholder, "data-options" = js_opts,
-      "data-max" = max_options, "data-hide" = tolower(isTRUE(hide_values))
+      "data-max" = max_options, "data-hide" = tolower(isTRUE(hide_values)),
+      "data-update" = tolower(isTRUE(always_update))
     ),
     htmltools::htmlDependency(
       "autocomplete", "0.0.1", c(href = "dqshinyRes"),
@@ -90,11 +97,11 @@ autocomplete_input <- function(
 #' @rdname autocomplete_input
 update_autocomplete_input <- function(
   session, id, label = NULL, options = NULL, max_options = NULL,
-  value = NULL, placeholder = NULL, hide_values = NULL
+  value = NULL, placeholder = NULL, hide_values = NULL, always_update = NULL
 ) {
   message <- not_null(list(
     label = label, options = options, value = value, maxOptions = max_options,
-    placeholder = placeholder, hideValues = hide_values
+    placeholder = placeholder, hideValues = hide_values, update = always_update
   ))
   session$sendInputMessage(id, message)
 }

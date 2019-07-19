@@ -8,6 +8,7 @@
 * Support vectorized conditions in toggle functions.
 * Fix filtering after table data update.
 * Fix autocomplete update issue #3
+* Add always_update parameter for autocomplete inputs #4
 
 # dqshiny 0.0.3
 

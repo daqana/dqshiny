@@ -22,8 +22,10 @@ $.extend(autocompleteBinding, {
   setValue: function (el, value) {
     var arr = $(el).data("options"),
       keys = Object.keys(arr),
-      labeled = !arr.length;
-    if (!labeled && arr.indexOf(value) > -1) {
+      labeled = !arr.length,
+      upd = $(el).data("update");
+      console.log(upd);
+    if (upd || (!labeled && arr.indexOf(value) > -1)) {
       $(el).attr("result", value);
       el.value = value;
     } else if (labeled && keys.indexOf(value) > -1) {
@@ -68,6 +70,7 @@ $.extend(autocompleteBinding, {
     if (data.hasOwnProperty("maxOptions")) $(el).data("max", data.maxOptions);
     if (data.hasOwnProperty("hideValues")) $(el).data("hide", data.hideValues);
     if (data.hasOwnProperty("placeholder")) el.placeholder = data.placeholder;
+    if (data.hasOwnProperty("update")) $(el).data("update", data.update);
 
     $(el).trigger("change");
   },
@@ -153,19 +156,18 @@ function autocomplete(inp) {
     }
   });
   $(inp).on("keydown.autocompleteBinding", function (e) {
-    var x,
-      parent = document.getElementById(this.id + "autocomplete-list");
+    var x, parent = document.getElementById(this.id + "autocomplete-list");
     if (parent) x = parent.getElementsByTagName("div");
     if (e.keyCode == 40) {
-      /*arrow DOWN*/
+      //arrow DOWN
       currentFocus++;
       addActive(x);
     } else if (e.keyCode == 38) {
-      /*arrow UP*/
+      //arrow UP
       currentFocus--;
       addActive(x);
     } else if (e.keyCode == 13) {
-      /*ENTER key*/
+      //ENTER key
       e.preventDefault();
       if (currentFocus > -1) {
         if (x) x[currentFocus].click();
