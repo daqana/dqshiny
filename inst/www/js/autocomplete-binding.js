@@ -46,11 +46,9 @@ $.extend(autocompleteBinding, {
       callback(false);
     });
     $("body").on("click.autocompleteBinding", ".auto_selector", function (event) {
-      if (this.parentNode.id.startsWith(el.id)) {
-        var val = this.getElementsByTagName("input")[0].value;
-        setVal(el, val);
-        callback(false);
-      }
+      var val = this.getAttribute("data-value");
+      setVal(el, val);
+      callback(false);
     });
   },
 
@@ -149,6 +147,7 @@ function autocomplete(inp) {
         if (labeled && !hideValues) {
           b.innerHTML += "<small>" + id + "</small>";
         }
+        b.setAttribute("data-value", id);
         a.appendChild(b);
         if (maxCount && ++count >= maxCount) break;
       }
