@@ -19,5 +19,16 @@ shinyServer(
     output$table <- renderUI(dq_htmltable(
       as.data.frame.matrix(summary(cars())), align = "r", borders = "tex")
     )
+
+    output$code <- renderUI(fluidRow(
+      column(
+        6, tags$label("ui.R"),
+        tags$textarea(paste0(readLines("ui.R"), collapse = "\n"), readonly = TRUE)
+      ),
+      column(
+        6, tags$label("server.R"),
+        tags$textarea(paste0(readLines("server.R"), collapse = "\n"), readonly = TRUE)
+      )
+    ))
   }
 )
