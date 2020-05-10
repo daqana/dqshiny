@@ -4,9 +4,17 @@
 \alias{dq_infobox}
 \title{Creates an info box with given texts}
 \usage{
-dq_infobox(title, value = NULL, subtitle = NULL, icon = NULL,
-  bg_color = "#FF8F00", color = "white", width = 4, href = NULL,
-  fill = TRUE)
+dq_infobox(
+  title,
+  value = NULL,
+  subtitle = NULL,
+  icon = NULL,
+  bg_color = "#FF8F00",
+  color = "white",
+  width = 4,
+  href = NULL,
+  fill = TRUE
+)
 }
 \arguments{
 \item{title}{Title of the box.}

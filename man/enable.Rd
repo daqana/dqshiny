@@ -61,8 +61,9 @@ shinyApp(
 }
 }
 \seealso{
-Other js handler: \code{\link{add_class}},
-  \code{\link{hide}}
+Other js handler: 
+\code{\link{add_class}()},
+\code{\link{hide}()}
 }
 \author{
 richard.kunze

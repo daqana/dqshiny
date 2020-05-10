@@ -61,7 +61,9 @@ shinyApp(
 }
 }
 \seealso{
-Other js handler: \code{\link{enable}}, \code{\link{hide}}
+Other js handler: 
+\code{\link{enable}()},
+\code{\link{hide}()}
 }
 \author{
 richard.kunze

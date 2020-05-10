@@ -5,12 +5,28 @@
 \alias{update_time_input}
 \title{Creates a time input field}
 \usage{
-time_input(id, label, value = "", min = NULL, max = NULL,
-  format = "HH:mm", placeholder = NULL, width = NULL, color = NULL,
-  use_material_picker = FALSE)
+time_input(
+  id,
+  label,
+  value = "",
+  min = NULL,
+  max = NULL,
+  format = "HH:mm",
+  placeholder = NULL,
+  width = NULL,
+  color = NULL,
+  use_material_picker = FALSE
+)
 
-update_time_input(session, id, label = NULL, value = NULL,
-  min = NULL, max = NULL, placeholder = NULL)
+update_time_input(
+  session,
+  id,
+  label = NULL,
+  value = NULL,
+  min = NULL,
+  max = NULL,
+  placeholder = NULL
+)
 }
 \arguments{
 \item{id}{id of the element}

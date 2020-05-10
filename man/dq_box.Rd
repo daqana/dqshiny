@@ -5,10 +5,20 @@
 \alias{update_dq_box}
 \title{Creates a html box with specified parameters}
 \usage{
-dq_box(..., id = NULL, title = NULL, color = "#000",
-  bg_color = "#ff8f00", fill = TRUE, width = 6L, height = NULL,
-  offset = 0L, collapsible = FALSE, collapsed = FALSE,
-  open_callback = FALSE)
+dq_box(
+  ...,
+  id = NULL,
+  title = NULL,
+  color = "#000",
+  bg_color = "#ff8f00",
+  fill = TRUE,
+  width = 6L,
+  height = NULL,
+  offset = 0L,
+  collapsible = FALSE,
+  collapsed = FALSE,
+  open_callback = FALSE
+)
 
 update_dq_box(id, collapsed = NULL, silent = FALSE)
 }

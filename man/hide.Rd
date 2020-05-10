@@ -61,8 +61,9 @@ shinyApp(
 }
 }
 \seealso{
-Other js handler: \code{\link{add_class}},
-  \code{\link{enable}}
+Other js handler: 
+\code{\link{add_class}()},
+\code{\link{enable}()}
 }
 \author{
 richard.kunze

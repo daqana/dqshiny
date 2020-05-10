@@ -3,7 +3,6 @@
 \docType{package}
 \name{dqshiny}
 \alias{dqshiny}
-\alias{dqshiny-package}
 \title{dqshiny: Enhance Shiny Apps with Customizable Modules}
 \description{
 Provides highly customizable modules to enhance your shiny apps.

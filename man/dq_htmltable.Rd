@@ -4,8 +4,13 @@
 \alias{dq_htmltable}
 \title{Create a HTML table containing the given list of elements}
 \usage{
-dq_htmltable(elements, id = NULL, align = "left",
-  head_align = "center", borders = "none")
+dq_htmltable(
+  elements,
+  id = NULL,
+  align = "left",
+  head_align = "center",
+  borders = "none"
+)
 }
 \arguments{
 \item{elements}{List of elements to show in the list, each element of the

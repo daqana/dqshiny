@@ -4,8 +4,15 @@
 \alias{dq_icon}
 \title{Creates an icon element}
 \usage{
-dq_icon(icon, lib = "font-awesome", fa_style = c("fas", "far", "fal"),
-  color = "#ff8f00", bg_color = NULL, size = NULL, ...)
+dq_icon(
+  icon,
+  lib = "font-awesome",
+  fa_style = c("fas", "far", "fal"),
+  color = "#ff8f00",
+  bg_color = NULL,
+  size = NULL,
+  ...
+)
 }
 \arguments{
 \item{icon}{name of the icon to show}

@@ -5,8 +5,7 @@
 \alias{dq_as_selectize_options}
 \title{Adds selectizeOptions to a column of rhandsontable}
 \usage{
-dq_add_selectize_options(hot, rows, col, options, allowInvalid = FALSE,
-  ...)
+dq_add_selectize_options(hot, rows, col, options, allowInvalid = FALSE, ...)
 
 dq_as_selectize_options(options, ...)
 }

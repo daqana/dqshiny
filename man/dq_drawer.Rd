@@ -5,8 +5,14 @@
 \alias{update_dq_drawer}
 \title{Creates a drawer sidebar element}
 \usage{
-dq_drawer(id = NULL, ..., drawer_style = NULL, btn_style = NULL,
-  size = NULL, direction = c("left", "right", "top", "bottom"))
+dq_drawer(
+  id = NULL,
+  ...,
+  drawer_style = NULL,
+  btn_style = NULL,
+  size = NULL,
+  direction = c("left", "right", "top", "bottom")
+)
 
 update_dq_drawer(id, open)
 }

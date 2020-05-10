@@ -5,8 +5,14 @@
 \alias{update_dq_gallery}
 \title{Creates a content gallery element}
 \usage{
-dq_gallery(id = NULL, ..., style = NULL, content_style = NULL,
-  arrows = NULL, scrollable = FALSE)
+dq_gallery(
+  id = NULL,
+  ...,
+  style = NULL,
+  content_style = NULL,
+  arrows = NULL,
+  scrollable = FALSE
+)
 
 update_dq_gallery(id, set = NULL, add = NULL)
 }

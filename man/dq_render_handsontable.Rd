@@ -7,11 +7,23 @@
 \usage{
 dq_handsontable_output(id, width = 12L, offset = 0L)
 
-dq_render_handsontable(id, data, context = NULL, filters = "T",
-  page_size = 25L, reset = TRUE, sorting = NULL, columns = NULL,
-  width_align = FALSE, horizontal_scroll = FALSE, table_param = NULL,
-  cols_param = NULL, col_param = NULL, cell_param = NULL,
-  session = shiny::getDefaultReactiveDomain())
+dq_render_handsontable(
+  id,
+  data,
+  context = NULL,
+  filters = "T",
+  page_size = 25L,
+  reset = TRUE,
+  sorting = NULL,
+  columns = NULL,
+  width_align = FALSE,
+  horizontal_scroll = FALSE,
+  table_param = NULL,
+  cols_param = NULL,
+  col_param = NULL,
+  cell_param = NULL,
+  session = shiny::getDefaultReactiveDomain()
+)
 }
 \arguments{
 \item{id}{id of the element}
