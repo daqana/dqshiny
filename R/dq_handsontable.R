@@ -301,7 +301,7 @@ add_scripts <- function(params, width, scroll) {
       "function() {",
       "  var hider = $(this.rootElement).find('.wtHider');",
       "  var $filter = $('#' + this.rootElement.id + '-filters');",
-      "  $filter.css('overflow', 'hidden');",
+      ifelse(scroll, "  $filter.css('overflow', 'hidden');", ""),
       "  var row = $filter.find('.row');",
       "  row.width(hider.width());",
       if (width) paste(

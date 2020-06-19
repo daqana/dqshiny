@@ -63,6 +63,10 @@ not_null <- function(vec) {
   vec[vapply(vec, length, 0L) > 0L]
 }
 
+logical_js <- function(b) {
+  tolower(isTRUE(b))
+}
+
 create_test_session <- function(id, input, output) {
   session <- as.environment(list(
     ns = shiny::NS(id),

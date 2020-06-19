@@ -16,6 +16,7 @@
 #' @param hide_values optional boolean indicating whether to show values
 #' under labels or not
 #' @param create optional boolean to enable entering values not in the list
+#' @param contains optional boolean to enable searching in the middle of options
 #'
 #' @return autocomplete_input: shiny input element
 #'
@@ -30,10 +31,9 @@
 #'   ui = fluidPage(
 #'     fluidRow(
 #'       column(3,
-#'         autocomplete_input("auto1", "Unnamed:", opts, max_options = 1000,
-#'           create = TRUE),
-#'         autocomplete_input("auto2", "Named:", max_options = 1000,
-#'           structure(opts, names = opts[order(opts)])),
+#'         autocomplete_input("auto1", "Unnamed:", opts, create = TRUE),
+#'         autocomplete_input("auto2", "Named:", max_options = 500,
+#'           structure(opts, names = opts[order(opts)]), contains = TRUE),
 #'         autocomplete_input("auto3", "Big data:", NULL, max_options = 1000,
 #'           placeholder = "Big data taking several seconds to load ..."),
 #'         actionButton("calc", "Calculate")
@@ -51,16 +51,13 @@
 #'       update_autocomplete_input(session, "auto3", placeholder = "Loaded!",
 #'         options = rownames(mtcars))
 #'     })
-#'     observeEvent(input$t, {
-#'       update_autocomplete_input(session, "auto1", always_update = c(F, T)[(input$t %% 2) + 1])
-#'     })
 #'   }
 #' )
 #'
 #' }
 autocomplete_input <- function(
   id, label, options, value = "", width = NULL, placeholder = NULL,
-  max_options = 0, hide_values = FALSE, create = FALSE
+  max_options = 0, hide_values = FALSE, create = FALSE, contains = FALSE
 ) {
   if (!requireNamespace("jsonlite", quietly = TRUE)) {
     stop("jsonlite is needed to convert list of options into json!")
@@ -76,8 +73,8 @@ autocomplete_input <- function(
     shiny::tags$input(
       id = id, type = "text", class = "form-control", result = value,
       value = value, placeholder = placeholder, "data-options" = js_opts,
-      "data-max" = max_options, "data-hide" = tolower(isTRUE(hide_values)),
-      "data-create" = tolower(isTRUE(create))
+      "data-max" = max_options, "data-hide" = logical_js(hide_values),
+      "data-create" = logical_js(create), "data-contains" = logical_js(contains)
     ),
     htmltools::htmlDependency(
       "autocomplete", "0.0.1", c(href = "dqshinyRes"),
@@ -95,12 +92,13 @@ autocomplete_input <- function(
 #' @export
 #' @rdname autocomplete_input
 update_autocomplete_input <- function(
-  session, id, label = NULL, options = NULL, max_options = NULL,
-  value = NULL, placeholder = NULL, hide_values = NULL, create = NULL
+  session, id, label = NULL, options = NULL, max_options = NULL, value = NULL,
+  placeholder = NULL, hide_values = NULL, create = NULL, contains = NULL
 ) {
   message <- not_null(list(
     label = label, options = options, value = value, maxOptions = max_options,
-    placeholder = placeholder, hideValues = hide_values, create = create
+    placeholder = placeholder, hideValues = hide_values, create = create,
+    contains = contains
   ))
   session$sendInputMessage(id, message)
 }
