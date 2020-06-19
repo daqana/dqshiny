@@ -14,7 +14,8 @@ autocomplete_input(
   placeholder = NULL,
   max_options = 0,
   hide_values = FALSE,
-  create = FALSE
+  create = FALSE,
+  contains = FALSE
 )
 
 update_autocomplete_input(
@@ -26,7 +27,8 @@ update_autocomplete_input(
   value = NULL,
   placeholder = NULL,
   hide_values = NULL,
-  create = NULL
+  create = NULL,
+  contains = NULL
 )
 }
 \arguments{
@@ -50,6 +52,8 @@ options to show (for performance reasons)}
 under labels or not}
 
 \item{create}{optional boolean to enable entering values not in the list}
+
+\item{contains}{optional boolean to enable searching in the middle of options}
 
 \item{session}{the shiny session object}
 }
@@ -76,10 +80,9 @@ shinyApp(
   ui = fluidPage(
     fluidRow(
       column(3,
-        autocomplete_input("auto1", "Unnamed:", opts, max_options = 1000,
-          create = TRUE),
-        autocomplete_input("auto2", "Named:", max_options = 1000,
-          structure(opts, names = opts[order(opts)])),
+        autocomplete_input("auto1", "Unnamed:", opts, create = TRUE),
+        autocomplete_input("auto2", "Named:", max_options = 500,
+          structure(opts, names = opts[order(opts)]), contains = TRUE),
         autocomplete_input("auto3", "Big data:", NULL, max_options = 1000,
           placeholder = "Big data taking several seconds to load ..."),
         actionButton("calc", "Calculate")
@@ -96,9 +99,6 @@ shinyApp(
       Sys.sleep(3)
       update_autocomplete_input(session, "auto3", placeholder = "Loaded!",
         options = rownames(mtcars))
-    })
-    observeEvent(input$t, {
-      update_autocomplete_input(session, "auto1", always_update = c(F, T)[(input$t \%\% 2) + 1])
     })
   }
 )

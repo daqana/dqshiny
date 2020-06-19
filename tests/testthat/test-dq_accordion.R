@@ -56,18 +56,5 @@ test_that("dq_accordion works with all inputs", {
 context("dq_accordion / accordion_script")
 
 test_that("accordion_script works with all inputs", {
-  testthat::skip_if_not_installed("V8")
-
-  a <- V8::new_context()
-  a$eval("$ = function(){}")
-
-  expect_silent(a$eval(accordion_script("id", NULL, FALSE)))
-  expect_silent(a$eval(accordion_script(
-    "id", list(animate = 500, collapsible = T), FALSE)
-  ))
-  expect_silent(a$eval(accordion_script(
-    "id", list(icons = list(
-      header = "fa-hand-o-right", activeHeader = "fa-hand-o-down")
-    ), TRUE)
-  ))
+  expect_silent(accordion_script("id", list(animate = 500, collapsible = TRUE), TRUE))
 })

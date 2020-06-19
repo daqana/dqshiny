@@ -1,7 +1,7 @@
 Package: dqshiny
 Type: Package
 Title: Enhance Shiny Apps with Customizable Modules
-Version: 0.0.4
+Version: 0.0.5
 Author: Richard Kunze, Mirjam Rehr
 Maintainer: Richard Kunze <richard-kunze@web.de>
 Description: Provides highly customizable modules to enhance your shiny apps.
@@ -13,6 +13,6 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0
 Imports: shiny, htmltools
-Suggests: testthat, extrafont, ggplot2, jsonlite, rhandsontable, V8, htmlwidgets, shinytest
+Suggests: testthat, extrafont, ggplot2, jsonlite, rhandsontable, htmlwidgets, shinytest
 URL: https://github.com/daqana/dqshiny
 BugReports: https://github.com/daqana/dqshiny/issues

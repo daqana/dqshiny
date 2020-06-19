@@ -21,13 +21,12 @@ $.extend(autocompleteBinding, {
 
   setValue: function (el, value) {
     var arr = $(el).data("options"),
-      keys = Object.keys(arr),
       labeled = !arr.length,
       upd = $(el).data("create");
     if (upd || (!labeled && arr.indexOf(value) > -1)) {
       $(el).attr("result", value);
       el.value = value;
-    } else if (labeled && keys.indexOf(value) > -1) {
+    } else if (labeled && arr[value] !== undefined) {
       $(el).attr("result", arr[value]);
       el.value = value;
     }
@@ -43,11 +42,6 @@ $.extend(autocompleteBinding, {
       el.select();
     });
     $(el).on("change.autocompleteBinding", function (event) {
-      callback(false);
-    });
-    $("body").on("click.autocompleteBinding", ".auto_selector", function (event) {
-      var val = this.getAttribute("data-value");
-      setVal(el, val);
       callback(false);
     });
   },
@@ -68,6 +62,7 @@ $.extend(autocompleteBinding, {
     if (data.hasOwnProperty("hideValues")) $(el).data("hide", data.hideValues);
     if (data.hasOwnProperty("placeholder")) el.placeholder = data.placeholder;
     if (data.hasOwnProperty("create")) $(el).data("create", data.create);
+    if (data.hasOwnProperty("contains")) $(el).data("contains", data.contains);
 
     $(el).trigger("change");
   },
@@ -97,19 +92,17 @@ function autocomplete(inp) {
 
   $(inp).on("input.autocompleteBinding", function (e) {
     $el = $(this);
-    var a, b, i;
     var arr = $el.data("options"),
       maxCount = $el.data("max"),
       hideValues = $el.data("hide"),
+      contains = $el.data("contains"),
       val = this.value;
 
     closeAllLists();
-    if (!val) {
-      return false;
-    }
+    if (!val) return false;
     currentFocus = -1;
 
-    a = document.createElement("DIV");
+    var a = document.createElement("DIV");
     a.setAttribute("id", this.id + "autocomplete-list");
     a.setAttribute("class", "autocomplete-items");
     $(a).css("top", $el.offset().top + $el.outerHeight());
@@ -122,32 +115,39 @@ function autocomplete(inp) {
       keys = Object.keys(arr),
       len = keys.length,
       count = 0,
-      labeled = !arr.length,
-      lab,
-      id;
+      labeled = !arr.length;
 
-    for (i = 0; i < len; i++) {
+    var onClick = function(e) {
+      $el.val($(e.target).data("value")).trigger("input");
+    };
+
+    for (var i = 0; i < len; i++) {
+      var lab, id;
       if (labeled) {
         lab = keys[i];
-        id = arr[keys[i]];
+        id = arr[lab];
       } else {
         lab = id = arr[i];
       }
-
-      if (lab.substr(0, valLen).toUpperCase() == valUC) {
+      var labUC = lab.toUpperCase();
+      var pos = -1;
+      if (contains) pos = labUC.indexOf(valUC);
+      else if (labUC.substr(0, valLen) == valUC) pos = 0;
+      if (pos >= 0) {
         if (valLen == lab.length) {
           closeAllLists();
           break;
         }
-        b = document.createElement("DIV");
+        var b = document.createElement("DIV");
         b.className = "auto_selector";
-        b.innerHTML = "<strong>" + lab.substr(0, valLen) + "</strong>";
-        b.innerHTML += lab.substr(valLen);
-        b.innerHTML += "<input type='hidden' value='" + lab + "'>";
+        b.innerHTML = lab.substr(0, pos);
+        b.innerHTML += "<strong>" + lab.substr(pos, valLen) + "</strong>";
+        b.innerHTML += lab.substr(pos + valLen);
         if (labeled && !hideValues) {
           b.innerHTML += "<small>" + id + "</small>";
         }
-        b.setAttribute("data-value", id);
+        $(b).data("value", lab);
+        $(b).on("click", onClick);
         a.appendChild(b);
         if (maxCount && ++count >= maxCount) break;
       }
@@ -167,8 +167,8 @@ function autocomplete(inp) {
     } else if (e.keyCode == 13) {
       //ENTER key
       e.preventDefault();
-      if (currentFocus > -1) {
-        if (x) x[currentFocus].click();
+      if (currentFocus > -1 && x) {
+        x[currentFocus].click();
       }
     }
     if (x && x[currentFocus]) {

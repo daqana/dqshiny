@@ -3,12 +3,6 @@
 #' @description Adds the given JS function definition to the current shiny web
 #' app.
 #'
-#' Before adding anything the code will be parsed with V8 if the package is
-#' available on your machine. If package is available and parsing fails, an
-#' error will be thrown.
-#'
-#' After successfully adding a function it can be used with run_js.
-#'
 #' @param type name of the function
 #' @param function_text JS function definition, this should be an anonymous
 #' function accepting exactly one argument
@@ -41,7 +35,6 @@ add_js <- function(type, function_text) {
   code <- paste0(
     "Shiny.addCustomMessageHandler('", type, "', ", function_text, ");"
   )
-  parse_code(code)
   shiny::tags$head(shiny::tags$script(code))
 }
 
@@ -55,24 +48,5 @@ run_js <- function(type, ...) {
   session <- shiny::getDefaultReactiveDomain()
   if (!is.null(session)) {
     session$sendCustomMessage(type = type, message = list(...))
-  }
-}
-
-#' @author richard.kunze
-parse_code <- function(code) {
-  if (!requireNamespace("V8", quietly = TRUE)) {
-    warning("Package 'V8' not installed, so custom JS code can't be checked!")
-  } else {
-    ct <- V8::new_context("Shiny", FALSE, FALSE)
-    ct$eval("Shiny.addCustomMessageHandler=function(a,b){};")
-    tryCatch({
-      if (!is.null(code)) {
-        ct$eval(code)
-      } else {
-        warning("Nothing to parse here!")
-      }
-    }, error = function(e) {
-      stop(paste("Error found while parsing your JS code:", e$message))
-    })
   }
 }

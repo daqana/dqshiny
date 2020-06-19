@@ -1,3 +1,9 @@
+# dqshiny 0.0.5
+
+* Remove V8 as suggested package, remove JS code checking.
+* Fix dq_autocomplete issues.
+* Add contains parameter to dq_autocomplete.
+
 # dqshiny 0.0.4
 
 * Fix dqhot to remove filter and paging row if no longer needed.
