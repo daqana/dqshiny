@@ -5,7 +5,6 @@ $.extend(autocompleteBinding, {
     return $(scope).find(".autocomplete").find("input");
   },
 
-  // return the ID of the DOM element
   getId: function (el) {
     return el.id;
   },
@@ -20,6 +19,7 @@ $.extend(autocompleteBinding, {
   },
 
   setValue: function (el, value) {
+    console.time("setValue");
     var arr = $(el).data("options"),
       labeled = !arr.length,
       upd = $(el).data("create");
@@ -30,18 +30,20 @@ $.extend(autocompleteBinding, {
       $(el).attr("result", arr[value]);
       el.value = value;
     }
+    console.timeEnd("setValue");
   },
 
   subscribe: function (el, callback) {
     var setVal = this.setValue;
-    $(el).on("input.autocompleteBinding", function (event) {
+    $(el).on("input.autocompleteBinding", function (e) {
       setVal(el, el.value);
       callback(true);
     });
-    $(el).on("focus.autocompleteBinding", function (event) {
+    $(el).on("focus.autocompleteBinding", function (e) {
       el.select();
     });
-    $(el).on("change.autocompleteBinding", function (event) {
+    $(el).on("change.autocompleteBinding", function (e) {
+      setVal(el, el.value);
       callback(false);
     });
   },
@@ -50,39 +52,27 @@ $.extend(autocompleteBinding, {
     $(el).off(".autocompleteBinding");
   },
 
-  // Receive messages from the server.
   receiveMessage: function (el, data) {
     if (data.hasOwnProperty("value")) this.setValue(el, data.value);
-
-    if (data.hasOwnProperty("label"))
-      $(el).parent().find('label[for="' + el.id + '"]').text(data.label);
-
-    if (data.hasOwnProperty("options")) $(el).data("options", data.options);
-    if (data.hasOwnProperty("maxOptions")) $(el).data("max", data.maxOptions);
-    if (data.hasOwnProperty("hideValues")) $(el).data("hide", data.hideValues);
     if (data.hasOwnProperty("placeholder")) el.placeholder = data.placeholder;
-    if (data.hasOwnProperty("create")) $(el).data("create", data.create);
-    if (data.hasOwnProperty("contains")) $(el).data("contains", data.contains);
+    if (data.hasOwnProperty("label"))
+      $(el)
+        .parent()
+        .find('label[for="' + el.id + '"]')
+        .text(data.label);
+
+    setData(data, "options", el);
+    setData(data, "max", el);
+    setData(data, "hide", el);
+    setData(data, "create", el);
+    setData(data, "contains", el);
 
     $(el).trigger("change");
   },
 
-  // This returns a full description of the input's state.
-  getState: function (el) {
-    return {
-      label: "test",
-      value: ""
-    };
-  },
-
-  // The input rate limiting policy
   getRatePolicy: function () {
-    return {
-      // Can be 'debounce' or 'throttle'
-      policy: "debounce",
-      delay: 500
-    };
-  }
+    return { policy: "debounce", delay: 500 };
+  },
 });
 
 Shiny.inputBindings.register(autocompleteBinding, "shiny.autocomplete");
@@ -91,7 +81,7 @@ function autocomplete(inp) {
   var currentFocus;
 
   $(inp).on("input.autocompleteBinding", function (e) {
-    $el = $(this);
+    var $el = $(this);
     var arr = $el.data("options"),
       maxCount = $el.data("max"),
       hideValues = $el.data("hide"),
@@ -117,8 +107,8 @@ function autocomplete(inp) {
       count = 0,
       labeled = !arr.length;
 
-    var onClick = function(e) {
-      $el.val($(e.target).data("value")).trigger("input");
+    var onClick = function (ce) {
+      $el.val($(ce.target).data("value")).trigger("change");
     };
 
     for (var i = 0; i < len; i++) {
@@ -132,20 +122,17 @@ function autocomplete(inp) {
       var labUC = lab.toUpperCase();
       var pos = -1;
       if (contains) pos = labUC.indexOf(valUC);
-      else if (labUC.substr(0, valLen) == valUC) pos = 0;
+      else if (labUC.substr(0, valLen) === valUC) pos = 0;
       if (pos >= 0) {
-        if (valLen == lab.length) {
+        if (valLen === lab.length) {
           closeAllLists();
           break;
         }
         var b = document.createElement("DIV");
-        b.className = "auto_selector";
         b.innerHTML = lab.substr(0, pos);
         b.innerHTML += "<strong>" + lab.substr(pos, valLen) + "</strong>";
         b.innerHTML += lab.substr(pos + valLen);
-        if (labeled && !hideValues) {
-          b.innerHTML += "<small>" + id + "</small>";
-        }
+        if (labeled && !hideValues) b.innerHTML += "<small>" + id + "</small>";
         $(b).data("value", lab);
         $(b).on("click", onClick);
         a.appendChild(b);
@@ -154,17 +141,18 @@ function autocomplete(inp) {
     }
   });
   $(inp).on("keydown.autocompleteBinding", function (e) {
-    var x, parent = document.getElementById(this.id + "autocomplete-list");
+    var x,
+      parent = document.getElementById(this.id + "autocomplete-list");
     if (parent) x = parent.getElementsByTagName("div");
-    if (e.keyCode == 40) {
+    if (e.keyCode === 40) {
       //arrow DOWN
       currentFocus++;
       addActive(x);
-    } else if (e.keyCode == 38) {
+    } else if (e.keyCode === 38) {
       //arrow UP
       currentFocus--;
       addActive(x);
-    } else if (e.keyCode == 13) {
+    } else if (e.keyCode === 13) {
       //ENTER key
       e.preventDefault();
       if (currentFocus > -1 && x) {
@@ -192,15 +180,17 @@ function autocomplete(inp) {
       x[i].classList.remove("autocomplete-active");
     }
   }
-  function closeAllLists(elmnt) {
-    var x = document.getElementsByClassName("autocomplete-items");
-    for (var i = 0; i < x.length; i++) {
-      if (elmnt != x[i] && elmnt != inp) {
-        x[i].parentNode.removeChild(x[i]);
-      }
-    }
-  }
-  document.addEventListener("click", function (e) {
-    closeAllLists(e.target);
-  });
 }
+
+function setData(obj, field, el) {
+  if (obj.hasOwnProperty(field)) $(el).data(field, obj[field]);
+}
+
+function closeAllLists(elmnt) {
+  var items = document.getElementsByClassName("autocomplete-items");
+  for (var i = 0; i < items.length; i++) {
+    if (elmnt != items[i]) items[i].parentNode.removeChild(items[i]);
+  }
+}
+
+document.addEventListener("click", closeAllLists);

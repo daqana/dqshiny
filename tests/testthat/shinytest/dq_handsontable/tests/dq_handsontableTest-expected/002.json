@@ -362,6 +362,7 @@
         "stretchH": "all",
         "comments": false,
         "contextMenu": false,
+        "afterRender": "function(e){loaded = true;}",
         "colWidths": 1,
         "manualColumnResize": true
       },
@@ -369,7 +370,8 @@
         "columns.0.renderer",
         "columns.1.renderer",
         "columns.2.renderer",
-        "columns.3.renderer"
+        "columns.3.renderer",
+        "afterRender"
       ],
       "jsHooks": [
 

@@ -15,6 +15,7 @@ test_that("all parameters work", {
   expect_true(grepl("max=\"300", aI("id", NULL, NULL, max_options = 300)))
   expect_true(grepl("hide=\"true", aI("id", NULL, NULL, hide_values = TRUE)))
   expect_true(grepl("eate=\"true", aI("id", NULL, NULL, create = TRUE)))
+  expect_true(grepl("tains=\"true", aI("id", NULL, NULL, contains = TRUE)))
 })
 
 context("autocomplete_input / update_autocomplete_input")
@@ -24,7 +25,7 @@ test_that("function works like shiny functions", {
 })
 
 test_that("all parameters work", {
-  session <- dqshiny:::create_test_session("", NULL, NULL)
+  session <- create_test_session("", NULL, NULL)
 
   update_autocomplete_input(session, "id")
   expect_equal(session$lastInputMessages[[1]]$id, "id")
@@ -33,15 +34,17 @@ test_that("all parameters work", {
   update_autocomplete_input(session, "id", options = 1:500)
   expect_equal(session$lastInputMessages[[3]]$message$options, 1:500)
   update_autocomplete_input(session, "id", max_options = 500)
-  expect_equal(session$lastInputMessages[[4]]$message$maxOptions, 500)
+  expect_equal(session$lastInputMessages[[4]]$message$max, 500)
   update_autocomplete_input(session, "id", value = 5)
   expect_equal(session$lastInputMessages[[5]]$message$value, 5)
   update_autocomplete_input(session, "id", placeholder = "pl")
   expect_equal(session$lastInputMessages[[6]]$message$placeholder, "pl")
   update_autocomplete_input(session, "id", hide_values = TRUE)
-  expect_equal(session$lastInputMessages[[7]]$message$hideValues, TRUE)
+  expect_equal(session$lastInputMessages[[7]]$message$hide, TRUE)
   update_autocomplete_input(session, "id", create = TRUE)
   expect_equal(session$lastInputMessages[[8]]$message$create, TRUE)
+  update_autocomplete_input(session, "id", contains = TRUE)
+  expect_equal(session$lastInputMessages[[9]]$message$contains, TRUE)
 })
 
 context("autocomplete_input / shinytest")

@@ -96,8 +96,8 @@ update_autocomplete_input <- function(
   placeholder = NULL, hide_values = NULL, create = NULL, contains = NULL
 ) {
   message <- not_null(list(
-    label = label, options = options, value = value, maxOptions = max_options,
-    placeholder = placeholder, hideValues = hide_values, create = create,
+    label = label, options = options, value = value, max = max_options,
+    placeholder = placeholder, hide = hide_values, create = create,
     contains = contains
   ))
   session$sendInputMessage(id, message)
