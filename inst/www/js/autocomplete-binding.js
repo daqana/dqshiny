@@ -19,7 +19,6 @@ $.extend(autocompleteBinding, {
   },
 
   setValue: function (el, value) {
-    console.time("setValue");
     var arr = $(el).data("options"),
       labeled = !arr.length,
       upd = $(el).data("create");
@@ -30,7 +29,6 @@ $.extend(autocompleteBinding, {
       $(el).attr("result", arr[value]);
       el.value = value;
     }
-    console.timeEnd("setValue");
   },
 
   subscribe: function (el, callback) {
