@@ -9,8 +9,7 @@
 #' @param contents list of contents, can be character, shiny tags, nested lists
 #' of shiny tags ...
 #' @param options optional list of jquery-ui options to customize accordions
-#' behavior, for a full list of possible options have a look at:
-#' \url{http://api.jqueryui.com/accordion}
+#' behavior
 #' @param sortable optional logical indicating whether the accordion parts
 #' should be rearrangeable or not
 #' @param bg_color optional character specifying the background color of the

@@ -26,7 +26,7 @@ labels, can also be a named list}
 
 \item{size}{optional size of the drawer (width or height depending on
 direction), can be any valid CSS unit (see
-\code{\link[shiny:validateCssUnit]{validateCssUnit}})}
+\code{\link{validateCssUnit}})}
 
 \item{direction}{optional, specifies the direction the drawer comes from, one
 of c("left", "right", "top", "bottom)}

@@ -41,7 +41,7 @@ update_autocomplete_input(
 \item{value}{initial value}
 
 \item{width}{optional, the width of the input, see
-\code{\link[shiny:validateCssUnit]{validateCssUnit}}}
+\code{\link{validateCssUnit}}}
 
 \item{placeholder}{optional character specifying the placeholder text}
 

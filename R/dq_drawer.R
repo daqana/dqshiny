@@ -9,7 +9,7 @@
 #' @param drawer_style,btn_style optional character specifying additional styles
 #' @param size optional size of the drawer (width or height depending on
 #' direction), can be any valid CSS unit (see
-#' \code{\link[shiny:validateCssUnit]{validateCssUnit}})
+#' \code{\link{validateCssUnit}})
 #' @param direction optional, specifies the direction the drawer comes from, one
 #' of c("left", "right", "top", "bottom)
 #' @return drawer element tag

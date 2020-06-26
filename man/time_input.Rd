@@ -47,7 +47,7 @@ updated!)}
 \item{placeholder}{optional character specifying the placeholder text}
 
 \item{width}{optional, the width of the input, see
-\code{\link[shiny:validateCssUnit]{validateCssUnit}}}
+\code{\link{validateCssUnit}}}
 
 \item{color}{color of the watch hand (of material time picker)}
 

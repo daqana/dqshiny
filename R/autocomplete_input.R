@@ -9,7 +9,7 @@
 #' @param options list (or vector) of possible options
 #' @param value initial value
 #' @param width optional, the width of the input, see
-#' \code{\link[shiny:validateCssUnit]{validateCssUnit}}
+#' \code{\link{validateCssUnit}}
 #' @param placeholder optional character specifying the placeholder text
 #' @param max_options optional numeric specifying the maximum number of
 #' options to show (for performance reasons)

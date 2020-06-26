@@ -14,7 +14,7 @@
 #' updated!)
 #' @param placeholder optional character specifying the placeholder text
 #' @param width optional, the width of the input, see
-#' \code{\link[shiny:validateCssUnit]{validateCssUnit}}
+#' \code{\link{validateCssUnit}}
 #' @param color color of the watch hand (of material time picker)
 #' @param use_material_picker boolean to specify if the input should be a
 #' simple time (text) input or use the bootstrap material time picker

@@ -25,8 +25,7 @@ dq_accordion(
 of shiny tags ...}
 
 \item{options}{optional list of jquery-ui options to customize accordions
-behavior, for a full list of possible options have a look at:
-\url{http://api.jqueryui.com/accordion}}
+behavior}
 
 \item{sortable}{optional logical indicating whether the accordion parts
 should be rearrangeable or not}
