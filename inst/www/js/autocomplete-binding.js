@@ -22,11 +22,12 @@ $.extend(autocompleteBinding, {
     var arr = $(el).data("options"),
       labeled = !arr.length,
       upd = $(el).data("create");
-    if (upd || (!labeled && arr.indexOf(value) > -1)) {
-      $(el).attr("result", value);
-      el.value = value;
-    } else if (labeled && arr[value] !== undefined) {
+
+    if (labeled && arr[value] !== undefined) {
       $(el).attr("result", arr[value]);
+      el.value = value;
+    } else if (upd || (!labeled && arr.indexOf(value) > -1)) {
+      $(el).attr("result", value);
       el.value = value;
     }
   },

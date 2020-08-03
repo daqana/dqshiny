@@ -1,3 +1,7 @@
+# dqshiny 0.0.6
+
+* Fix dq_autocomplete using created value instead of it's name #16
+
 # dqshiny 0.0.5
 
 * Remove V8 as suggested package, remove JS code checking.
