@@ -73,8 +73,9 @@ autocomplete_input <- function(
     shiny::tags$input(
       id = id, type = "text", class = "form-control", result = value,
       value = value, placeholder = placeholder, "data-options" = js_opts,
-      "data-max" = max_options, "data-hide" = logical_js(hide_values),
-      "data-create" = logical_js(create), "data-contains" = logical_js(contains)
+      "data-max" = max_options, "data-contains" = logical_js(contains),
+      "data-hide" = logical_js(hide_values), "data-create" = logical_js(create),
+      autocomplete = "off"
     ),
     htmltools::htmlDependency(
       "autocomplete", "0.0.1", c(href = "dqshinyRes"),
