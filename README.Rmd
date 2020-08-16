@@ -26,13 +26,8 @@ and much more.
 
 ## Installation
 
-`dqshiny` is on CRAN so it can be installed with:
-
-``` r
-install.packages("dqshiny")
-```
-
-You can install the latest development version of `dqshiny` using:
+`dqshiny` is no longer available on CRAN but you can install the latest
+development version using:
 
 ``` r
 remotes::install_github("daqana/dqshiny")
