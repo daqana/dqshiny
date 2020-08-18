@@ -6,11 +6,11 @@ shinyApp(
   ),
   server = function(input, output, session) {
     hw <- c("hello", "my", "funny", "world!")
-    data <- data.frame(A = rep(hw, 500), B = hw[c(2L, 3L, 4L, 1L)],
-      C = 1:500, D = 501:1000, stringsAsFactors = FALSE)
+    data <- data.frame(A = rep(hw, 50), B = hw[c(2L, 3L, 4L, 1L)],
+      C = 1:50, D = 51:100, stringsAsFactors = FALSE)
 
     dqshiny::dq_render_handsontable("randomTable", data,
-      filters = list("S", "T", list(type = "R", value = c(75, 172)), "A"), sorting = TRUE,
+      filters = list("S", "T", list(type = "R", value = c(7, 17)), "A"), sorting = TRUE,
       page_size = c(17L, 5L, 500L, 1000L),
       table_param = list(afterRender = htmlwidgets::JS("function(e){loaded = true;}")),
       col_param = list(list(col = 1L, type = "dropdown", source = letters)),
