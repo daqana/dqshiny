@@ -5,9 +5,18 @@
 - R-hub fedora-clang-devel (r-devel)
 
 ## R CMD check results
-
-- New submission
+> On windows-x86_64-devel (r-devel), ubuntu-gcc-release (r-release), fedora-clang-devel (r-devel)
+  checking CRAN incoming feasibility ... NOTE
+  Maintainer: 'Richard Kunze <richard-kunze@web.de>'
+  
+  New submission
   
   Package was archived on CRAN
   
-0 errors √ | 0 warnings √ | 1 note x
+  Possibly mis-spelled words in DESCRIPTION:
+    autocomplete (9:5)
+    rhandsontable (9:25)
+
+> On windows-x86_64-devel (r-devel), ubuntu-gcc-release (r-release)
+  checking for future file timestamps ... NOTE
+  unable to verify current time

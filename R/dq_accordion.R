@@ -18,7 +18,7 @@
 #' effect or not
 #' @param style optional character for additional header style attributes
 #' @param icons optional named character vector of length one or two indicating
-#' the \href{http://fontawesome.io/icons/}{FontAwesome} icons to be used in
+#' the \href{https://fontawesome.com/icons?from=io}{FontAwesome} icons to be used in
 #' front of the header title showing the state of the content (open or closed)
 #'
 #' @return shiny div holding the accordion

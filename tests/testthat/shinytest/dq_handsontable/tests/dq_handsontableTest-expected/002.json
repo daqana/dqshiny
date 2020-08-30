@@ -362,7 +362,7 @@
         "stretchH": "all",
         "comments": false,
         "contextMenu": false,
-        "afterRender": "function(e){loaded = true;}",
+        "afterRender": "function(e){setTimeout(function(){loaded = true;},500);}",
         "colWidths": 1,
         "manualColumnResize": true
       },

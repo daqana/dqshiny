@@ -12,7 +12,7 @@ shinyApp(
     dqshiny::dq_render_handsontable("randomTable", data,
       filters = list("S", "T", list(type = "R", value = c(7, 17)), "A"), sorting = TRUE,
       page_size = c(17L, 5L, 500L, 1000L),
-      table_param = list(afterRender = htmlwidgets::JS("function(e){loaded = true;}")),
+      table_param = list(afterRender = htmlwidgets::JS("function(e){setTimeout(function(){loaded = true;},500);}")),
       col_param = list(list(col = 1L, type = "dropdown", source = letters)),
       cell_param = list(list(row = 2:9, col = 2L, readOnly = TRUE))
     )

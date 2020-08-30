@@ -40,7 +40,7 @@ update_time_input(
 \item{max}{maximum time value, must follow the specified format, e.g. "17:00"}
 
 \item{format}{format to use for the time string, can be any valid
-\href{http://momentjs.com/docs/#/displaying/format/}{moment.js} time
+\href{https://momentjs.com/docs/}{moment.js} time
 format (NOTE: this will only work with the material time picker and can't be
 updated!)}
 

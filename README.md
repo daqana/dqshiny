@@ -7,7 +7,7 @@ status](https://api.travis-ci.org/daqana/dqshiny.svg?branch=master)](https://tra
 coverage](https://codecov.io/gh/daqana/dqshiny/branch/master/graph/badge.svg)](https://codecov.io/gh/daqana/dqshiny?branch=master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/dqshiny)](https://cran.r-project.org/package=dqshiny)
-[![Downloads](http://cranlogs.r-pkg.org/badges/dqshiny?color=brightgreen)](http://www.r-pkg.org/pkg/dqshiny)
+[![Downloads](http://cranlogs.r-pkg.org/badges/dqshiny?color=brightgreen)](https://www.r-pkg.org:443/pkg/dqshiny)
 
 # dqshiny
 
@@ -18,8 +18,8 @@ filtering and paging and much more.
 
 ## Installation
 
-`dqshiny` is no longer available on CRAN but you can install the latest
-development version using:
+`dqshiny` will be available on CRAN again soon, for now you can install
+the latest development version using:
 
 ``` r
 remotes::install_github("daqana/dqshiny")
